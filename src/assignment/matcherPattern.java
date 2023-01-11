@@ -4,8 +4,10 @@
  */
 package assignment;
 
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import java.util.HashSet;
-class interger {
+class matcherPattern {
 
     public static void main(String[]args){
       HashSet <String> s = new HashSet<String>();
@@ -15,6 +17,31 @@ class interger {
       s.add("b");
       s.add("b");
       
-        System.out.println(s);
+      System.out.println(s);
+      
+      
+      // .   -> Any character
+      // \\w -> Word character (a-z, A-Z, 0-9)
+      // \\W -> Not a word character
+      // \\s -> whitespace character
+      // \\S -> Non-whitespace
+      // \\d -> Any digits same as to [0-9]
+      // \\D -> Non digits
+      
+ 
+      String re = "\\W\\W\\W";
+      String text = "ada";
+      
+      Pattern pt = Pattern.compile(re);
+      Matcher mt = pt.matcher(text);
+      
+      boolean result  = mt.matches();
+      
+      //Alternative method
+      boolean result2 = Pattern.matches("\\w\\w","ab");
+      
+      System.out.println(result);
+      System.out.println(result2);
+      
     }
 }
