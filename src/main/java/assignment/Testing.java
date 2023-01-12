@@ -106,7 +106,6 @@ public class Testing {
                month = data.substring(6,8);
                day = data.substring(9,11);
                d = Integer.parseInt(day);
-               System.out.println(content[0]);
                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("'['yyyy-MM-dd'T'HH:mm:ss.SSS']'");
                LocalDateTime dateTime = LocalDateTime.parse(content[0], formatter);
                if(dateTime.getMonthValue() == 6){
