@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package assignment;
 
 import java.io.*;
 import java.util.Arrays;
@@ -648,7 +647,7 @@ public class Testing {
     
     public static void main(String[] args) {
    
-       String fileName = "C:/Users/USER/Downloads/Documents/UM Data Science/FUNDAMENTAL OF PROGRAMMING/assignment.txt";
+       String fileName = "\"C:\\Users\\ingzh\\OneDrive - Universiti Malaya\\WIX1002\\ass\\asgnmt\\src\\assignment\\extracted_log\"";
        
        //totalCompletedAndEndedJob(fileName);
        totalMonthJobCreateEnd(fileName);
