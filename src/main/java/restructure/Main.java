@@ -6,8 +6,8 @@ public class Main {
         String fileName = "./file-in/log.txt";
 
 //        MJCE.totalCompletedAndEndedJob(fileName);
-        MJCE.totalMonthJobCreateEnd(fileName);
-//        Partition.jobByPartitions(fileName);
+        //MJCE.totalMonthJobCreateEnd(fileName);
+       Partition.jobByPartitions(fileName);
 //        Err_Inv.ErrorAndInvalid(fileName);
     }
 }

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Partition {
     public static void jobByPartitions(String fileName){
@@ -73,31 +74,50 @@ public class Partition {
         System.out.printf("%-15s%-15d%-15d%-15d%-15d%-20d%-15d\n","TOTAL",numV100,numK10,numTitan,numK40c,numOpteron,numEPYC);
 
         System.out.println();
+        int arr[] = {numV100,numK10,numTitan,numK40c,numOpteron,numEPYC};
+        String arrname[] = {"GPU-V100s","GPU-K10","GPU-Titan","GPU-K40c","CPU-Opteron","CPU-EPYC"};
+        for (int i = 0; i < arr.length; i++){
+            for (int j = 0; j < arr.length - 1; j++){
+                if (arr[j] < arr[j+1]){
+                    int temp = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = temp;
 
-        if(numEPYC>numOpteron && numEPYC>numV100 && numEPYC>numK40c && numEPYC>numTitan && numEPYC>numK10)
-            System.out.println("The highest number of partition : CPU-epyc (" + numEPYC + ")");
-        else if(numOpteron>numEPYC && numOpteron>numV100 && numOpteron>numK40c && numOpteron>numTitan && numOpteron>numK10)
-            System.out.println("The highest number of partition : CPU-opteron (" + numOpteron + ")");
-        else if(numV100>numEPYC && numV100>numOpteron && numV100>numK40c && numV100>numTitan && numV100>numK10)
-            System.out.println("The highest number of partition : GPU-v100s (" + numV100 + ")");
-        else if(numK40c>numEPYC && numK40c>numV100 && numK40c>numOpteron && numK40c>numTitan && numK40c>numK10)
-            System.out.println("The highest number of partition : GPU-k40c (" + numK40c + ")");
-        else if(numTitan>numEPYC && numTitan>numV100 && numTitan>numK40c && numTitan>numOpteron && numTitan>numK10)
-            System.out.println("The highest number of partition : GPU-titan (" + numTitan + ")");
-        else if(numK10>numEPYC && numK10>numV100 && numK10>numK40c && numK10>numTitan && numK10>numOpteron)
-            System.out.println("The highest number of partition : GPU-k10 (" + numK10 + ")");
+                    String temp2 = arrname[j];
+                    arrname[j] = arrname[j+1];
+                    arrname[j+1] = temp2;
 
-        if(numEPYC<numOpteron && numEPYC<numV100 && numEPYC<numK40c && numEPYC<numTitan && numEPYC<numK10)
-            System.out.println("The lowest number of partition  : CPU-epyc (" + numEPYC + ")");
-        else if(numOpteron<numEPYC && numOpteron<numV100 && numOpteron<numK40c && numOpteron<numTitan && numOpteron<numK10)
-            System.out.println("The lowest number of partition  : CPU-opteron (" + numOpteron + ")");
-        else if(numV100<numEPYC && numV100<numOpteron && numV100<numK40c && numV100<numTitan && numV100<numK10)
-            System.out.println("The lowest number of partition  : GPU-v100s (" + numV100 + ")");
-        else if(numK40c<numEPYC && numK40c<numV100 && numK40c<numOpteron && numK40c<numTitan && numK40c<numK10)
-            System.out.println("The lowest number of partition  : GPU-k40c (" + numK40c + ")");
-        else if(numTitan<numEPYC && numTitan<numV100 && numTitan<numK40c && numTitan<numOpteron && numTitan<numK10)
-            System.out.println("The lowest number of partition  : GPU-titan (" + numTitan + ")");
-        else if(numK10<numEPYC && numK10<numV100 && numK10<numK40c && numK10<numTitan && numK10<numOpteron)
-            System.out.println("The lowest number of partition  : GPU-k10 (" + numK10 + ")");
+                }
+            }
+        }
+        System.out.println("The highest number of partition : " + arrname[0] + " = " + arr[0]);
+        System.out.println("The lowest number of partition : " + arrname[5] + " = " + arr[5]);
+
+
+//        if(numEPYC>numOpteron && numEPYC>numV100 && numEPYC>numK40c && numEPYC>numTitan && numEPYC>numK10)
+//            System.out.println("The highest number of partition : CPU-epyc (" + numEPYC + ")");
+//        else if(numOpteron>numEPYC && numOpteron>numV100 && numOpteron>numK40c && numOpteron>numTitan && numOpteron>numK10)
+//            System.out.println("The highest number of partition : CPU-opteron (" + numOpteron + ")");
+//        else if(numV100>numEPYC && numV100>numOpteron && numV100>numK40c && numV100>numTitan && numV100>numK10)
+//            System.out.println("The highest number of partition : GPU-v100s (" + numV100 + ")");
+//        else if(numK40c>numEPYC && numK40c>numV100 && numK40c>numOpteron && numK40c>numTitan && numK40c>numK10)
+//            System.out.println("The highest number of partition : GPU-k40c (" + numK40c + ")");
+//        else if(numTitan>numEPYC && numTitan>numV100 && numTitan>numK40c && numTitan>numOpteron && numTitan>numK10)
+//            System.out.println("The highest number of partition : GPU-titan (" + numTitan + ")");
+//        else if(numK10>numEPYC && numK10>numV100 && numK10>numK40c && numK10>numTitan && numK10>numOpteron)
+//            System.out.println("The highest number of partition : GPU-k10 (" + numK10 + ")");
+//
+//        if(numEPYC<numOpteron && numEPYC<numV100 && numEPYC<numK40c && numEPYC<numTitan && numEPYC<numK10)
+//            System.out.println("The lowest number of partition  : CPU-epyc (" + numEPYC + ")");
+//        else if(numOpteron<numEPYC && numOpteron<numV100 && numOpteron<numK40c && numOpteron<numTitan && numOpteron<numK10)
+//            System.out.println("The lowest number of partition  : CPU-opteron (" + numOpteron + ")");
+//        else if(numV100<numEPYC && numV100<numOpteron && numV100<numK40c && numV100<numTitan && numV100<numK10)
+//            System.out.println("The lowest number of partition  : GPU-v100s (" + numV100 + ")");
+//        else if(numK40c<numEPYC && numK40c<numV100 && numK40c<numOpteron && numK40c<numTitan && numK40c<numK10)
+//            System.out.println("The lowest number of partition  : GPU-k40c (" + numK40c + ")");
+//        else if(numTitan<numEPYC && numTitan<numV100 && numTitan<numK40c && numTitan<numOpteron && numTitan<numK10)
+//            System.out.println("The lowest number of partition  : GPU-titan (" + numTitan + ")");
+//        else if(numK10<numEPYC && numK10<numV100 && numK10<numK40c && numK10<numTitan && numK10<numOpteron)
+//            System.out.println("The lowest number of partition  : GPU-k10 (" + numK10 + ")");
     }
 }
