@@ -647,7 +647,7 @@ public class Testing {
     
     public static void main(String[] args) {
    
-       String fileName = "\"C:\\Users\\ingzh\\OneDrive - Universiti Malaya\\WIX1002\\ass\\asgnmt\\src\\assignment\\extracted_log\"";
+       String fileName = "C:/Users/ingzh/OneDrive - Universiti Malaya/WIX1002/ass/asgnmt/src/iz-main/java/extracted_log";
        
        //totalCompletedAndEndedJob(fileName);
        totalMonthJobCreateEnd(fileName);
