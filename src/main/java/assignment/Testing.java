@@ -655,8 +655,8 @@ public class Testing {
        String fileName = "./file-in/log.txt";
        
        //totalCompletedAndEndedJob(fileName);
-       totalMonthJobCreateEnd(fileName);
-       //jobByPartitions(fileName);
+       //totalMonthJobCreateEnd(fileName);
+       jobByPartitions(fileName);
        //ErrorAndInvalid(fileName);
     }
 }
