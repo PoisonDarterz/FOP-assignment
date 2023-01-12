@@ -70,7 +70,7 @@ class SubmitComplete extends Job {
         }
 
         for (String key : submitJob.keySet()) {
-            if(submitJob.get(key) == 2) {
+            if(submitJob.get(key) == 1) {
                 c1++;
             }
         }
