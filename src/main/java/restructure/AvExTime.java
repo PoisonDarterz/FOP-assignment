@@ -12,17 +12,17 @@ import java.util.Collections;
 
 public class AvExTime {
 
+    static ArrayList createJobTime = new ArrayList();
+    static ArrayList createJobId = new ArrayList();
+    static ArrayList endJobTime = new ArrayList();
+    static ArrayList endJobId = new ArrayList();
+    static ArrayList<Double> exeTime = new ArrayList<>();
+
     public static void averageExecutionTime(String fileName){
 
         String data = "";
 
         double totalExecutionTime = 0.0;
-
-        ArrayList createJobTime = new ArrayList();
-        ArrayList createJobId = new ArrayList();
-        ArrayList endJobTime = new ArrayList();
-        ArrayList endJobId = new ArrayList();
-        ArrayList<Double> exeTime = new ArrayList<>();
 
         try{
             BufferedReader read = new BufferedReader(new FileReader(fileName));
@@ -34,7 +34,7 @@ public class AvExTime {
                 String [] content = new String[num];
                 content = data.split(" ");
 
-                // Create jonas.Job
+                // Create job
                 for(int i=0;i<content.length;i++){
                     if(content[i].equals("Allocate")){
                         createJobTime.add(content[0]);
@@ -68,16 +68,15 @@ public class AvExTime {
 
         int No = 0;
 
-        System.out.printf("\n%-8s%-20s%-20s%-30s%-30s%-30s\n","No.","Completed jonas.Job ID","Ended jonas.Job ID","jonas.Job Completed Time","jonas.Job Ended Time","Execution Time (mins)");
+        System.out.printf("\n%-8s%-20s%-20s%-30s%-30s%-30s\n","No.","Completed job ID","Ended job ID","job Completed Time","job Ended Time","Execution Time (mins)");
         System.out.print("--------------------------------------------------------------------------------------------------------------------------------------");
 
         for(int i=0;i<createJobId.size();i++){
 
             for(int j=0;j<endJobId.size();j++){
                 if(createJobId.get(i).equals(endJobId.get(j))){
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("'['yyyy-MM-dd'T'HH:mm:ss.SSS']'");
-                    LocalDateTime createTime = LocalDateTime.parse(createJobTime2[i],formatter);
-                    LocalDateTime endTime = LocalDateTime.parse(endJobTime2[j],formatter);
+                    LocalDateTime createTime = Main.convertToLDT(createJobTime2[i]);
+                    LocalDateTime endTime = Main.convertToLDT(endJobTime2[j]);
 
                     long milliBetween = ChronoUnit.MILLIS.between(createTime,endTime);
 
@@ -106,7 +105,7 @@ public class AvExTime {
             }
         }
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------");
-        System.out.println("Total number of completed jonas.Job : " + No);
+        System.out.println("Total number of completed job : " + No);
 
         System.out.println();
 
