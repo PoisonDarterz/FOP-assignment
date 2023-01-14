@@ -25,7 +25,7 @@ public class Main {
                 System.out.print("Command -> ");
                 command = input.nextInt();
                 System.out.println();
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+//                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
                 switch (command) {
                     case 1 -> MJCE.totalCompletedAndEndedJob(fileName);
                     case 2 -> MJCE.totalMonthJobCreateEnd(fileName);
