@@ -7,10 +7,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class Main {
-    public static void display(String fileName) {}
-
-
-
     public static void main(String[] args) throws IOException,InterruptedException {
             Scanner input = new Scanner(System.in);
             String fileName = "./file-in/log.txt";
@@ -18,7 +14,6 @@ public class Main {
             int command = 0;
 
             do {
-
                 System.out.println("\n                   FOP Assignment                       ");
                 System.out.println("--------------------------------------------------------");
                 System.out.println("1. Total number of completed and ended jobs");
@@ -45,8 +40,6 @@ public class Main {
                 }
             } while (true);
     }
-
-
 
     public static LocalDateTime convertToLDT(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("'['yyyy-MM-dd'T'HH:mm:ss.SSS']'");
