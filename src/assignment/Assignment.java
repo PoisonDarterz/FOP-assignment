@@ -14,8 +14,7 @@ import java.util.Collections;
 import java.util.Scanner;
 import java.util.HashSet;
 public class Assignment {
-
-    public static void totalCompletedAndEndedJob(String fileName){
+   public static void totalCompletedAndEndedJob(String fileName){
         String data;
 
         int numCompleteJob=0;
@@ -837,27 +836,31 @@ public class Assignment {
                catch(IOException e){System.out.println("Error occurs while editing file");}   
                
 //////////// NOT COMPLETED        
-//               int command = 0;
-//               System.out.println("1. Display all the job ids");              
-//               System.out.println("2. Search for particular job id(s)");              
-//               System.out.print("command -> ");
-//               command = input.nextInt();
+               int command = 0;
+               System.out.println("1. Display all the job ids");              
+               System.out.println("2. Search for particular job id(s)");              
+               System.out.print("command -> ");
+               command = input.nextInt();
  
                int num = 0;
-               System.out.print("Enter the number of completed Job Id for searching : ");
-               num = input.nextInt();
                
-               String [] jobId = new String[num]; 
-              
-               System.out.println("\nEnter the completed Job Id for searching : ");
+               ArrayList jobId = new ArrayList();
                
-               for(int i=0;i<num;i++){
-                   System.out.print(i+1 + " : ");
-                   jobId[i] = input.next();
-                   jobId[i] = "JobId=" + jobId[i];
-               }
-             
+               System.out.println();
+                if(command == 2){
+                 
+                       System.out.print("Enter the number of completed Job Id for searching : ");
+                       num = input.nextInt(); 
+
+                       System.out.println("\nEnter the completed Job Id for searching : ");
                
+                       for(int i=0;i<num;i++){
+                        System.out.print(i+1 + " : ");
+                        String inp = input.next();
+                        String toAdd = "JobId=" + inp;
+                        jobId.add(toAdd);
+                      }
+                }
                String [] createJobTime2 = new String[createJobTime.size()];
                String [] endJobTime2 = new String[endJobTime.size()];
                createJobTime.toArray(createJobTime2);
@@ -894,16 +897,23 @@ public class Assignment {
                       double output = (double)((milliBetween/1000.0)/60);
                       No++;
                       
-    // DISPLAY ALL THE INFO OF JOBID                  
-//                      System.out.printf("\n%-8d%-20s%-20s%-30s%-30s",No,createJobId.get(i),endJobId.get(j),createJobTime2[i],endJobTime2[j]);
-//                      System.out.printf("%.3f",output);                     
-//                      
-                      for(int k=0;k<jobId.length;k++){
-                      if(createJobId.get(i).equals(jobId[k])){
+    // DISPLAY ALL THE INFO OF JOBID         
+                      if(command == 1){
+                      System.out.printf("\n%-8d%-20s%-20s%-30s%-30s",No,createJobId.get(i),endJobId.get(j),createJobTime2[i],endJobTime2[j]);
+                      System.out.printf("%.3f",output);}                 
+                      
+                      else if(command == 2){
+                      
+                      String [] jobId2 = new String[jobId.size()];
+                      jobId.toArray(jobId2);    
+                          
+                      for(int k=0;k<num;k++){
+                           
+                      if(createJobId.get(i).equals(jobId2[k])){
                       System.out.printf("\n%-8d%-20s%-20s%-30s%-30s",No,createJobId.get(i),endJobId.get(j),createJobTime2[i],endJobTime2[j]);
                       System.out.printf("%.3f",output);}
                       }
-                      
+                      }  
                       if((milliBetween/1000)>max){
                           max = milliBetween/1000;maxJobId = (String) createJobId.get(i);}
 
@@ -1044,6 +1054,7 @@ public class Assignment {
         //jobByPartitions(fileName);
         //ErrorAndInvalid(fileName);
         //averageExecutionTime(fileName);
-        //display(fileName);        
+        display(fileName);        
     }
 }
+
