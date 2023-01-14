@@ -817,13 +817,13 @@ public class Assignment {
 
                // Create Job
                for(int i=0;i<content.length;i++){
-               if(content[i].equals("done")){
+               if(content[i].equals("Allocate")){
                      createJobTime.add(content[0]);
                      createJobId.add(content[i+1]);
                }
 
                // End job
-               if(content[i].equals("Allocate")){
+               if(content[i].equals("done")){
                       endJobTime.add(content[0]);
                       endJobId.add(content[i-1]);
                }
@@ -943,7 +943,7 @@ public class Assignment {
 
     } // End method
     
-    public static void display(String fileName) throws IOException,InterruptedException{
+    public static void display(String fileName) {
         Scanner input = new Scanner(System.in);
         fileName = "C:/Users/USER/Downloads/Documents/UM Data Science/FUNDAMENTAL OF PROGRAMMING/assignment.txt";
         
@@ -960,9 +960,9 @@ public class Assignment {
         System.out.print("Command -> ");
         command = input.nextInt(); 
         
-        new ProcessBuilder("cmd","/c","cls").inheritIO().start().waitFor();
+        //new ProcessBuilder("cmd","/c","cls").inheritIO().start().waitFor();
         
-        while(command >0 && command < 5){
+        while(command >0 && command <= 5){
         
         System.out.println();
       
@@ -988,7 +988,7 @@ public class Assignment {
         System.out.println("?. QUIT");
         System.out.print("Command -> ");
         command = input.nextInt();
-     
+        
         }
         System.out.println("\nThank you");
     }
@@ -996,7 +996,7 @@ public class Assignment {
     
     
     
-    public static void main(String[] args) throws IOException,InterruptedException{
+    public static void main(String[] args) {
 
         String fileName = "C:/Users/USER/Downloads/Documents/UM Data Science/FUNDAMENTAL OF PROGRAMMING/assignment.txt";
         
@@ -1005,7 +1005,6 @@ public class Assignment {
         //jobByPartitions(fileName);
         //ErrorAndInvalid(fileName);
         //averageExecutionTime(fileName);
-        display(fileName);
-                
+        display(fileName);        
     }
 }
