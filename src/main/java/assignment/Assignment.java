@@ -962,7 +962,7 @@ public class Assignment {
         
         new ProcessBuilder("cmd","/c","cls").inheritIO().start().waitFor();
         
-        while(command >0 && command < 5){
+        while(command >0 && command <= 5){
         
         System.out.println();
       

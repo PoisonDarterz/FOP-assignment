@@ -68,8 +68,8 @@ public class AvExTime {
 
         int No = 0;
 
-        System.out.printf("\n%-8s%-20s%-20s%-30s%-30s%-30s\n","No.","Completed job ID","Ended job ID","job Completed Time","job Ended Time","Execution Time (mins)");
-        System.out.print("--------------------------------------------------------------------------------------------------------------------------------------");
+//        System.out.printf("\n%-8s%-20s%-20s%-30s%-30s%-30s\n","No.","Completed job ID","Ended job ID","job Completed Time","job Ended Time","Execution Time (mins)");
+//        System.out.print("--------------------------------------------------------------------------------------------------------------------------------------");
 
         for(int i=0;i<createJobId.size();i++){
 
