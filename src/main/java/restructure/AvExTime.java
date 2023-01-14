@@ -9,9 +9,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 public class AvExTime {
-
+    static Scanner input = new Scanner(System.in);
     static ArrayList createJobTime = new ArrayList();
     static ArrayList createJobId = new ArrayList();
     static ArrayList endJobTime = new ArrayList();
@@ -54,6 +55,20 @@ public class AvExTime {
 
         catch(FileNotFoundException e){System.out.println("File Not Found");}
         catch(IOException e){System.out.println("Error occurs while editing file");}
+
+        int num = 0;
+        System.out.print("Enter the number of completed Job Id for searching : ");
+        num = input.nextInt();
+
+        String [] jobId = new String[num];
+
+        System.out.println("\nEnter the completed Job Id for searching : ");
+
+        for(int i=0;i<num;i++){
+            System.out.print(i+1 + " : ");
+            jobId[i] = input.next();
+            jobId[i] = "JobId=" + jobId[i];
+        }
 
         String [] createJobTime2 = new String[createJobTime.size()];
         String [] endJobTime2 = new String[endJobTime.size()];
@@ -144,7 +159,9 @@ public class AvExTime {
         firstQuartile = exeTime.size()*0.25;
         thirdQuartile = exeTime.size()*0.75;
 
-        System.out.printf("First Quartile of execution time : %.1f mins\n" , (exeTime.get((int)firstQuartile) + exeTime.get((int)firstQuartile+1))/2/1000/60);
+        double firQuartile = (exeTime.get((int)firstQuartile) + exeTime.get((int)firstQuartile+1))/2/1000/60;
+        System.out.printf("First Quartile of execution time : %.1f mins\n" , firQuartile);
+
 
         if(exeTime.size()%2 == 0){
             median =(exeTime.get((int) Math.floor(exeTime.size()/2))+  exeTime.get(((int)Math.floor(exeTime.size()/2)+1)) )/2;
@@ -156,7 +173,17 @@ public class AvExTime {
         median = (median / 1000)/60;
         System.out.printf("Median of execution time         : %.1f mins\n", median);
 
-        System.out.printf("Third Quartile of execution time : %.1f mins\n" , (exeTime.get((int)thirdQuartile) + exeTime.get((int)thirdQuartile+1))/2/1000/60);
+        double thiQuartile = (exeTime.get((int)thirdQuartile) + exeTime.get((int)thirdQuartile+1))/2/1000/60;
+        System.out.printf("Third Quartile of execution time : %.1f mins\n" , thiQuartile);
+
+        System.out.println();
+
+        double iqr = thiQuartile - firQuartile;
+        double lowerLimit = firQuartile - (1.5 * iqr);
+        double upperLimit = thiQuartile + (1.5 * iqr);
+        System.out.printf("Interquartile range of execution time : %.1f mins\n" ,iqr);
+        System.out.printf("Lower limit of execution time         : %.1f mins\n" ,lowerLimit);
+        System.out.printf("Upper limit of execution time         : %.1f mins\n" ,upperLimit);
 
         System.out.println("--------------------------------------------------------------------------------------------------------------------------------------");
 

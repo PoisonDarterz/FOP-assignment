@@ -5,8 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 
 public class Partition {
+    static LinkedHashMap<String,Integer> partition = new LinkedHashMap<>();
     public static void jobByPartitions(String fileName){
         int num;
         String data;
@@ -28,41 +30,60 @@ public class Partition {
                 content = data.split(" ");
 
                 if(content[1].equals("sched/backfill:")){
-                    if(content[6].equals("cpu-epyc"))
+                    String jobID = content[4].substring(6);
+                    if(content[6].equals("cpu-epyc")) {
                         numEPYC++;
-                    if(content[6].equals("cpu-opteron"))
+                        partition.put(jobID, 1);
+                    }
+                    if(content[6].equals("cpu-opteron")) {
                         numOpteron++;
-                    if(content[6].equals("gpu-v100s"))
+                        partition.put(jobID, 2);
+                    }
+                    if(content[6].equals("gpu-v100s")){
                         numV100++;
-                    if(content[6].equals("gpu-k40c"))
+                        partition.put(jobID, 3);
+                    }
+                    if(content[6].equals("gpu-k40c")) {
                         numK40c++;
-                    if(content[6].equals("gpu-titan"))
+                        partition.put(jobID, 4);
+                    }
+                    if(content[6].equals("gpu-titan")) {
                         numTitan++;
-                    if(content[6].equals("gpu-k10"))
+                        partition.put(jobID, 5);
+                    }
+                    if(content[6].equals("gpu-k10")) {
                         numK10++;
+                        partition.put(jobID, 6);
+                    }
                 }
 
                 for (String content1 : content) {
+                    String jobID = content[content.length-1].substring(6);
                     if (content1.equals("Partition=cpu-epyc")) {
                         numEPYC++;
+                        partition.put(jobID, 1);
                     }
                     if (content1.equals("Partition=cpu-opteron")) {
                         numOpteron++;
+                        partition.put(jobID, 2);
                     }
                     if (content1.equals("Partition=gpu-v100s")) {
                         numV100++;
+                        partition.put(jobID, 3);
                     }
                     if (content1.equals("Partition=gpu-k40c")) {
                         numK40c++;
+                        partition.put(jobID, 4);
                     }
                     if (content1.equals("Partition=gpu-titan")) {
                         numTitan++;
+                        partition.put(jobID, 5);
                     }
                     if (content1.equals("Partition=gpu-k10")) {
                         numK10++;
+                        partition.put(jobID, 6);
                     }
                 }
-
                 data = read.readLine();
             }
         }
