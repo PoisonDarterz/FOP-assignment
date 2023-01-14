@@ -70,7 +70,7 @@ public class Err_Inv {
         System.out.println("---------------------------------------------------------------------");
         System.out.printf("%-50s%-20s\n","Invalid Qos Specification",numQosSpec);
         System.out.printf("%-50s%-20d\n","Invalid Account",numAccount);
-        System.out.printf("%-50s%-20d\n","Invalid Job Id Specified",numJob);
+        System.out.printf("%-50s%-20d\n","Invalid jonas.Job Id Specified",numJob);
         System.out.printf("%-50s%-20d\n","Invalid Partition Name Specified",numPartition);
         System.out.printf("%-50s%-20d\n","Invalid Node Name Specified",numNode);
         System.out.printf("%-50s%-20d\n","Invalid User Id",numUser);

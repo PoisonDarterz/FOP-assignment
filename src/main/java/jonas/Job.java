@@ -1,7 +1,7 @@
+package jonas;
+
 import java.util.LinkedHashMap;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Job {
     protected int c1,c2,c3,c4,c5,c6;
