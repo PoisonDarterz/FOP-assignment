@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.Scanner;
 import java.util.HashSet;
 public class Assignment {
-   public static void totalCompletedAndEndedJob(String fileName){
+      public static void totalCompletedAndEndedJob(String fileName){
         String data;
 
         int numCompleteJob=0;
@@ -35,9 +35,9 @@ public class Assignment {
 
                 //SHOW THE TOTAL NUMBER OF ENDED AND COMPLETED JOBS
                 for (String content1 : content) {
-                    if (content1.equals("Allocate"))
+                    if (content1.equals("done"))
                         numCompleteJob++;
-                    if(content1.equals("done"))
+                    if(content1.equals("Allocate"))
                         initiateJob++;
                 }
                 data = read.readLine();
@@ -803,6 +803,10 @@ public class Assignment {
         ArrayList endJobTime = new ArrayList();
         ArrayList endJobId = new ArrayList();
         ArrayList<Double> exeTime = new ArrayList<>();
+        
+        ArrayList compare = new ArrayList();
+        
+        ArrayList<Integer> numNoCreateJobId = new ArrayList<>();
 
         try{
            BufferedReader read = new BufferedReader(new FileReader(fileName));
@@ -834,11 +838,12 @@ public class Assignment {
 
                catch(FileNotFoundException e){System.out.println("File Not Found");}
                catch(IOException e){System.out.println("Error occurs while editing file");}   
-               
-//////////// NOT COMPLETED        
+                    
                int command = 0;
-               System.out.println("1. Display all the job ids");              
+               System.out.println("1. Display all the completed job ids");              
                System.out.println("2. Search for particular job id(s)");              
+               System.out.println("3. Display all the not completed job ids");              
+               System.out.println("###Any number to display Statistical data of execution time");              
                System.out.print("command -> ");
                command = input.nextInt();
  
@@ -855,7 +860,7 @@ public class Assignment {
                        System.out.println("\nEnter the completed Job Id for searching : ");
                
                        for(int i=0;i<num;i++){
-                        System.out.print(i+1 + " : ");
+                        System.out.print(i+1 + ". : ");
                         String inp = input.next();
                         String toAdd = "JobId=" + inp;
                         jobId.add(toAdd);
@@ -873,10 +878,12 @@ public class Assignment {
                double min = 9999;
 
                int No = 0;
-
+              
+              if(command !=3){
               System.out.printf("\n%-8s%-20s%-20s%-30s%-30s%-30s\n","No.","Completed Job ID","Ended Job ID","Job Completed Time","Job Ended Time","Execution Time (mins)");
               System.out.print("--------------------------------------------------------------------------------------------------------------------------------------");
-
+              }
+              
               for(int i=0;i<createJobId.size();i++){
 
                 for(int j=0;j<endJobId.size();j++){
@@ -896,22 +903,24 @@ public class Assignment {
 
                       double output = (double)((milliBetween/1000.0)/60);
                       No++;
-                      
-    // DISPLAY ALL THE INFO OF JOBID         
+                       
+          ///////// DISPLAY ALL THE INFO OF JOBID              
                       if(command == 1){
                       System.out.printf("\n%-8d%-20s%-20s%-30s%-30s",No,createJobId.get(i),endJobId.get(j),createJobTime2[i],endJobTime2[j]);
                       System.out.printf("%.3f",output);}                 
-                      
+                                         
                       else if(command == 2){
                       
-                      String [] jobId2 = new String[jobId.size()];
+                      String [] jobId2 = new String[num];
                       jobId.toArray(jobId2);    
-                          
+                      
+                      int nom = 0;
                       for(int k=0;k<num;k++){
-                           
+                      nom++;
                       if(createJobId.get(i).equals(jobId2[k])){
-                      System.out.printf("\n%-8d%-20s%-20s%-30s%-30s",No,createJobId.get(i),endJobId.get(j),createJobTime2[i],endJobTime2[j]);
-                      System.out.printf("%.3f",output);}
+                      System.out.printf("\n%-8d%-20s%-20s%-30s%-30s",nom,createJobId.get(i),endJobId.get(j),createJobTime2[i],endJobTime2[j]);
+                      System.out.printf("%.3f",output);
+                      compare.add(createJobId.get(i));}
                       }
                       }  
                       if((milliBetween/1000)>max){
@@ -922,10 +931,71 @@ public class Assignment {
 
                       totalExecutionTime += (double)((milliBetween/1000.0));
                   }
-
+     ////////// PART OF DISPLAY OF INCOMPLETED JOBID
+//                        String [] noCreateJobId = new String[createJobId.size()];
+//                        createJobId.toArray(noCreateJobId);
+                          //numNoCreateJobId.add(i); 
                  }
+                
                } 
-                System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------");
+     ///////// DISPLAY ALL THE INFO OF INCOMPLETED JOBID 
+                       if(command == 3){
+                       int numNoJob=0;
+                     
+                         System.out.printf("\n%-8s%-30s%-30s","No.","Job Assigned Time","Not Completed Job ID");
+                         System.out.println("\n-----------------------------------------------------------"); 
+//                       
+//                       for(int e=0;e<createJobId.size();e++){
+//                           if(numNoCreateJobId.contains(e) == false){
+//                                numNoJob++;
+//                                System.out.printf("\n%-8d%-30s%-30s",numNoJob,createJobTime2[e],createJobId.get(e));
+//                           }
+//                       }   
+                        //System.out.println(createJobId.size());
+                        String [] noCreateJobId = new String[createJobId.size()];
+                        createJobId.toArray(noCreateJobId);
+                        for(int p=0;p<createJobId.size();p++){
+                          for(int o=0;o<endJobId.size();o++){
+                              if(createJobId.get(p).equals(endJobId.get(o))){
+                                  //System.out.println(createJobId.get(p));
+                                  noCreateJobId[p] = "null";
+                              }
+                          }
+                       }
+                        
+                        for(int e=0;e<noCreateJobId.length;e++){
+                           if(!noCreateJobId[e].equals("null")){
+                                numNoJob++;
+                                System.out.printf("%-8d%-30s%-30s\n",numNoJob,createJobTime2[e],noCreateJobId[e]);
+                           }
+                       }   
+                       System.out.println("\n-----------------------------------------------------------"); 
+                       System.out.println("The total number of incompleted job id : " + numNoJob);
+                        
+                    }     // END COMMAND 3
+                       
+ // Searching Not Found   
+                //HashSet noEqual = new HashSet();
+                String [] jobId3 = new String[num];
+                jobId.toArray(jobId3);    
+                          
+                for(int m=0;m<num;m++){ 
+                    for(int n=0;n<compare.size();n++){
+                        if((jobId.get(m).equals(compare.get(n)))){
+                            jobId3[m] = "null";
+                        }    
+                }}
+        
+                System.out.println();
+                
+        for (String jobIdNull : jobId3) {
+            if (!(jobIdNull.equals("null"))) {
+                System.out.println(jobIdNull + " Not Found");
+            }
+        }              
+        
+                System.out.println("--------------------------------------------------------------------------------------------------------------------------------------");
+                if(command !=3){
                 System.out.println("Total number of completed Job : " + No);
 
                 System.out.println();
@@ -992,7 +1062,7 @@ public class Assignment {
                 System.out.printf("Upper limit of execution time         : %.1f mins\n" ,upperLimit);
 
                 System.out.println("--------------------------------------------------------------------------------------------------------------------------------------");
-
+                }   // END ALL COMMAND EXCEPT COMMAND 3
     } // End method
     
     public static void display(String fileName) throws IOException,InterruptedException{
@@ -1007,8 +1077,8 @@ public class Assignment {
         System.out.println("2. Total number of completed and ended jobs by months");
         System.out.println("3. Total number of job by partition");
         System.out.println("4. Total number of errors and invalids");
-        System.out.println("5. Average execution time");
-        System.out.println("?. QUIT");
+        System.out.println("5. Execution time");
+        System.out.println("###Any number to QUIT");
         System.out.print("Command -> ");
         command = input.nextInt(); 
         
@@ -1036,8 +1106,8 @@ public class Assignment {
         System.out.println("2. Total number of completed and ended jobs by months");
         System.out.println("3. Total number of job by partition");
         System.out.println("4. Total number of errors and invalids");
-        System.out.println("5. Average execution time");
-        System.out.println("?. QUIT");
+        System.out.println("5. Execution time");
+        System.out.println("###Any number to QUIT");
         System.out.print("Command -> ");
         command = input.nextInt();
         //new ProcessBuilder("cmd","/c","cls").inheritIO().start().waitFor();
@@ -1057,4 +1127,4 @@ public class Assignment {
         display(fileName);        
     }
 }
-
+ 
