@@ -7,7 +7,7 @@ public class Main {
 
 //        MJCE.totalCompletedAndEndedJob(fileName);
         //MJCE.totalMonthJobCreateEnd(fileName);
-       Partition.jobByPartitions(fileName);
-//        Err_Inv.ErrorAndInvalid(fileName);
+       //Partition.jobByPartitions(fileName);
+        Err_Inv.ErrorAndInvalid(fileName);
     }
 }
