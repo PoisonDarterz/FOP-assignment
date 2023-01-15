@@ -62,8 +62,8 @@ public class AvExTime {
     public static void averageExecutionTime(String fileName){
         int command = 0;
         System.out.println("1. Display all the completed job ids");
-        System.out.println("2. Search for particular job id(s)");
-        System.out.println("3. Display all the not completed job ids");
+        System.out.println("2. Display all the not completed job ids");
+        System.out.println("3. Search for particular job id(s)");
         System.out.println("###Any number to display Statistical data of execution time");
         System.out.print("command -> ");
         command = input.nextInt();
@@ -73,7 +73,7 @@ public class AvExTime {
         ArrayList jobId = new ArrayList();
 
         System.out.println();
-        if (command == 2) {
+        if (command == 3) {
 
             System.out.print("Enter the number of completed Job Id for searching : ");
             num = input.nextInt();
@@ -101,8 +101,9 @@ public class AvExTime {
         double min = 9999;
 
         int No = 0;
+        int nom = 0;
 
-        if (command != 3) {
+        if (command != 2) {
             System.out.printf("\n%-8s%-20s%-20s%-30s%-30s%-30s\n", "No.", "Completed Job ID", "Ended Job ID", "Job Completed Time", "Job Ended Time", "Execution Time (mins)");
             System.out.print("--------------------------------------------------------------------------------------------------------------------------------------");
         }
@@ -126,36 +127,34 @@ public class AvExTime {
                     double output = (double)((milliBetween/1000.0)/60);
                     No++;
 
-//                                       ///////// DISPLAY ALL THE INFO OF JOBID
-                    if (command == 1) {
-                        System.out.printf("\n%-8d%-20s%-20s%-30s%-30s", No, createJobId.get(i), endJobId.get(j), createJobTime2[i], endJobTime2[j]);
-                        System.out.printf("%.3f", output);
-                    } else if (command == 2) {
+///////// DISPLAY ALL THE INFO OF JOBID
+                    if(command == 1){
+                        System.out.printf("\n%-8d%-20s%-20s%-30s%-30s",No,createJobId.get(i),endJobId.get(j),createJobTime2[i],endJobTime2[j]);
+                        System.out.printf("%.3f",output);}
 
-                        String[] jobId2 = new String[num];
+                    else if(command == 3){
+                        ////////////////SEARCH FOR COMPLETED  JOB
+
+                        String [] jobId2 = new String[num];
                         jobId.toArray(jobId2);
 
-                        int nom = 0;
-                        for (int k = 0; k < num; k++) {
+
+                        for(int k=0;k<num;k++){
                             nom++;
-                            if (createJobId.get(i).equals(jobId2[k])) {
-                                System.out.printf("\n%-8d%-20s%-20s%-30s%-30s", nom, createJobId.get(i), endJobId.get(j), createJobTime2[i], endJobTime2[j]);
-                                System.out.printf("%.3f", output);
-                                compare.add(createJobId.get(i));
-                            }
-                        }
-                    }
-                    if ((milliBetween / 1000) > max) {
-                        max = milliBetween / 1000;
-                        maxJobId = (String) createJobId.get(i);
-                    }
+                            if(createJobId.get(i).equals(jobId2[k])){
+                                System.out.printf("\n%-8d%-20s%-20s%-30s%-30s",nom,createJobId.get(i),endJobId.get(j),createJobTime2[i],endJobTime2[j]);
+                                System.out.printf("%.3f",output);
+                                compare.add(createJobId.get(i));}
 
-                    if ((milliBetween) < min) {
-                        min = milliBetween;
-                        minJobId = (String) createJobId.get(i);
-                    }
+                        } // END FOR VARIABLE K LOOP
+                    }  // END FOR COMMAND 3
+                    if((milliBetween/1000)>max){
+                        max = milliBetween/1000;maxJobId = (String) createJobId.get(i);}
 
-                    totalExecutionTime += (double) ((milliBetween / 1000.0));
+                    if((milliBetween)<min){
+                        min = milliBetween;minJobId = (String) createJobId.get(i);}
+
+                    totalExecutionTime += (double)((milliBetween/1000.0));
                 }
                 ////////// PART OF DISPLAY OF INCOMPLETED JOBID
 //                        String [] noCreateJobId = new String[createJobId.size()];
@@ -164,42 +163,70 @@ public class AvExTime {
             }
 
         }
-        ///////// DISPLAY ALL THE INFO OF INCOMPLETED JOBID
-        if (command == 3) {
-            int numNoJob = 0;
+        ArrayList NoCreateJobId = new ArrayList<>();
 
-            System.out.printf("\n%-8s%-30s%-30s", "No.", "Job Assigned Time", "Not Completed Job ID");
-            System.out.println("\n-----------------------------------------------------------");
-//
+
+        ///////// DISPLAY ALL THE INFO OF INCOMPLETED JOBID
+        if(command == 2 || command==3){
+            int numNoJob=0;
+
+            String [] noCreateJobId = new String[createJobId.size()];
+            createJobId.toArray(noCreateJobId);
+            for(int i=0;i<createJobId.size();i++){
+                for(int j=0;j<endJobId.size();j++){
+                    if(createJobId.get(i).equals(endJobId.get(j))){
+                        noCreateJobId[i] = "null";
+                    }
+                }
+            }
+
+            for(int u=0;u<noCreateJobId.length;u++){
+                if(!(noCreateJobId[u].equals("null"))){
+                    NoCreateJobId.add(noCreateJobId[u]);
+                }
+            }
+
+            if(command == 2){
+                System.out.printf("\n%-8s%-30s%-30s","No.","Job Assigned Time","Not Completed Job ID");
+                System.out.println("\n------------------------------------------------------------");
+//                      }
+
+
 //                       for(int e=0;e<createJobId.size();e++){
 //                           if(numNoCreateJobId.contains(e) == false){
 //                                numNoJob++;
 //                                System.out.printf("\n%-8d%-30s%-30s",numNoJob,createJobTime2[e],createJobId.get(e));
 //                           }
 //                       }
-            //System.out.println(createJobId.size());
-            String[] noCreateJobId = new String[createJobId.size()];
-            createJobId.toArray(noCreateJobId);
-            for (int p = 0; p < createJobId.size(); p++) {
-                for (int o = 0; o < endJobId.size(); o++) {
-                    if (createJobId.get(p).equals(endJobId.get(o))) {
-                        //System.out.println(createJobId.get(p));
-                        noCreateJobId[p] = "null";
+
+
+                for(int e=0;e<noCreateJobId.length;e++){
+                    if(!noCreateJobId[e].equals("null")){
+                        nom++;
+                        System.out.printf("%-8d%-30s%-30s\n",nom,createJobTime2[e],createJobId.get(e));
                     }
                 }
-            }
+                System.out.println("\n-----------------------------------------------------------");
+                System.out.println("The total number of incompleted job id : " + numNoJob);
 
-            for (int e = 0; e < noCreateJobId.length; e++) {
-                if (!noCreateJobId[e].equals("null")) {
-                    numNoJob++;
-                    System.out.printf("%-8d%-30s%-30s\n", numNoJob, createJobTime2[e], noCreateJobId[e]);
-                }
-            }
-            System.out.println("\n-----------------------------------------------------------");
-            System.out.println("The total number of incompleted job id : " + numNoJob);
+            }   // END OFR SUB COMMAND 2
 
-        }     // END COMMAND 3
+            ///////// RESULT OF SEARCHING INCOMPLETED JOB
+            else if(command == 3){
 
+                int x = 0;
+                for(int i=0;i<num;i++){
+                    for(int j=0;j<noCreateJobId.length;j++){
+                        if(noCreateJobId[j].equals(jobId.get(i))){
+                            x++;
+                            System.out.printf("\n%-8d%-20s%-30s%-30s",x,createJobId.get(j),createJobTime2[j],"JOB IS NOT COMPLETED");
+                        }
+                    } // second for loop
+                }// first for loop (i)
+            }   // END FOR SUB COMMAND 3
+
+
+        }     // END COMMAND 2 AND 3
         // Searching Not Found
         //HashSet noEqual = new HashSet();
         String[] jobId3 = new String[num];
