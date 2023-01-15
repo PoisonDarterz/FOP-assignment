@@ -20,12 +20,12 @@ public class AvExTime {
     static ArrayList endJobId = new ArrayList();
     static ArrayList<Double> exeTime = new ArrayList<>();
     static ArrayList compare = new ArrayList();
+    static double totalExecutionTime;
 
-    public static void averageExecutionTime(String fileName){
 
+    public AvExTime(String fileName){
         String data = "";
-
-        double totalExecutionTime = 0.0;
+        totalExecutionTime = 0.0;
 
         try{
             BufferedReader read = new BufferedReader(new FileReader(fileName));
@@ -54,10 +54,12 @@ public class AvExTime {
                 data = read.readLine();
             } // WHILE(DATE)
         }   // TRY
-
         catch(FileNotFoundException e){System.out.println("File Not Found");}
         catch(IOException e){System.out.println("Error occurs while editing file");}
+    }
 
+
+    public static void averageExecutionTime(String fileName){
         int command = 0;
         System.out.println("1. Display all the completed job ids");
         System.out.println("2. Search for particular job id(s)");
