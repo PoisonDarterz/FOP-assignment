@@ -7,8 +7,17 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 public class MJCE {
+    static int sumCreate = 0;
+    static int sumEnd = 0;
+    static ArrayList<Integer> numJobCreate = new ArrayList<>();
+    static ArrayList<Integer> numJobEnd = new ArrayList<>();
+    static int minCreate, maxCreate, minEnd, maxEnd;
+    static int dayMinCreate, dayMaxCreate, dayMinEnd, dayMaxEnd;
+    static int numCompleteJob, initiateJob;
+
     public static void totalMonthJobCreateEnd(String fileName){
         String data;
         String month = "";
@@ -51,10 +60,6 @@ public class MJCE {
                 }
             }
 
-            int sumCreate = 0;
-            int sumEnd = 0;
-            ArrayList<Integer> numJobCreate = new ArrayList<>();
-            ArrayList<Integer> numJobEnd = new ArrayList<>();
             numJobEnd.add(0);
             numJobCreate.add(0);
 
@@ -71,8 +76,7 @@ public class MJCE {
                     month = data.substring(6, 8);
                     day = data.substring(9, 11);
                     d = Integer.parseInt(day);
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("'['yyyy-MM-dd'T'HH:mm:ss.SSS']'");
-                    LocalDateTime dateTime = LocalDateTime.parse(content[0], formatter);
+                    LocalDateTime dateTime = Main.convertToLDT(content[0]);
 
                     if (dateTime.getMonthValue() == monthtrack) {
                         for (String content2 : content) {
@@ -121,10 +125,10 @@ public class MJCE {
                 }
             }
 
-            int minCreate = numJobCreate.get(0), dayMinCreate = 1;
-            int maxCreate = numJobCreate.get(0), dayMaxCreate = 1;
-            int minEnd = numJobCreate.get(0), dayMinEnd = 1;
-            int maxEnd = numJobCreate.get(0), dayMaxEnd = 1;
+            minCreate = numJobCreate.get(0); dayMinCreate = 1;
+            maxCreate = numJobCreate.get(0); dayMaxCreate = 1;
+            minEnd = numJobCreate.get(0); dayMinEnd = 1;
+            maxEnd = numJobCreate.get(0); dayMaxEnd = 1;
 
             System.out.println("\nTotal job created in " + monstr +   ": " + sumCreate);
             System.out.println("Total job ended in  " + monstr +   ": " + sumEnd);
@@ -161,8 +165,8 @@ public class MJCE {
     public static void totalCompletedAndEndedJob(String fileName){
         String data;
 
-        int numCompleteJob=0;
-        int initiateJob=0;
+        numCompleteJob=0;
+        initiateJob=0;
 
         try{
             BufferedReader read = new BufferedReader(new FileReader(fileName));
@@ -193,6 +197,5 @@ public class MJCE {
         //DISPLAY RESULT
         System.out.println("Number of job created : " + numCompleteJob);
         System.out.println("Number of job ended   : " + initiateJob);
-
     }
 }
