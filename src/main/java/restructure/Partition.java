@@ -6,8 +6,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.Scanner;
 
 public class Partition {
+    static Scanner sc = new Scanner(System.in);
     static LinkedHashMap<String,Integer> partition = new LinkedHashMap<>();
     static int epyc=0,opte=0,v100s=0,k40c=0,titan=0,k10=0;
 
@@ -138,8 +140,66 @@ public class Partition {
     }
 
     public static void jobByPartitions(String fileName){
+        printStatPart();
+        //search function
+        do {
+            int command = 0;
+            System.out.println("----------------------------------------------------------------------------------------------------------------");
+            System.out.println("1. Display job ID by partition");
+            System.out.println("2. Search the partition used by job ID");
+            System.out.println("3. Print summary statistics again");
+            System.out.println("-1. Exit");
+            System.out.print("command -> ");
+            command = sc.nextInt();
 
-//        int numEPYC=0;
+            if (command == 1) {
+                System.out.println("----------------------------------------------------------------------------------------------------------------");
+                System.out.println("Partition 1: CPU-EPYC");
+                System.out.println("Partition 2: CPU-Opteron");
+                System.out.println("Partition 3: GPU-V100s");
+                System.out.println("Partition 4: GPU-K40c");
+                System.out.println("Partition 5: GPU-Titan");
+                System.out.println("Partition 6: GPU-K10");
+                System.out.print("Enter partition number: ");
+                int partSearch = sc.nextInt();
+                System.out.println("----------------------------------------------------------------------------------------------------------------");
+                System.out.println("Job ID");
+                System.out.println("----------------------------------------------------------------------------------------------------------------");
+                for (String code : partition.keySet()) {
+                    if (partition.get(code) == partSearch) {
+                        System.out.println(code);
+                    }
+                }
+            } else if (command == 2) {
+                System.out.println("----------------------------------------------------------------------------------------------------------------");
+                System.out.print("Enter job ID : ");
+                String jobID = sc.next();
+                if (partition.containsKey(jobID)) {
+                    int part = partition.get(jobID);
+                    switch(part) {
+                    case 1 -> System.out.println("Partition : CPU-EPYC");
+                    case 2 -> System.out.println("Partition : CPU-Opteron");
+                    case 3 -> System.out.println("Partition : GPU-V100s");
+                    case 4 -> System.out.println("Partition : GPU-K40c");
+                    case 5 -> System.out.println("Partition : GPU-Titan");
+                    case 6 -> System.out.println("Partition : GPU-K10");
+                    }
+                } else {
+                    System.out.println("Job ID not found");
+                }
+            } else if (command == 3){
+                printStatPart();
+            } else if (command == -1) {
+                System.out.println("Exit");
+                break;
+            } else {
+                System.out.println("Invalid command");
+            }
+        }while(true);
+    }
+
+    public static void printStatPart(){
+        //        int numEPYC=0;
 //        int numOpteron=0;
 //        int numV100=0;
 //        int numK40c=0;
@@ -163,7 +223,6 @@ public class Partition {
                     String temp2 = arrname[j];
                     arrname[j] = arrname[j+1];
                     arrname[j+1] = temp2;
-
                 }
             }
         }
