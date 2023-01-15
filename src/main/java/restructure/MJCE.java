@@ -17,6 +17,8 @@ public class MJCE {
     static int minCreate, maxCreate, minEnd, maxEnd;
     static int dayMinCreate, dayMaxCreate, dayMinEnd, dayMaxEnd;
     static int numCompleteJob, initiateJob;
+    static ArrayList<Integer> monthStart = new ArrayList<>();
+    static ArrayList<Integer> monthEnd = new ArrayList<>();
 
     public static void totalMonthJobCreateEnd(String fileName){
         String data;
@@ -129,6 +131,9 @@ public class MJCE {
             maxCreate = numJobCreate.get(0); dayMaxCreate = 1;
             minEnd = numJobCreate.get(0); dayMinEnd = 1;
             maxEnd = numJobCreate.get(0); dayMaxEnd = 1;
+
+            monthStart.add(sumCreate);
+            monthEnd.add(sumEnd);
 
             System.out.println("\nTotal job created in " + monstr +   ": " + sumCreate);
             System.out.println("Total job ended in  " + monstr +   ": " + sumEnd);

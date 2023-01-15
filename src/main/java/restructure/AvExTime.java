@@ -77,10 +77,10 @@ public class AvExTime {
             System.out.println();
             if (command == 3) {
 
-                System.out.print("Enter the number of completed Job Id for searching : ");
+                System.out.print("Enter the amount of Job Id to search : ");
                 num = input.nextInt();
 
-                System.out.println("\nEnter the completed Job Id for searching : ");
+                System.out.println("\nEnter the Job Id for searching : ");
 
                 for (int i = 0; i < num; i++) {
                     System.out.print(i + 1 + ". : ");
@@ -200,7 +200,7 @@ public class AvExTime {
 
 //                       for(int e=0;e<createJobId.size();e++){
 //                           if(numNoCreateJobId.contains(e) == false){
-//                                numNoJob++;
+//
 //                                System.out.printf("\n%-8d%-30s%-30s",numNoJob,createJobTime2[e],createJobId.get(e));
 //                           }
 //                       }
@@ -213,7 +213,7 @@ public class AvExTime {
                         }
                     }
                     System.out.println("\n-----------------------------------------------------------");
-                    System.out.println("The total number of incompleted job id : " + numNoJob);
+                    System.out.println("The total number of incompleted job id : " + nom);
 
                 }   // END OFR SUB COMMAND 2
 
