@@ -4,10 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0fdeff2-5c22-4c7b-8b89-59cb2306a7e2" name="Changes" comment="wtf">
-      <change afterPath="$PROJECT_DIR$/src/iz-main/java/extracted_log" afterDir="false" />
+    <list default="true" id="c0fdeff2-5c22-4c7b-8b89-59cb2306a7e2" name="Changes" comment="cbcbcbbc">
+      <change afterPath="$PROJECT_DIR$/src/main/java/restructure/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iz-main/java/Job.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iz-main/java/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iz-main/java/assignment/Assignment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iz-main/java/assignment/Assignment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iz-main/java/assignment/Assignment.java~HEAD" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/iz-main/java/assignment/Testing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iz-main/java/assignment/Testing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iz-main/java/assignment/Testing.java~HEAD" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,17 +40,22 @@
     </option>
   </component>
   <component name="ProjectId" id="2KE92k6GFqQuENlNv6sBDyF7wEv" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -103,7 +114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673532454196</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="cbcbcbbc">
+      <created>1673704322727</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1673704322728</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -130,11 +148,13 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="init" />
     <MESSAGE value="init 2" />
     <MESSAGE value="init 3" />
     <MESSAGE value="init 4" />
     <MESSAGE value="wtf" />
-    <option name="LAST_COMMIT_MESSAGE" value="wtf" />
+    <MESSAGE value="cbcbcbbc" />
+    <option name="LAST_COMMIT_MESSAGE" value="cbcbcbbc" />
   </component>
 </project>

@@ -650,8 +650,8 @@ public class Testing {
        String fileName = "C:/Users/ingzh/OneDrive - Universiti Malaya/WIX1002/ass/asgnmt/src/iz-main/java/extracted_log";
        
        //totalCompletedAndEndedJob(fileName);
-       totalMonthJobCreateEnd(fileName);
+       //totalMonthJobCreateEnd(fileName);
        //jobByPartitions(fileName);
-       //ErrorAndInvalid(fileName);
+       ErrorAndInvalid(fileName);
     }
 }
