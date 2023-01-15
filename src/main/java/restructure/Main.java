@@ -10,7 +10,8 @@ public class Main {
     public static void main(String[] args) throws IOException,InterruptedException {
             Scanner input = new Scanner(System.in);
             String fileName = "./file-in/log.txt";
-
+            AvExTime a = new AvExTime(fileName);
+            Partition p = new Partition(fileName);
             int command = 0;
 
             do {
@@ -25,13 +26,14 @@ public class Main {
                 System.out.print("Command -> ");
                 command = input.nextInt();
                 System.out.println();
+
 //                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
                 switch (command) {
                     case 1 -> MJCE.totalCompletedAndEndedJob(fileName);
                     case 2 -> MJCE.totalMonthJobCreateEnd(fileName);
-                    case 3 -> Partition.jobByPartitions(fileName);
+                    case 3 -> p.jobByPartitions(fileName);
                     case 4 -> Err_Inv.ErrorAndInvalid(fileName);
-                    case 5 -> AvExTime.averageExecutionTime(fileName);
+                    case 5 -> a.averageExecutionTime(fileName);
                     case -1 -> {
                         System.out.println("Thank you for using our program!");
                         System.exit(0);
