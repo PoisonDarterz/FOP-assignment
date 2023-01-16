@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -109,73 +108,72 @@ public class AvExTime {
                 System.out.printf("\n%-8s%-20s%-20s%-30s%-30s%-30s\n", "No.", "Completed Job ID", "Ended Job ID", "Job Completed Time", "Job Ended Time", "Execution Time (mins)");
                 System.out.print("--------------------------------------------------------------------------------------------------------------------------------------");
             }
+            if (command != -1) {
+                for (int i = 0; i < createJobId.size(); i++) {
 
-            for (int i = 0; i < createJobId.size(); i++) {
+                    for (int j = 0; j < endJobId.size(); j++) {
+                        if (createJobId.get(i).equals(endJobId.get(j))) {
+                            LocalDateTime createTime = Main.convertToLDT(createJobTime2[i]);
+                            LocalDateTime endTime = Main.convertToLDT(endJobTime2[j]);
 
-                for (int j = 0; j < endJobId.size(); j++) {
-                    if (createJobId.get(i).equals(endJobId.get(j))) {
-                        LocalDateTime createTime = Main.convertToLDT(createJobTime2[i]);
-                        LocalDateTime endTime = Main.convertToLDT(endJobTime2[j]);
+                            long milliBetween = ChronoUnit.MILLIS.between(createTime, endTime);
 
-                        long milliBetween = ChronoUnit.MILLIS.between(createTime, endTime);
+                            if (milliBetween < 0)
+                                milliBetween *= -1;
 
-                        if (milliBetween < 0)
-                            milliBetween *= -1;
+                            double milli = (double) milliBetween;
 
-                        double milli = (double) milliBetween;
+                            exeTime.add(milli);
 
-                        exeTime.add(milli);
+                            double output = (double) ((milliBetween / 1000.0) / 60);
+                            No++;
 
-                        double output = (double) ((milliBetween / 1000.0) / 60);
-                        No++;
+                            ///////// DISPLAY ALL THE INFO OF JOBID
+                            if (command == 1) {
+                                System.out.printf("\n%-8d%-20s%-20s%-30s%-30s", No, createJobId.get(i), endJobId.get(j), createJobTime2[i], endJobTime2[j]);
+                                System.out.printf("%.3f", output);
+                            } else if (command == 3) {
+                                ////////////////SEARCH FOR COMPLETED  JOB
 
-                    ///////// DISPLAY ALL THE INFO OF JOBID
-                        if (command == 1) {
-                            System.out.printf("\n%-8d%-20s%-20s%-30s%-30s", No, createJobId.get(i), endJobId.get(j), createJobTime2[i], endJobTime2[j]);
-                            System.out.printf("%.3f", output);
-                        } else if (command == 3) {
-                            ////////////////SEARCH FOR COMPLETED  JOB
-
-                            String[] jobId2 = new String[num];
-                            jobId.toArray(jobId2);
+                                String[] jobId2 = new String[num];
+                                jobId.toArray(jobId2);
 
 
-                            for (int k = 0; k < num; k++) {
-                                nom++;
-                                if (createJobId.get(i).equals(jobId2[k])) {
-                                    System.out.printf("\n%-8d%-20s%-20s%-30s%-30s", nom, createJobId.get(i), endJobId.get(j), createJobTime2[i], endJobTime2[j]);
-                                    System.out.printf("%.3f", output);
-                                    compare.add(createJobId.get(i));
-                                }
+                                for (int k = 0; k < num; k++) {
+                                    nom++;
+                                    if (createJobId.get(i).equals(jobId2[k])) {
+                                        System.out.printf("\n%-8d%-20s%-20s%-30s%-30s", nom, createJobId.get(i), endJobId.get(j), createJobTime2[i], endJobTime2[j]);
+                                        System.out.printf("%.3f", output);
+                                        compare.add(createJobId.get(i));
+                                    }
 
-                            } // END FOR VARIABLE K LOOP
-                        }  // END FOR COMMAND 3
-                        if ((milliBetween / 1000) > max) {
-                            max = milliBetween / 1000;
-                            maxJobId = (String) createJobId.get(i);
+                                } // END FOR VARIABLE K LOOP
+                            }  // END FOR COMMAND 3
+                            if ((milliBetween / 1000) > max) {
+                                max = milliBetween / 1000;
+                                maxJobId = (String) createJobId.get(i);
+                            }
+
+                            if ((milliBetween) < min) {
+                                min = milliBetween;
+                                minJobId = (String) createJobId.get(i);
+                            }
+
+                            totalExecutionTime += (double) ((milliBetween / 1000.0));
                         }
-
-                        if ((milliBetween) < min) {
-                            min = milliBetween;
-                            minJobId = (String) createJobId.get(i);
-                        }
-
-                        totalExecutionTime += (double) ((milliBetween / 1000.0));
-                    }
-                    ////////// PART OF DISPLAY OF INCOMPLETED JOBID
+                        ////////// PART OF DISPLAY OF INCOMPLETED JOBID
 //                        String [] noCreateJobId = new String[createJobId.size()];
 //                        createJobId.toArray(noCreateJobId);
-                    //numNoCreateJobId.add(i);
-                }
+                        //numNoCreateJobId.add(i);
+                    }
 
+                }
             }
             ArrayList NoCreateJobId = new ArrayList<>();
 
 
             ///////// DISPLAY ALL THE INFO OF INCOMPLETED JOBID
             if (command == 2 || command == 3) {
-                int numNoJob = 0;
-
                 String[] noCreateJobId = new String[createJobId.size()];
                 createJobId.toArray(noCreateJobId);
                 for (int i = 0; i < createJobId.size(); i++) {

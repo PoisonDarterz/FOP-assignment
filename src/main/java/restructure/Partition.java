@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
 
@@ -28,27 +27,22 @@ public class Partition {
                 if(content[1].equals("sched/backfill:")){
                     String jobID = content[4].substring(6);
                     if(content[6].equals("cpu-epyc")) {
-//                        numEPYC++;
                         partition.put(jobID, 1);
                     }
                     if(content[6].equals("cpu-opteron")) {
-//                        numOpteron++;
                         partition.put(jobID, 2);
                     }
                     if(content[6].equals("gpu-v100s")){
-//                        numV100++;
+
                         partition.put(jobID, 3);
                     }
                     if(content[6].equals("gpu-k40c")) {
-//                        numK40c++;
                         partition.put(jobID, 4);
                     }
                     if(content[6].equals("gpu-titan")) {
-//                        numTitan++;
                         partition.put(jobID, 5);
                     }
                     if(content[6].equals("gpu-k10")) {
-//                        numK10++;
                         partition.put(jobID, 6);
                     }
                 }
@@ -56,7 +50,6 @@ public class Partition {
                 for (String content1 : content) {
                     String jobID = "";
                     if (content1.equals("Partition=cpu-epyc")) {
-//                        numEPYC++;
                         for(String content2 : content){
                             if(content2.contains("JobId=")){
                                 jobID=content2.substring(6);
@@ -65,7 +58,6 @@ public class Partition {
                         partition.put(jobID, 1);
                     }
                     if (content1.equals("Partition=cpu-opteron")) {
-//                        numOpteron++;
                         for(String content2 : content){
                             if(content2.contains("JobId=")){
                                 jobID=content2.substring(6);
@@ -74,7 +66,6 @@ public class Partition {
                         partition.put(jobID, 2);
                     }
                     if (content1.equals("Partition=gpu-v100s")) {
-//                        numV100++;
                         for(String content2 : content){
                             if(content2.contains("JobId=")){
                                 jobID=content2.substring(6);
@@ -83,7 +74,6 @@ public class Partition {
                         partition.put(jobID, 3);
                     }
                     if (content1.equals("Partition=gpu-k40c")) {
-//                        numK40c++;
                         for(String content2 : content){
                             if(content2.contains("JobId=")){
                                 jobID=content2.substring(6);
@@ -92,7 +82,6 @@ public class Partition {
                         partition.put(jobID, 4);
                     }
                     if (content1.equals("Partition=gpu-titan")) {
-//                        numTitan++;
                         for(String content2 : content){
                             if(content2.contains("JobId=")){
                                 jobID=content2.substring(6);
@@ -101,7 +90,6 @@ public class Partition {
                         partition.put(jobID, 5);
                     }
                     if (content1.equals("Partition=gpu-k10")) {
-//                        numK10++;
                         for(String content2 : content){
                             if(content2.contains("JobId=")){
                                 jobID=content2.substring(6);
@@ -199,20 +187,14 @@ public class Partition {
     }
 
     public static void printStatPart(){
-        //        int numEPYC=0;
-//        int numOpteron=0;
-//        int numV100=0;
-//        int numK40c=0;
-//        int numK10=0;
-//        int numTitan=0;
 
         System.out.printf("\n\n%-15s%-15s%-15s%-15s%-15s%-20s%-15s","","GPU-V100s","GPU-K10","GPU-Titan","GPU-K40c","CPU-Opteron","CPU-EPYC");
         System.out.println("\n--------------------------------------------------------------------------------------------------------");
         System.out.printf("%-15s%-15d%-15d%-15d%-15d%-20d%-15d\n","TOTAL",v100s,k10,titan,k40c,opte,epyc);
 
         System.out.println();
-        int arr[] = {v100s,k10,titan,k40c,opte,epyc};
-        String arrname[] = {"GPU-V100s","GPU-K10","GPU-Titan","GPU-K40c","CPU-Opteron","CPU-EPYC"};
+        int[] arr = {v100s,k10,titan,k40c,opte,epyc};
+        String[] arrname = {"GPU-V100s","GPU-K10","GPU-Titan","GPU-K40c","CPU-Opteron","CPU-EPYC"};
         for (int i = 0; i < arr.length; i++){
             for (int j = 0; j < arr.length - 1; j++){
                 if (arr[j] < arr[j+1]){
