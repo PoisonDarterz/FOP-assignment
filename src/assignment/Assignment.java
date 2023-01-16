@@ -54,7 +54,9 @@ public class Assignment {
 
     }
 
-    public static void totalMonthJobCreateEnd(String fileName){
+    public static void totalMonthJobCreateEnd(String fileName) throws FileNotFoundException{
+        Scanner input = new Scanner(System.in);
+        
         String data;
         String month = "";
         String day = "";
@@ -96,7 +98,81 @@ public class Assignment {
         int sumEndDec = 0;
         int [] numJobCreateDec = new int[16];
         int [] numJobEndDec = new int[16];
+        
+         int searchMonthStart =0,searchMonthEnd =0;
+         int searchDayStart   =0,searchDayEnd =0;
+         int searchHourStart  =0,searchHourEnd =0;
+         int searchMinStart   =0,searchMinEnd =0;
+         int searchSecStart=0,searchSecEnd =0;
+         int searchMilliSecStart=0,searchMilliSecEnd=0;
+        
+         int MonthStart =0,MonthEnd =0;
+         int DayStart   =0,DayEnd =0;
+         int HourStart  =0,HourEnd =0;
+         int MinStart   =0,MinEnd =0;
+         int SecStart=0,SecEnd =0;
+         int MilliSecStart=0,MilliSecEnd=0;
+                
+         boolean foundStart = false;
+         boolean foundEnd = false;
+         boolean count = true; 
+          
+         int numSearchStart = 0;
+         int numSearchEnd = 0;
+         
+        int command = 0;
+        System.out.println("1 . Search month data ");
+        System.out.println("2 . Search data  within given time range");
+        System.out.println("-1. Exit");
+        System.out.print("command -> ");
+        command = input.nextInt();
+        
+        ArrayList date = new ArrayList();
+        
+        if(command == 2){
+           
+ 
+            System.out.println("\nStart Time");
+            System.out.println("-----------------------");
+            System.out.print("Start month        : ");
+            searchMonthStart = input.nextInt();
+            System.out.print("Start day          : ");
+            searchDayStart = input.nextInt();
+//            System.out.print("Start hour         : ");
+//            searchHourStart = input.nextInt();
+//            System.out.print("Start minute       : ");
+//            searchMinStart = input.nextInt();
+//            System.out.print("Start second       : ");
+//            searchSecStart = input.nextInt();
+//            System.out.print("Start millisecond   : ");
+//            searchMilliSecStart = input.nextInt();
+//            
+            System.out.println("");
+            
+            System.out.println("End Time");
+            System.out.println("-----------------------");
+            System.out.print("End month          : ");
+            searchMonthEnd = input.nextInt();
+            System.out.print("End day            : ");
+            searchDayEnd = input.nextInt();
+//            System.out.print("End hour         : ");
+//            searchHourEnd = input.nextInt();
+//            System.out.print("End minute       : ");
+//            searchMinEnd = input.nextInt();
+//            System.out.print("End second       : ");
+//            searchSecEnd = input.nextInt();
+//            System.out.print("End millisecond  : ");
+//            searchMilliSecEnd = input.nextInt();
+            
+            System.out.println();
+            
+            System.out.println("User's input");
+            System.out.println("-------------------------------------------");
+            System.out.println("Start Time - [ 2022-" + searchMonthStart + "-" + searchDayStart + " ]");
+            System.out.println("End   Time - [ 2022-" + searchMonthEnd + "-" + searchDayEnd  + " ]");
 
+        }
+   
         try{
             BufferedReader read = new BufferedReader(new FileReader(fileName));
             data = read.readLine();
@@ -105,7 +181,9 @@ public class Assignment {
                 int num = data.split(" ").length;
                 String [] content = new String[num];
                 content = data.split(" ");
-
+                
+                date.add(content[0]);
+                
                 //ALLOCATE NUMBER OF JOBS CREATED AND ENDED BY DAYS AND MONTHS
                 month = data.substring(6,8);
                 day = data.substring(9,11);
@@ -172,12 +250,691 @@ public class Assignment {
                             numJobEndDec[d-1]+=1;}
                     }
                 }
-                data = read.readLine();
+/////////////////// COMMAND 2
+            if(command == 2){
+                    
+            /////////////CHECK WHETHER THE INPUT START DATE EXIST OR NOT   
+            MonthStart = Integer.parseInt(content[0].substring(6,8));
+            DayStart = Integer.parseInt(content[0].substring(9,11));
+
+            MonthEnd = Integer.parseInt(content[0].substring(6,8));
+            DayEnd = Integer.parseInt(content[0].substring(9,11));
+            
+            if(count){
+            if(searchMonthStart == MonthStart && searchDayStart == DayStart){
+                foundStart = true;
+            }
+            if(foundStart){
+            for(String content2 : content){
+                        if(content2.equals("Allocate")){
+                           numSearchStart++;}
+                        if(content2.equals("done")){
+                           numSearchEnd++;}
+            }
+            if(searchMonthEnd == MonthEnd && searchDayEnd == DayEnd){
+                foundEnd = true;
+                count = false;  
+              }
+            }   ////// END THE SEARCH MONTH START IF
+            }   ////// END WHETHER NEED TO END COUNT IF  
+             
+        }             ////////////////////////////// END COMMAND 2    
+            
+          
+            data = read.readLine();
             }
         }
         catch(FileNotFoundException e){System.out.println("File Not Found");}
         catch(IOException e){System.out.println("Error occurs while editing file");}
+     
+////////COMMAND 2 OUTSIDE THE READ FILE CLASS
+ 
+    if(command == 2){
+           System.out.println("\nSystem search");
+            System.out.println("-------------------------------------------");
+            if(foundStart){
+                 System.out.println("Start Time [ 2022-" + searchMonthStart + "-" + searchDayStart + " ]    : FOUND");
+            }
+            else if(!foundStart){
+                 System.out.println("Start Time [2022-" + searchMonthStart + "-" + searchDayStart + " ]   : NOT FOUND");
+            }
+            
+            if(foundEnd){
+                 System.out.println("End   Time [ 2022-" + searchMonthEnd + "-" + searchDayEnd + " ]    : FOUND");
+            }
+            else if(!foundEnd){
+                 System.out.println("End   Time [ 2022-" + searchMonthEnd + "-" + searchDayEnd + " ]  : NOT FOUND");
+            }
+            
+            if(foundStart && foundEnd){
+                 System.out.println("\n");
+                 System.out.println("Total number of job created within the given time range : " + numSearchStart);
+                 System.out.println("Total number of job endeed  within the given time range : " + numSearchEnd);
+                 
+                 System.out.println();
+                
+/////////////////Search day start                 
+                 for(int i=0;i<=(searchMonthEnd - searchMonthStart);i++){
+                 
+                 if(searchMonthEnd - searchMonthStart == 0){
+                 System.out.println("Month : " + searchMonthStart);
+                 System.out.printf("%-30s","Day                      |");
 
+////////////////INCOMPLETED
+////////////////Month 6,9,11 got 30 days
+//////////////// **** 3 Conditions
+//////////////// **** 1.same month
+//////////////// **** 2.cross 2 months
+//////////////// **** 2.cross 2 months above
+
+                 for(int j=searchDayStart;j<=searchDayEnd;j++){
+                     System.out.printf("%-5d",j);
+                 }
+                 
+                 System.out.println();
+/////////////////COMPLETED JOB == 0
+
+                 System.out.printf("%-30s","Number of completed job  |");
+                 if(searchMonthStart == 6){
+                     for(int k = searchDayStart;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobCreateJun[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 7){
+                     for(int k = searchDayStart;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobCreateJune[k-1]);
+                     }
+                 }
+                  else if(searchMonthStart == 8){
+                     for(int k = searchDayStart;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobCreateAus[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 9){
+                     for(int k = searchDayStart;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobCreateSep[k-1]);
+                     }
+                 }
+                  else if(searchMonthStart == 10){
+                     for(int k = searchDayStart;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobCreateOct[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 11){
+                     for(int k = searchDayStart;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobCreateNov[k-1]);
+                     }
+                 }
+                  else if(searchMonthStart == 12){
+                     for(int k = searchDayStart;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobCreateDec[k-1]);
+                     }
+                 }
+                 System.out.printf("\n%-30s","Number of ended    job   |");
+                 if(searchMonthStart == 6){
+                     for(int k = searchDayStart;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobEndJun[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 7){
+                     for(int k = searchDayStart;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobEndJune[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 8){
+                     for(int k = searchDayStart;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobEndAus[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 9){
+                     for(int k = searchDayStart;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobEndSep[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 10){
+                     for(int k = searchDayStart;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobEndOct[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 11){
+                     for(int k = searchDayStart;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobEndNov[k-1]);
+                     }
+                 }
+                  else if(searchMonthStart == 12){
+                     for(int k = searchDayStart;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobEndNov[k-1]);
+                     }
+                 }
+
+                 }    //////////////// End searchTImeStart - searchTimeEnd = 0
+                 
+                 
+   //////////////// End searchTImeStart - searchTimeEnd = 1    
+                 
+                 else if(searchMonthEnd - searchMonthStart == 1){
+                 if(i == 0){
+                 System.out.println("Month : " + searchMonthStart);
+                 System.out.printf("%-30s","Day                      |");
+
+                 if(searchMonthStart == 6 || searchMonthStart == 9 || searchMonthStart == 11 ){
+                     for(int j=searchDayStart;j<=30;j++){
+                         System.out.printf("%-5d" , j);
+                 }}    
+                     
+                 //////////////////Month 7,8,10 got 31 days                 
+                 else if(searchMonthStart == 7 || searchMonthStart == 8 || searchMonthStart == 10 ){
+                 for(int j=searchDayStart;j<=31;j++){
+                     System.out.printf("%-5d" , j);
+                 }}
+                 
+//////////////////Month 12 got 16 days                 
+                 else if(searchMonthStart == 12){
+                 for(int j=searchDayStart;j<=16;j++){
+                     System.out.printf("%-5d" , j);
+                 }}
+                 
+                 System.out.printf("\n%-30s","Number of completed job  |");
+                 if(searchMonthStart == 6){
+                     for(int k = searchDayStart;k<=30;k++){
+                             System.out.printf("%-5d",numJobCreateJun[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 7){
+                     for(int k = searchDayStart;k<=31;k++){
+                             System.out.printf("%-5d",numJobCreateJune[k-1]);
+                     }
+                 }
+                  else if(searchMonthStart == 8){
+                     for(int k = searchDayStart;k<=31;k++){
+                             System.out.printf("%-5d",numJobCreateAus[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 9){
+                     for(int k = searchDayStart;k<=30;k++){
+                             System.out.printf("%-5d",numJobCreateSep[k-1]);
+                     }
+                 }
+                  else if(searchMonthStart == 10){
+                     for(int k = searchDayStart;k<=31;k++){
+                             System.out.printf("%-5d",numJobCreateOct[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 11){
+                     for(int k = searchDayStart;k<=30;k++){
+                             System.out.printf("%-5d",numJobCreateNov[k-1]);
+                     }
+                 }
+                  else if(searchMonthStart == 12){
+                     for(int k = searchDayStart;k<=16;k++){
+                             System.out.printf("%-5d",numJobCreateDec[k-1]);
+                     }
+                 }
+                 System.out.printf("\n%-30s","Number of ended    job   |");
+                 if(searchMonthStart == 6){
+                     for(int k = searchDayStart;k<=30;k++){
+                             System.out.printf("%-5d",numJobEndJun[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 7){
+                     for(int k = searchDayStart;k<=31;k++){
+                             System.out.printf("%-5d",numJobEndJune[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 8){
+                     for(int k = searchDayStart;k<=31;k++){
+                             System.out.printf("%-5d",numJobEndAus[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 9){
+                     for(int k = searchDayStart;k<=30;k++){
+                             System.out.printf("%-5d",numJobEndSep[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 10){
+                     for(int k = searchDayStart;k<=31;k++){
+                             System.out.printf("%-5d",numJobEndOct[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 11){
+                     for(int k = searchDayStart;k<=30;k++){
+                             System.out.printf("%-5d",numJobEndNov[k-1]);
+                     }
+                 }
+                  else if(searchMonthStart == 12){
+                     for(int k = searchDayStart;k<=16;k++){
+                             System.out.printf("%-5d",numJobEndNov[k-1]);
+                     }
+                  }
+                   
+                 }    /////// i == 0 searchTimeStart - searchTimeEnd == 1
+                 
+                 else if(i == 1){
+                 System.out.println("\n\nMonth : " + searchMonthEnd);
+                 System.out.printf("%-30s","Day                      |");
+                 
+                 if(searchMonthEnd == 6 || searchMonthEnd == 9 || searchMonthEnd == 11 ){
+                     for(int j=1;j<=searchDayEnd;j++){
+                     System.out.printf("%-5d" , j);
+                 }}    
+                     
+                 //////////////////Month 7,8,10 got 31 days                 
+                 else if(searchMonthEnd == 7 || searchMonthEnd == 8 || searchMonthEnd == 10 ){
+                 for(int j=1;j<=searchDayEnd;j++){
+                     System.out.printf("%-5d" , j);
+                 }}
+                 
+//////////////////Month 12 got 16 days                 
+                 else if(searchMonthEnd == 12){
+                 for(int j=1;j<=searchDayEnd;j++){
+                     System.out.printf("%-5d" , j);
+                 }}
+                 
+                  System.out.printf("\n%-30s","Number of completed job  |");
+                 if(searchMonthEnd == 6){
+                     for(int k = 1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobCreateJun[k-1]);
+                     }
+                 }
+                 else if(searchMonthEnd == 7){
+                     for(int k = 1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobCreateJune[k-1]);
+                     }
+                 }
+                  else if(searchMonthEnd == 8){
+                     for(int k = 1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobCreateAus[k-1]);
+                     }
+                 }
+                 else if(searchMonthEnd == 9){
+                     for(int k = 1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobCreateSep[k-1]);
+                     }
+                 }
+                  else if(searchMonthEnd == 10){
+                     for(int k = 1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobCreateOct[k-1]);
+                     }
+                 }
+                 else if(searchMonthEnd == 11){
+                     for(int k = 1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobCreateNov[k-1]);
+                     }
+                 }
+                  else if(searchMonthEnd == 12){
+                     for(int k = 1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobCreateDec[k-1]);
+                     }
+                 }
+                 System.out.printf("\n%-30s","Number of ended    job   |");
+                 if(searchMonthEnd == 6){
+                     for(int k =1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobEndJun[k-1]);
+                     }
+                 }
+                 else if(searchMonthEnd == 7){
+                     for(int k =1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobEndJune[k-1]);
+                     }
+                 }
+                 else if(searchMonthEnd == 8){
+                     for(int k =1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobEndAus[k-1]);
+                     }
+                 }
+                 else if(searchMonthEnd == 9){
+                     for(int k =1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobEndSep[k-1]);
+                     }
+                 }
+                 else if(searchMonthEnd == 10){
+                     for(int k =1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobEndOct[k-1]);
+                     }
+                 }
+                 else if(searchMonthEnd == 11){
+                     for(int k =1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobEndNov[k-1]);
+                     }
+                 }
+                  else if(searchMonthEnd == 12){
+                     for(int k =1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobEndNov[k-1]);
+                     }
+                  }
+                 }    /////////////// END FOR (i == 1) searchTimeStart - searchTimeEnd = 1
+                 
+   /////////////// START FOR searchTimeStart - searchTimeEnd >= 1     
+    
+              
+//////////////////  THIS PART UNABLE TO RUN *******************                  
+                 else if((searchMonthEnd - searchMonthStart) > 1){
+                     System.out.println(searchMonthEnd - searchMonthStart);  
+                 /////// (i = 0) searchMonthEnd - searchMonthStart > 1                    
+                 
+                 if(i == 0){                        
+                 System.out.println("Month : " + searchMonthStart);
+                 System.out.printf("%-30s","Day                      |");
+
+                 if(searchMonthStart == 6 || searchMonthStart == 9 || searchMonthStart == 11 ){
+                     for(int j=searchDayStart;j<=30;j++){
+                         System.out.printf("%-5d" , j);
+                 }}    
+                     
+                 //////////////////Month 7,8,10 got 31 days                 
+                 else if(searchMonthStart == 7 || searchMonthStart == 8 || searchMonthStart == 10 ){
+                 for(int j=searchDayStart;j<=31;j++){
+                     System.out.printf("%-5d" , j);
+                 }}
+                 
+//////////////////Month 12 got 16 days                 
+                 else if(searchMonthStart == 12){
+                 for(int j=searchDayStart;j<=16;j++){
+                     System.out.printf("%-5d" , j);
+                 }}
+                 
+                 System.out.printf("\n%-30s","Number of completed job  |");
+                 if(searchMonthStart == 6){
+                     for(int k = searchDayStart;k<=30;k++){
+                             System.out.printf("%-5d",numJobCreateJun[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 7){
+                     for(int k = searchDayStart;k<=31;k++){
+                             System.out.printf("%-5d",numJobCreateJune[k-1]);
+                     }
+                 }
+                  else if(searchMonthStart == 8){
+                     for(int k = searchDayStart;k<=31;k++){
+                             System.out.printf("%-5d",numJobCreateAus[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 9){
+                     for(int k = searchDayStart;k<=30;k++){
+                             System.out.printf("%-5d",numJobCreateSep[k-1]);
+                     }
+                 }
+                  else if(searchMonthStart == 10){
+                     for(int k = searchDayStart;k<=31;k++){
+                             System.out.printf("%-5d",numJobCreateOct[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 11){
+                     for(int k = searchDayStart;k<=30;k++){
+                             System.out.printf("%-5d",numJobCreateNov[k-1]);
+                     }
+                 }
+                  else if(searchMonthStart == 12){
+                     for(int k = searchDayStart;k<=16;k++){
+                             System.out.printf("%-5d",numJobCreateDec[k-1]);
+                     }
+                 }
+                 System.out.printf("\n%-30s","Number of ended    job   |");
+                 if(searchMonthStart == 6){
+                     for(int k = searchDayStart;k<=30;k++){
+                             System.out.printf("%-5d",numJobEndJun[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 7){
+                     for(int k = searchDayStart;k<=31;k++){
+                             System.out.printf("%-5d",numJobEndJune[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 8){
+                     for(int k = searchDayStart;k<=31;k++){
+                             System.out.printf("%-5d",numJobEndAus[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 9){
+                     for(int k = searchDayStart;k<=30;k++){
+                             System.out.printf("%-5d",numJobEndSep[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 10){
+                     for(int k = searchDayStart;k<=31;k++){
+                             System.out.printf("%-5d",numJobEndOct[k-1]);
+                     }
+                 }
+                 else if(searchMonthStart == 11){
+                     for(int k = searchDayStart;k<=30;k++){
+                             System.out.printf("%-5d",numJobEndNov[k-1]);
+                     }
+                 }
+                  else if(searchMonthStart == 12){
+                     for(int k = searchDayStart;k<=16;k++){
+                             System.out.printf("%-5d",numJobEndNov[k-1]);
+                     }
+                  }
+                     }      /////// END (i = 0) searchMonthEnd - searchMonthStart >= 1 
+                    
+                    
+                /////// (i = 0) searchMonthEnd - searchMonthStart >= 1  
+                else if(i > 0 && i < searchMonthEnd){
+                        
+ /////////////// START FOR
+                for(int n = 1;n < searchMonthEnd;n++){
+                 int temptMonthStart = searchMonthStart + n; 
+                   
+                 System.out.println("\n\nMonth : " + (temptMonthStart));
+                 System.out.printf("%-30s","Day                      |");
+                 
+                 if(temptMonthStart == 6 || temptMonthStart == 9 || temptMonthStart == 11 ){
+                     for(int j=1;j<=30;j++){
+                     System.out.printf("%-5d" , j);
+                 }}    
+                     
+                 //////////////////Month 7,8,10 got 31 days                 
+                 else if(temptMonthStart == 7 || temptMonthStart == 8 || temptMonthStart == 10 ){
+                 for(int j=1;j<=31;j++){
+                     System.out.printf("%-5d" , j);
+                 }}
+                 
+//////////////////Month 12 got 16 days                 
+                 else if(temptMonthStart == 12){
+                 for(int j=1;j<=16;j++){
+                     System.out.printf("%-5d" , j);
+                 }}
+                 
+                 System.out.printf("\n%-30s","Number of completed job  |");
+                 if(temptMonthStart == 6){
+                     for(int k = 1;k<=30;k++){
+                             System.out.printf("%-5d",numJobCreateJun[k-1]);
+                     }
+                 }
+                 else if(temptMonthStart == 7){
+                     for(int k = 1;k<=31;k++){
+                             System.out.printf("%-5d",numJobCreateJune[k-1]);
+                     }
+                 }
+                  else if(temptMonthStart == 8){
+                     for(int k = 1;k<=31;k++){
+                             System.out.printf("%-5d",numJobCreateAus[k-1]);
+                     }
+                 }
+                 else if(temptMonthStart == 9){
+                     for(int k = 1;k<=30;k++){
+                             System.out.printf("%-5d",numJobCreateSep[k-1]);
+                     }
+                 }
+                  else if(temptMonthStart == 10){
+                     for(int k = 1;k<=31;k++){
+                             System.out.printf("%-5d",numJobCreateOct[k-1]);
+                     }
+                 }
+                 else if(temptMonthStart == 11){
+                     for(int k = 1;k<=30;k++){
+                             System.out.printf("%-5d",numJobCreateNov[k-1]);
+                     }
+                 }
+                  else if(temptMonthStart == 12){
+                     for(int k = 1;k<=16;k++){
+                             System.out.printf("%-5d",numJobCreateDec[k-1]);
+                     }
+                 }
+                 System.out.printf("\n%-30s","Number of ended    job   |");
+                 if(temptMonthStart == 6){
+                     for(int k =1;k<=30;k++){
+                             System.out.printf("%-5d",numJobEndJun[k-1]);
+                     }
+                 }
+                 else if(temptMonthStart == 7){
+                     for(int k =1;k<=31;k++){
+                             System.out.printf("%-5d",numJobEndJune[k-1]);
+                     }
+                 }
+                 else if(temptMonthStart == 8){
+                     for(int k =1;k<=31;k++){
+                             System.out.printf("%-5d",numJobEndAus[k-1]);
+                     }
+                 }
+                 else if(temptMonthStart == 9){
+                     for(int k =1;k<=30;k++){
+                             System.out.printf("%-5d",numJobEndSep[k-1]);
+                     }
+                 }
+                 else if(temptMonthStart== 10){
+                     for(int k =1;k<=31;k++){
+                             System.out.printf("%-5d",numJobEndOct[k-1]);
+                     }
+                 }
+                 else if(temptMonthStart == 11){
+                     for(int k =1;k<=30;k++){
+                             System.out.printf("%-5d",numJobEndNov[k-1]);
+                     }
+                 }
+                  else if(temptMonthStart == 12){
+                     for(int k =1;k<=16;k++){
+                             System.out.printf("%-5d",numJobEndNov[k-1]);
+                     }
+                  }
+                            
+                        }
+                         /////////////// END FOR LOOP
+                        
+                    }      /////// END (i = 0) searchMonthEnd - searchMonthStart >= 1 
+                    
+                    
+                    
+                 /////// (i = 0) searchMonthEnd - searchMonthStart >= 1            
+                 else if(i == searchMonthEnd){
+                     
+                 System.out.println("\n\nMonth : " + searchMonthEnd);
+                 System.out.printf("%-30s","Day                      |");
+                 
+                 if(searchMonthEnd == 6 || searchMonthEnd == 9 || searchMonthEnd == 11 ){
+                     for(int j=1;j<=searchDayEnd;j++){
+                     System.out.printf("%-5d" , j);
+                 }}    
+                     
+                 //////////////////Month 7,8,10 got 31 days                 
+                 else if(searchMonthEnd == 7 || searchMonthEnd == 8 || searchMonthEnd == 10 ){
+                 for(int j=1;j<=searchDayEnd;j++){
+                     System.out.printf("%-5d" , j);
+                 }}
+                 
+//////////////////Month 12 got 16 days                 
+                 else if(searchMonthEnd == 12){
+                 for(int j=1;j<=searchDayEnd;j++){
+                     System.out.printf("%-5d" , j);
+                 }}
+                 
+                  System.out.printf("\n%-30s","Number of completed job  |");
+                 if(searchMonthEnd == 6){
+                     for(int k = 1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobCreateJun[k-1]);
+                     }
+                 }
+                 else if(searchMonthEnd == 7){
+                     for(int k = 1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobCreateJune[k-1]);
+                     }
+                 }
+                  else if(searchMonthEnd == 8){
+                     for(int k = 1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobCreateAus[k-1]);
+                     }
+                 }
+                 else if(searchMonthEnd == 9){
+                     for(int k = 1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobCreateSep[k-1]);
+                     }
+                 }
+                  else if(searchMonthEnd == 10){
+                     for(int k = 1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobCreateOct[k-1]);
+                     }
+                 }
+                 else if(searchMonthEnd == 11){
+                     for(int k = 1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobCreateNov[k-1]);
+                     }
+                 }
+                  else if(searchMonthEnd == 12){
+                     for(int k = 1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobCreateDec[k-1]);
+                     }
+                 }
+                 System.out.printf("\n%-30s","Number of ended    job   |");
+                 if(searchMonthEnd == 6){
+                     for(int k =1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobEndJun[k-1]);
+                     }
+                 }
+                 else if(searchMonthEnd == 7){
+                     for(int k =1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobEndJune[k-1]);
+                     }
+                 }
+                 else if(searchMonthEnd == 8){
+                     for(int k =1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobEndAus[k-1]);
+                     }
+                 }
+                 else if(searchMonthEnd == 9){
+                     for(int k =1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobEndSep[k-1]);
+                     }
+                 }
+                 else if(searchMonthEnd == 10){
+                     for(int k =1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobEndOct[k-1]);
+                     }
+                 }
+                 else if(searchMonthEnd == 11){
+                     for(int k =1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobEndNov[k-1]);
+                     }
+                 }
+                  else if(searchMonthEnd == 12){
+                     for(int k =1;k<=searchDayEnd;k++){
+                             System.out.printf("%-5d",numJobEndNov[k-1]);
+                     }
+                  }
+                    }       /////// END (i = 0) searchMonthEnd - searchMonthStart >= 1 
+                
+                 }          /////// END searchMonthEnd - searchMonthStart >= 1
+                 
+                 }    /////////////// END FOR DISPLAYING TABLE
+            }
+                 }
+                 
+            
+        }
+    
+//////// SEARCH INPUT = 1 (BY MONTH)        
+        int searchMonth =0;
+           
+        if(command == 1){
+        System.out.print("\nEnter month : ");
+        searchMonth = input.nextInt();
+        
+        while(!(searchMonth>=6 && searchMonth <=12)){
+            System.out.println("Invalid time range");
+            System.out.print("\nEnter month : ");
+            searchMonth = input.nextInt();
+        }
+       
+        if(searchMonth == 6){     /// Month 6 start //////////////
         System.out.println("\nMonth : 6");
         System.out.printf("%-20s","Day           |");
         for(int i=0;i<30;i++){
@@ -198,7 +955,8 @@ public class Assignment {
         int maxCreate =-1,dayMaxCreate=0;
         int minEnd =9999,dayMinEnd=0;
         int maxEnd =-1,dayMaxEnd=0;
-
+        
+       
         System.out.println("\nTotal job created in Jun   : " + sumCreateJun);
         System.out.println("Total job ended in Jun     : " + sumEndJun);
         ave=sumCreateJun/30.0;
@@ -224,6 +982,9 @@ public class Assignment {
         System.out.println("The day has the highest job end    is on day : " + dayMaxEnd + "( " + maxEnd + " )");
         System.out.println("The day has the lowest  job end    is on day : " + dayMinEnd + "( " + minEnd + " )");
 
+        
+////////THE DATA IS SORTED
+        
         Arrays.sort(numJobCreateJun);
         Arrays.sort(numJobEndJun);
 
@@ -239,12 +1000,14 @@ public class Assignment {
         else if(numJobEndJun.length%2 == 1){
             System.out.println("Median of the job ended   in Jun : " + numJobEndJun[(numJobEndJun.length/2)-1]);
         }
-
-        minCreate =9999;dayMinCreate=0;
-        maxCreate =-1;dayMaxCreate=0;
-        minEnd =9999;dayMinEnd=0;
-        maxEnd =-1;dayMaxEnd=0;
-
+        }
+////////////////////////DELETED A } NOT SURE                                 
+        int minCreate =9999,dayMinCreate=0;
+        int maxCreate =-1,dayMaxCreate=0;
+        int minEnd =9999,dayMinEnd=0;
+        int maxEnd =-1,dayMaxEnd=0;
+        
+        if(searchMonth == 7){                      ///// End month 7
         System.out.println("\n\nMonth : 7");
         System.out.printf("%-20s","Day           |");
         for(int i=0;i<31;i++){
@@ -300,12 +1063,14 @@ public class Assignment {
         else if(numJobEndJune.length%2 == 1){
             System.out.println("Median of the job ended   in June : " + numJobEndJune[(numJobEndJune.length/2)-1]);
         }
-
+        }
+                                                      // END MONTH 7
         minCreate =9999;dayMinCreate=0;
         maxCreate =-1;dayMaxCreate=0;
         minEnd =9999;dayMinEnd=0;
         maxEnd =-1;dayMaxEnd=0;
-
+        if(searchMonth == 8){
+        
         System.out.println("\n\nMonth : 8");
         System.out.printf("%-20s","Day           |");
         for(int i=0;i<31;i++){
@@ -361,7 +1126,10 @@ public class Assignment {
         else if(numJobEndAus.length%2 == 1){
             System.out.println("Median of the job ended   in Ausgust : " + numJobEndAus[(numJobEndAus.length/2)-1]);
         }
-
+        }         //END MONTH 8
+                                         
+        
+        if (searchMonth == 9){
         minCreate =9999;dayMinCreate=0;
         maxCreate =-1;dayMaxCreate=0;
         minEnd =9999;dayMinEnd=0;
@@ -422,7 +1190,9 @@ public class Assignment {
         else if(numJobEndSep.length%2 == 1){
             System.out.println("Median of the job ended   in September : " + numJobEndSep[(numJobEndSep.length/2)-1]);
         }
-
+        }                                     //END MONTH 9
+        
+        if(searchMonth == 10){
         minCreate =9999;dayMinCreate=0;
         maxCreate =-1;dayMaxCreate=0;
         minEnd =9999;dayMinEnd=0;
@@ -483,8 +1253,9 @@ public class Assignment {
         else if(numJobEndOct.length%2 == 1){
             System.out.println("Median of the job ended   in October : " + numJobEndOct[(numJobEndOct.length/2)-1]);
         }
-
-
+        }                                     // END MONTH 10
+        
+        if(searchMonth == 11){
         minCreate =9999;dayMinCreate=0;
         maxCreate =-1;dayMaxCreate=0;
         minEnd =9999;dayMinEnd=0;
@@ -545,8 +1316,9 @@ public class Assignment {
         else if(numJobEndNov.length%2 == 1){
             System.out.println("Median of the job ended   in November : " + numJobEndNov[(numJobEndNov.length/2)-1]);
         }
-
-
+        }                                      ///////  END MONTH 11
+        
+        if(searchMonth == 12){
         minCreate =9999;dayMinCreate=0;
         maxCreate =-1;dayMaxCreate=0;
         minEnd =9999;dayMinEnd=0;
@@ -607,8 +1379,10 @@ public class Assignment {
         else if(numJobEndDec.length%2 == 1){
             System.out.println("Median of the job ended   in December : " + numJobEndDec[(numJobEndDec.length/2)-1]);
         }
-
-    }
+        }                                 // END MONTH 12
+        }      // END COMMENT       
+        }            // END METHOD
+        
 
     public static void jobByPartitions(String fileName){
         int num;
@@ -731,7 +1505,7 @@ public class Assignment {
 
                 for(int i=0;i<content.length;i++){
                     if(content[i].equals("error:")){
-                        //System.out.println(data);
+                        System.out.println(data);
                         if(content[i+2].equals("association")){
                             user.add(content[i+4]);
                         }
