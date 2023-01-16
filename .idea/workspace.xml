@@ -5,20 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c0fdeff2-5c22-4c7b-8b89-59cb2306a7e2" name="Changes" comment="cbcbcbbc">
-      <change afterPath="$PROJECT_DIR$/src/main/java/restructure/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/iz-main/java/restructure/AvExTime.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/iz-main/java/restructure/Err_Inv.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/iz-main/java/restructure/MJCE.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/iz-main/java/restructure/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/iz-main/java/restructure/Partition.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/iz-main/java/Job.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/iz-main/java/Main.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/iz-main/java/assignment/Assignment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iz-main/java/assignment/Assignment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/iz-main/java/assignment/Assignment.java~HEAD" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/iz-main/java/assignment/Testing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iz-main/java/assignment/Testing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/iz-main/java/assignment/Testing.java~HEAD" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/restructure/AvExTime.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/restructure/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/restructure/Partition.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="PUSH_TAGS">
@@ -51,6 +59,8 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "jdk.selected.JAVA_MODULE": "19",
+    "last_opened_file_path": "D:/Java/jdk-19/jfreechart-1.0.19",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2"
@@ -121,7 +131,21 @@
       <option name="project" value="LOCAL" />
       <updated>1673704322728</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="cbcbcbbc">
+      <created>1673791910311</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1673791910312</updated>
+    </task>
+    <task id="LOCAL-00010" summary="cbcbcbbc">
+      <created>1673791975974</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1673791975974</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

@@ -177,12 +177,12 @@ public class Partition {
                 if (partition.containsKey(jobID)) {
                     int part = partition.get(jobID);
                     switch(part) {
-                    case 1 -> System.out.println("Partition : CPU-EPYC");
-                    case 2 -> System.out.println("Partition : CPU-Opteron");
-                    case 3 -> System.out.println("Partition : GPU-V100s");
-                    case 4 -> System.out.println("Partition : GPU-K40c");
-                    case 5 -> System.out.println("Partition : GPU-Titan");
-                    case 6 -> System.out.println("Partition : GPU-K10");
+                        case 1 -> System.out.println("Partition : CPU-EPYC");
+                        case 2 -> System.out.println("Partition : CPU-Opteron");
+                        case 3 -> System.out.println("Partition : GPU-V100s");
+                        case 4 -> System.out.println("Partition : GPU-K40c");
+                        case 5 -> System.out.println("Partition : GPU-Titan");
+                        case 6 -> System.out.println("Partition : GPU-K10");
                     }
                 } else {
                     System.out.println("Job ID not found");

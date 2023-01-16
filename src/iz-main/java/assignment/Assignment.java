@@ -1265,8 +1265,8 @@ public class Assignment {
             //totalMonthJobCreateEnd(fileName);
             //jobByPartitions(fileName);
             //ErrorAndInvalid(fileName);
-            //averageExecutionTime(fileName);
-            display(fileName);
+            averageExecutionTime(fileName);
+            //display(fileName);
         }
     }
 

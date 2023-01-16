@@ -129,7 +129,7 @@ public class AvExTime {
                         double output = (double) ((milliBetween / 1000.0) / 60);
                         No++;
 
-                    ///////// DISPLAY ALL THE INFO OF JOBID
+                        ///////// DISPLAY ALL THE INFO OF JOBID
                         if (command == 1) {
                             System.out.printf("\n%-8d%-20s%-20s%-30s%-30s", No, createJobId.get(i), endJobId.get(j), createJobTime2[i], endJobTime2[j]);
                             System.out.printf("%.3f", output);
@@ -327,4 +327,3 @@ public class AvExTime {
         }while (command != -1);
     } // End method
 }
-
