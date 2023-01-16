@@ -29,7 +29,7 @@ public class Main {
 //                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
                 switch (command) {
                     case 1 -> MJCE.totalCompletedAndEndedJob(fileName);
-                    case 2 -> MJCE.totalMonthJobCreateEnd(fileName);
+                    case 2 -> JobCreateEnd.totalMonthJobCreateEnd(fileName);
                     case 3 -> p.jobByPartitions(fileName);
                     case 4 -> Err_Inv.ErrorAndInvalid(fileName);
                     case 5 -> a.averageExecutionTime(fileName);
