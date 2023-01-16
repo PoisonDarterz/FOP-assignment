@@ -61,6 +61,10 @@ public class JobCreateEnd {
             if (command == 1) {
                 System.out.print("Enter month (6-12): ");
                 m = sc.nextInt();
+                if (m < 6 || m > 12) {
+                    System.out.println("Invalid month");
+                    continue;
+                }
                 int dayInMonth = 0;
                 switch (m) {
                     case 6 -> dayInMonth = 30;
@@ -195,6 +199,15 @@ public class JobCreateEnd {
                 System.out.print("Enter end day: ");
                 int endDay = sc.nextInt();
 
+                if (startMonth < 6 || startMonth > 12 || endMonth < 6 || endMonth > 12) {
+                    System.out.println("Invalid month");
+                    continue;
+                }
+                if (endMonth < startMonth || (endMonth == startMonth && endDay <= startDay)) {
+                    System.out.println("Invalid date range");
+                    continue;
+                }
+
                 int dayInMonth = 0;
                 switch (startMonth) {
                     case 6 -> dayInMonth = 30;
@@ -204,6 +217,10 @@ public class JobCreateEnd {
                     case 10 -> dayInMonth = 31;
                     case 11 -> dayInMonth = 30;
                     case 12 -> dayInMonth = 16;
+                }
+                if (startDay < 1 || startDay > dayInMonth || endDay < 1 || endDay > dayInMonth) {
+                    System.out.println("Invalid day");
+                    continue;
                 }
                 int dayCreate = 0;
                 rangeCreate = 0;
