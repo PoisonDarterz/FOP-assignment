@@ -306,6 +306,16 @@ public class Assignment {
                  System.out.println("End   Time [ 2022-" + searchMonthEnd + "-" + searchDayEnd + " ]  : NOT FOUND");
             }
             
+            if(!foundStart || !foundEnd){
+                System.out.println("\n");
+                if((!foundStart) && foundEnd)
+                System.out.println("INVALID START DATE");
+                else if(foundStart && !foundEnd)
+                System.out.println("INVALID END DATE");
+                else if(!foundStart && !foundEnd)
+                System.out.println("INVALID BOTH START AND END DATE");
+            }
+            
             if(foundStart && foundEnd){
                  System.out.println("\n");
                  System.out.println("Total number of job created within the given time range : " + numSearchStart);
