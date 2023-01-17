@@ -165,7 +165,7 @@ public class Partition {
                 }
                 
                 System.out.println("\n----------------------------------------------------------------------------------------------------------------");
-                System.out.println("Total : " + (n-1));
+                System.out.println("Total : " + n);
                } 
             
                 else if (command == 2) {

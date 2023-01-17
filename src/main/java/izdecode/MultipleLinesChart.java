@@ -61,7 +61,6 @@ public class MultipleLinesChart extends JFrame { // the class extends the JFrame
         XYSeriesCollection dataset = new XYSeriesCollection();
         XYSeries series1 = new XYSeries("Object 1");
         XYSeries series2 = new XYSeries("Object 2");
-        XYSeries series3 = new XYSeries("Object 3");
 
         ArrayList<String> x = new ArrayList<>();
         ArrayList<String> y = new ArrayList<>();
@@ -90,7 +89,7 @@ public class MultipleLinesChart extends JFrame { // the class extends the JFrame
                 }
             }
             series1.add(i, dayCreate);
-            series2.add(i,dayEnd);
+            series2.add(i, dayEnd);
             dayCreate = 0;
             dayEnd = 0;
         }
