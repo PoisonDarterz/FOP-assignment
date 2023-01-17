@@ -105,8 +105,7 @@ public class JobCreateEnd {
                     }
 
                     //System.out.printf("%-10d%-10d%-10d%n", i, dayCreate, dayEnd);
-                    
-                    
+
                     if(j == 1){
                         if(i == 1){
                             System.out.printf("%-30s","Day                     |");}
@@ -273,25 +272,18 @@ public class JobCreateEnd {
                 ArrayList<Integer> dayCreateArr = new ArrayList<>();
                 ArrayList<Integer> dayEndArr = new ArrayList<>();
                 int totalDays = 0;
-                
-               
-             
 
-              
-                
                 //// START THE ORIGINAL LOOP 
                 for (int i = startMonth; i <= endMonth; i++) {
                     if (i == endMonth) {
                         dayInMonth = endDay;
                     }
-                    System.out.println("Month: " + i);
+                    System.out.println("\n\nMonth: " + i);
                     ///ORIGINAL PRINTING STATEMENT 
                     ///System.out.printf("%-10s%-10s%-10s%n", "Day", "Create", "End");
                     
                     for(int k=1;k<=3;k++){
-                    for (int j = startDay; j <= dayInMonth; j++) {
-                        
-
+                        for (int j = startDay; j <= dayInMonth; j++) {
                         for (Create c : jobCreate) {
                             if (c.getTime().getDayOfMonth() == j && c.getTime().getMonthValue() == i) {
                                 dayCreate++;
@@ -304,30 +296,30 @@ public class JobCreateEnd {
                                 rangeEnd++;
                             }
                         }
-                        
+
                         ///ORIGINAL PRINTING STATEMENT
                         ///System.out.printf("%-10d%-10d%-10d%n", j, dayCreate, dayEnd);
-                        
-                        if(k == 1){
-                            if(j == startDay){
-                                System.out.printf("%-30s","Day                     |");}
-                                System.out.printf("%-5d" , j);
+
+                        if (k == 1) {
+                            if (j == startDay) {
+                                System.out.printf("%-30s", "Day                     |");
+                            }
+                            System.out.printf("%-5d", j);
+                        } else if (k == (startDay + 1)) {
+                            if (j == 1) {
+                                System.out.printf("\n%-30s", "Total completed job     |");
+                            }
+                            System.out.printf("%-5d", dayCreate);
+                        } else if (k == (startDay + 2)) {
+                            if (j == 1) {
+                                System.out.printf("\n%-30s", "Total ended     job     |");
+                            }
+                            System.out.printf("%-5d", dayEnd);
                         }
-                          
-                        else if(k == (startDay+1)){
-                            if(j == 1){
-                                System.out.printf("\n%-30s","Total completed job     |");}
-                                System.out.printf("%-5d" , dayCreate);
-                        }
-                    
-                        else if(k == (startDay+2)){
-                            if(j == 1){
-                                System.out.printf("\n%-30s","Total ended     job     |");}
-                                System.out.printf("%-5d" , dayEnd);
-                        }
-                        
-                    ///////////////////////////////////////
-                    
+
+
+                        ///////////////////////////////////////
+
                         totalDays++;
                         dayCreateArr.add(totalDays - 1, dayCreate);
                         dayEndArr.add(totalDays - 1, dayEnd);
@@ -357,12 +349,12 @@ public class JobCreateEnd {
                     startDay = 1;
                 
                 
-                }   //// End the original for loop
+                    }   //// End the original for loop
             
             }/////////// END PRINT TABLES
                 
                 
-                    System.out.println("Total days: " + totalDays);
+                    System.out.println("\nTotal days: " + totalDays);
                     double aveCreate = (double) rangeCreate / totalDays;
                     double aveEnd = (double) rangeEnd / totalDays;
                     //get median day of job created in month
