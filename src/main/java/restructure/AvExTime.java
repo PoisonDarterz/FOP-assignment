@@ -213,7 +213,7 @@ public class AvExTime {
                         }
                     }
                     System.out.println("\n-----------------------------------------------------------");
-                    System.out.println("The total number of incompleted job id : " + numNoJob);
+                    System.out.println("The total number of incompleted job id : " + nom);
 
                 }   // END OFR SUB COMMAND 2
 
