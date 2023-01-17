@@ -3,6 +3,7 @@ package restructure;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 import java.util.*;
 
 public class Main {
@@ -12,7 +13,9 @@ public class Main {
             AvExTime a = new AvExTime(fileName);
             Partition p = new Partition(fileName);
             int command = 0;
-
+            
+            JOptionPane.showMessageDialog(null,"This is some useless info","title",JOptionPane.PLAIN_MESSAGE);
+            
             do {
                 System.out.println("\n                   FOP Assignment                       ");
                 System.out.println("--------------------------------------------------------");
