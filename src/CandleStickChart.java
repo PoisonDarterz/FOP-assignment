@@ -11,8 +11,8 @@ import org.jfree.ui.RefineryUtilities;
 
 public class CandleStickChart extends ApplicationFrame {
 
-    public CandleStickChart(String titel) {
-        super(titel);
+    public CandleStickChart(String title) {
+        super(title);
 
         final DefaultHighLowDataset dataset = createDataset();
         final JFreeChart chart = createChart(dataset);
@@ -23,7 +23,7 @@ public class CandleStickChart extends ApplicationFrame {
 
     private DefaultHighLowDataset createDataset() {
 
-        int serice = 15;
+        int serice = 7;
 
         Date[] date = new Date[serice];
         double[] high = new double[serice];
@@ -37,14 +37,25 @@ public class CandleStickChart extends ApplicationFrame {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2008, 5, 1);
 
-        for (int i = 0; i < serice; i++) {
-            date[i] = createData(2008, 8, i + 1);
-            high[i] = 30 + Math.round(10) + new Double(Math.random() * 20.0);
-            low[i] = 30 + Math.round(10) + new Double(Math.random() * 20.0);
-            open[i] = 10 + Math.round(10) + new Double(Math.random() * 20.0);
-            close[i] = 10 + Math.round(10) + new Double(Math.random() * 20.0);
-            volume[i] = 10.0 + new Double(Math.random() * 20.0);
+//        for (int i = 0; i <serice; i++) {
+//            date[i] = createData(2022, 6+i, 1+i );
+//            high[i] = 166;
+//            low[i] = 30 + Math.round(10) + new Double(Math.random() * 20.0);
+//            open[i] = 10 + Math.round(10) + new Double(Math.random() * 20.0);
+//            close[i] = 10 + Math.round(10) + new Double(Math.random() * 20.0);
+//            volume[i] = 10.0 + new Double(Math.random() * 20.0);
+//        }
+
+
+        for (int i = 0; i <serice; i++) {
+            date[i] = createData(2022, 6+i, 1+i );
+            high[i] = 166;
+            low[i] = 30;
+            open[i] = 50;
+            close[i] =100;
+            volume[i] = 300;
         }
+
 
         DefaultHighLowDataset data = new DefaultHighLowDataset(
                 "", date, high, low, open, close, volume);
@@ -57,15 +68,14 @@ public class CandleStickChart extends ApplicationFrame {
         return calendar.getTime();
     }
 
-    private JFreeChart createChart(final
-                                   DefaultHighLowDataset dataset) {
+    private JFreeChart createChart(final DefaultHighLowDataset dataset) {
         final JFreeChart chart = ChartFactory.createCandlestickChart(
-                "Candlestick Demo", "Time", "Price", dataset, false);
+                "Number of Jobs Created By Months", "Months", "Number of Jobs", dataset, false);
         return chart;
     }
 
     public static void main(String args[]) {
-        CandleStickChart chart = new CandleStickChart("Candle Stick Chart");
+        CandleStickChart chart = new CandleStickChart("");
         chart.pack();
         RefineryUtilities.centerFrameOnScreen(chart);
         chart.setVisible(true);
