@@ -4,20 +4,21 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
-
+import restructure.Err_Inv;
 
 
 public class PieChart {
     public static void main(String[] args) {
         // Create a dataset for the pie chart
         DefaultPieDataset dataset = new DefaultPieDataset();
-        dataset.setValue("Invalid Qos Specification", new Double(157));
-        dataset.setValue("Invalid Account", new Double(52));
-        dataset.setValue("Invalid Job Id Specified", new Double(50));
-        dataset.setValue("Invalid Partition Name Specified", new Double(47));
-        dataset.setValue("Invalid Node Name Specified", new Double(4));
-        dataset.setValue("Invalid User Id", new Double(4));
-        dataset.setValue("Invalid Group Id", new Double(1));
+
+        dataset.setValue("Invalid Qos Specification", Err_Inv.amtInv[0]);
+        dataset.setValue("Invalid Account", Err_Inv.amtInv[6]);
+        dataset.setValue("Invalid Job Id Specified", Err_Inv.amtInv[2]);
+        dataset.setValue("Invalid Partition Name Specified", Err_Inv.amtInv[1]);
+        dataset.setValue("Invalid Node Name Specified", Err_Inv.amtInv[3]);
+        dataset.setValue("Invalid User Id", Err_Inv.amtInv[4]);
+        dataset.setValue("Invalid Group Id", Err_Inv.amtInv[5]);
 
         // Create a chart
         JFreeChart chart = ChartFactory.createPieChart(

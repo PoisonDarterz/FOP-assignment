@@ -1,5 +1,7 @@
 package restructure;
 
+import izdecode.PieChart3D;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -10,7 +12,7 @@ import java.util.Scanner;
 public class Partition {
     static Scanner sc = new Scanner(System.in);
     static LinkedHashMap<String,Integer> partition = new LinkedHashMap<>();
-    static int epyc=0,opte=0,v100s=0,k40c=0,titan=0,k10=0;
+    public static int epyc=0,opte=0,v100s=0,k40c=0,titan=0,k10=0;
 
     public Partition(String fileName){
         try{
@@ -188,6 +190,8 @@ public class Partition {
             } else if (command == -1) {
                 System.out.println("Exit");
                 break;
+            } else if (command == 314) {
+                PieChart3D.main(new String[]{""});
             } else {
                 System.out.println("Invalid command");
             }

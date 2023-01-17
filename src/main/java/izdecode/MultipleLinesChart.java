@@ -12,7 +12,6 @@ import org.jfree.data.xy.XYSeriesCollection;
 import restructure.Create;
 import restructure.End;
 import restructure.JobCreateEnd;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;

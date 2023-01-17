@@ -4,6 +4,7 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
+import restructure.Err_Inv;
 
 public class Bar {
     public static void main(String[] args) {
@@ -11,9 +12,9 @@ public class Bar {
         // Create a dataset for the bar chart
         // Create a dataset for the bar chart
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(629, "Users", "Errors");
-        dataset.setValue(315, "Users", "Invalid");
 
+        dataset.setValue(Err_Inv.numErr, "Users", "Errors");
+        dataset.setValue(Err_Inv.numInvalid, "Users", "Invalid");
 
         // Create a chart
         JFreeChart chart = ChartFactory.createBarChart(

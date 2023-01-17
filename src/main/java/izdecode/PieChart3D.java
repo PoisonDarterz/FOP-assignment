@@ -6,6 +6,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.util.Rotation;
+import restructure.Partition;
 
 import javax.swing.*;
 
@@ -15,12 +16,12 @@ public class PieChart3D extends JFrame {
         super(applicationTitle);
         // This will create the dataset
         DefaultPieDataset dataset = new DefaultPieDataset();
-        dataset.setValue("GPU-V100s", 618);
-        dataset.setValue("GPU-K10", 439);
-        dataset.setValue("GPU-Titan ", 673);
-        dataset.setValue("GPU-K40c ", 301);
-        dataset.setValue("CPU-Opteron", 4920);
-        dataset.setValue("CPU-EPYC", 3015);
+        dataset.setValue("GPU-V100s", Partition.v100s);
+        dataset.setValue("GPU-K10", Partition.k10);
+        dataset.setValue("GPU-Titan ", Partition.titan);
+        dataset.setValue("GPU-K40c ", Partition.k40c);
+        dataset.setValue("CPU-Opteron", Partition.opte);
+        dataset.setValue("CPU-EPYC", Partition.epyc);
         // based on the dataset we create the chart
         JFreeChart chart = ChartFactory.createPieChart3D(chartTitle, dataset, true, true, false);
         // we put the chart into a panel

@@ -1,5 +1,8 @@
 package restructure;
 
+import tc.Bar;
+import tc.PieChart;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -11,20 +14,13 @@ import java.util.Scanner;
 
 public class Err_Inv {
     static Scanner sc = new Scanner(System.in);
+    public static int amtInv[] = new int[7];
+    public static int numInvalid = 0;
+    public static int numErr = 0;
     public static void ErrorAndInvalid(String fileName) {
 
-        int numInvalid = 0;
-        int numErr = 0;
         String data = null;
-
-        int numQosSpec = 0;
-        int numPartition = 0;
-        int numJob = 0;
-        int numNode = 0;
-        int numUser = 0;
-        int numGroup = 0;
-        int numAccount = 0;
-
+        int sum = 0;
         //HashSet <String> invalid = new HashSet<String>();
         ArrayList<Error> user = new ArrayList<>();
         try {
@@ -48,20 +44,34 @@ public class Err_Inv {
                     }
                     if (content[i].equals("Invalid")) {
                         //System.out.println(data);
-                        if (content[i + 2].equals("specification"))
-                            numQosSpec++;
-                        if (content[i + 1].equals("partition"))
-                            numPartition++;
-                        if (content[i + 1].equals("job"))
-                            numJob++;
-                        if (content[i + 1].equals("node"))
-                            numNode++;
-                        if (content[i + 1].equals("user"))
-                            numUser++;
-                        if (content[i + 1].equals("group"))
-                            numGroup++;
-                        if (content[i + 1].equals("account"))
-                            numAccount++;
+                        if (content[i + 2].equals("specification")) {
+                            amtInv[0]++;
+                            sum++;
+                        }
+                        if (content[i + 1].equals("partition")) {
+                            amtInv[1]++;
+                            sum++;
+                        }
+                        if (content[i + 1].equals("job")) {
+                            amtInv[2]++;
+                            sum++;
+                        }
+                        if (content[i + 1].equals("node")) {
+                            amtInv[3]++;
+                            sum++;
+                        }
+                        if (content[i + 1].equals("user")) {
+                            amtInv[4]++;
+                            sum++;
+                        }
+                        if (content[i + 1].equals("group")) {
+                            amtInv[5]++;
+                            sum++;
+                        }
+                        if (content[i + 1].equals("account")) {
+                            amtInv[6]++;
+                            sum++;
+                        }
                     }
                 }
                 data = read.readLine();
@@ -72,20 +82,20 @@ public class Err_Inv {
             System.out.println("Error occurs while editing file");
         }
 
-        numInvalid = numQosSpec + numAccount + numGroup + numUser + numNode + numJob + numPartition;
+        numInvalid = sum;
         System.out.println("\nNumber of errors  : " + numErr);
         System.out.println("Number of invalid : " + numInvalid);
 
         System.out.println("\n---------------------------------------------------------------------");
         System.out.printf("%-50s%-20s\n", "Types of Invalid", "Number of Cases");
         System.out.println("---------------------------------------------------------------------");
-        System.out.printf("%-50s%-20s\n", "Invalid Qos Specification", numQosSpec);
-        System.out.printf("%-50s%-20d\n", "Invalid Account", numAccount);
-        System.out.printf("%-50s%-20d\n", "Invalid Job Id Specified", numJob);
-        System.out.printf("%-50s%-20d\n", "Invalid Partition Name Specified", numPartition);
-        System.out.printf("%-50s%-20d\n", "Invalid Node Name Specified", numNode);
-        System.out.printf("%-50s%-20d\n", "Invalid User Id", numUser);
-        System.out.printf("%-50s%-20d\n", "Invalid Group Id", numGroup);
+        System.out.printf("%-50s%-20s\n", "Invalid Qos Specification", amtInv[0]);
+        System.out.printf("%-50s%-20d\n", "Invalid Account", amtInv[6]);
+        System.out.printf("%-50s%-20d\n", "Invalid Job Id Specified", amtInv[2]);
+        System.out.printf("%-50s%-20d\n", "Invalid Partition Name Specified", amtInv[1]);
+        System.out.printf("%-50s%-20d\n", "Invalid Node Name Specified", amtInv[3]);
+        System.out.printf("%-50s%-20d\n", "Invalid User Id", amtInv[4]);
+        System.out.printf("%-50s%-20d\n", "Invalid Group Id", amtInv[5]);
 
         LinkedHashMap<String, Integer> errorCount = new LinkedHashMap<>();
         for (Error e : user) {
@@ -168,6 +178,10 @@ public class Err_Inv {
                 }
             } else if (command == -1){
                 break;
+            } else if (command == 38) {
+                Bar.main(new String[]{""});
+            } else if (command == 69) {
+                PieChart.main(new String[]{""});
             } else {
                 System.out.println("Invalid command");
             }
