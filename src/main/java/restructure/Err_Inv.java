@@ -1,5 +1,6 @@
 package restructure;
 
+import izdecode.BarError;
 import tc.Bar;
 import tc.PieChart;
 
@@ -17,11 +18,10 @@ public class Err_Inv {
     public static int amtInv[] = new int[7];
     public static int numInvalid = 0;
     public static int numErr = 0;
+    public static LinkedHashMap<String, Integer> errorCount = new LinkedHashMap<>();
     public static void ErrorAndInvalid(String fileName) {
-
         String data = null;
         int sum = 0;
-        //HashSet <String> invalid = new HashSet<String>();
         ArrayList<Error> user = new ArrayList<>();
         try {
             BufferedReader read = new BufferedReader(new FileReader(fileName));
@@ -97,7 +97,6 @@ public class Err_Inv {
         System.out.printf("%-50s%-20d\n", "Invalid User Id", amtInv[4]);
         System.out.printf("%-50s%-20d\n", "Invalid Group Id", amtInv[5]);
 
-        LinkedHashMap<String, Integer> errorCount = new LinkedHashMap<>();
         for (Error e : user) {
             if (errorCount.containsKey(e.getUser())) {
                 errorCount.put(e.getUser(), errorCount.get(e.getUser()) + 1);
@@ -182,6 +181,8 @@ public class Err_Inv {
                 Bar.main(new String[]{""});
             } else if (command == 69) {
                 PieChart.main(new String[]{""});
+            } else if (command == 673) {
+                BarError.main(new String[]{""});
             } else {
                 System.out.println("Invalid command");
             }
@@ -189,22 +190,3 @@ public class Err_Inv {
     }
 }
 
-class Error {
-    private LocalDateTime time;
-    private String username, errorType;
-    public Error(LocalDateTime time, String username, String errorType){
-        this.time = time;
-        this.username = username;
-        this.errorType = errorType;
-    }
-
-    public LocalDateTime getTime() {
-        return time;
-    }
-    public String getUser() {
-        return username;
-    }
-    public String getError() {
-        return errorType;
-    }
-}

@@ -17,9 +17,9 @@ public class Main {
                 System.out.println("\n                   FOP Assignment                       ");
                 System.out.println("--------------------------------------------------------");
                 System.out.println("1. Total number of completed and ended jobs");
-                System.out.println("2. Total number of completed and ended jobs by months");
-                System.out.println("3. Total number of job by partition");
-                System.out.println("4. Total number of errors and invalids");
+                System.out.println("2. Total number of completed and ended jobs by months"); //1
+                System.out.println("3. Total number of job by partition"); //1
+                System.out.println("4. Total number of errors and invalids"); //3
                 System.out.println("5. Execution time");
                 System.out.println("-1. QUIT");
                 System.out.print("Command -> ");
