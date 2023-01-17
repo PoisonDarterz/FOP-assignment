@@ -14,12 +14,29 @@ import java.util.Scanner;
 public class AvExTime {
     static Scanner input = new Scanner(System.in);
     static ArrayList createJobTime = new ArrayList();
-    static ArrayList createJobId = new ArrayList();
+    static ArrayList<String> createJobId = new ArrayList();
     static ArrayList endJobTime = new ArrayList();
     static ArrayList endJobId = new ArrayList();
     static ArrayList<Double> exeTime = new ArrayList<>();
     static ArrayList compare = new ArrayList();
     static double totalExecutionTime;
+
+    static int scatterNoCompletedJune = 0;
+    static int scatterNoCompletedJuly = 0;
+    static int scatterNoCompletedAus  = 0;
+    static int scatterNoCompletedSep  = 0;
+    static int scatterNoCompletedOct  = 0;
+    static int scatterNoCompletedNov  = 0;
+    static int scatterNoCompletedDec  = 0;
+
+    static ArrayList dscatterNoCompletedJune = new ArrayList();
+    static ArrayList dscatterNoCompletedJuly = new ArrayList();
+    static ArrayList dscatterNoCompletedAus  = new ArrayList();
+    static ArrayList dscatterNoCompletedSep  = new ArrayList();
+    static ArrayList dscatterNoCompletedOct  = new ArrayList();
+    static ArrayList dscatterNoCompletedNov  = new ArrayList();
+    static ArrayList dscatterNoCompletedDec  = new ArrayList();
+
     static ArrayList<ExeClass> exeArr = new ArrayList<>();
 
 
@@ -37,8 +54,8 @@ public class AvExTime {
                 String [] content = new String[num];
                 content = data.split(" ");
 
+                // Create job
                 for(int i=0;i<content.length;i++){
-                    // Create job
                     if(content[i].equals("Allocate")){
                         createJobTime.add(content[0]);
                         createJobId.add(content[i+1]);
@@ -57,6 +74,7 @@ public class AvExTime {
         catch(FileNotFoundException e){System.out.println("File Not Found");}
         catch(IOException e){System.out.println("Error occurs while editing file");}
     }
+
 
     public static void averageExecutionTime(String fileName) {
         int command = 0;
@@ -104,7 +122,6 @@ public class AvExTime {
             int No = 0;
             int nom = 0;
 
-
             if (command == 1 || command == 3 || command == 4) {
                 System.out.printf("\n%-8s%-20s%-20s%-30s%-30s%-30s\n", "No.", "Completed Job ID", "Ended Job ID", "Job Completed Time", "Job Ended Time", "Execution Time (mins)");
                 System.out.print("--------------------------------------------------------------------------------------------------------------------------------------");
@@ -126,9 +143,6 @@ public class AvExTime {
 
                             exeTime.add(milli);
 
-                            ExeClass exe = new ExeClass(createJobId.get(i).toString(), createTime, endTime, milli);
-                            exeArr.add(exe);
-
                             double output = (double) ((milliBetween / 1000.0) / 60);
                             No++;
 
@@ -138,8 +152,10 @@ public class AvExTime {
                                 System.out.printf("%.3f", output);
                             } else if (command == 3) {
                                 ////////////////SEARCH FOR COMPLETED  JOB
+
                                 String[] jobId2 = new String[num];
                                 jobId.toArray(jobId2);
+
 
                                 for (int k = 0; k < num; k++) {
                                     nom++;
@@ -193,10 +209,54 @@ public class AvExTime {
                         if (!noCreateJobId[e].equals("null")) {
                             nom++;
                             System.out.printf("%-8d%-30s%-30s\n", nom, createJobTime2[e], createJobId.get(e));
+                             if((createJobTime2[e].substring(6,8)).equals("06")){
+                                    scatterNoCompletedJune++;
+                                    dscatterNoCompletedJune.add(createJobId.get(e).substring(6,11));
+                                }
+                                else if((createJobTime2[e].substring(6,8)).equals("07")){
+                                    scatterNoCompletedJuly++;
+                                    dscatterNoCompletedJuly.add(createJobId.get(e).substring(6,11));
+                                }
+                                else if((createJobTime2[e].substring(6,8)).equals("08")){
+                                    scatterNoCompletedAus++;
+                                    dscatterNoCompletedAus.add(createJobId.get(e).substring(6,11));
+                                }
+                                else if((createJobTime2[e].substring(6,8)).equals("09")){
+                                    scatterNoCompletedSep++;
+                                    dscatterNoCompletedSep.add(createJobId.get(e).substring(6,11));
+                                }
+                                else if((createJobTime2[e].substring(6,8)).equals("10")){
+                                    scatterNoCompletedOct++;
+                                    dscatterNoCompletedOct.add(createJobId.get(e).substring(6,11));
+                                }
+                                else if((createJobTime2[e].substring(6,8)).equals("11")){
+                                    scatterNoCompletedNov++;
+                                    dscatterNoCompletedNov.add(createJobId.get(e).substring(6,11));
+                                }
+                                else if((createJobTime2[e].substring(6,8)).equals("12")){
+                                    scatterNoCompletedDec++;
+                                    dscatterNoCompletedDec.add(createJobId.get(e).substring(6,11));
+                                }
+
+
                         }
                     }
                     System.out.println("\n-----------------------------------------------------------");
                     System.out.println("The total number of incompleted job id : " + nom);
+
+                    System.out.println();
+
+                    System.out.println("The total number of incompleted job id in month [6]  : " + scatterNoCompletedJune);
+                    System.out.println("The total number of incompleted job id in month [7]  : " + scatterNoCompletedJuly);
+                    System.out.println("The total number of incompleted job id in month [8]  : " + scatterNoCompletedAus);
+                    System.out.println("The total number of incompleted job id in month [9]  : " + scatterNoCompletedSep);
+                    System.out.println("The total number of incompleted job id in month [10] : " + scatterNoCompletedOct);
+                    System.out.println("The total number of incompleted job id in month [11] : " + scatterNoCompletedNov);
+                    System.out.println("The total number of incompleted job id in month [12] : " + scatterNoCompletedDec);
+
+//                    for(int t=0;t<dscatterNoCompletedDec.size();t++){
+//                        System.out.println(dscatterNoCompletedDec.get(t));
+//                    }
 
                 }   // END OFR SUB COMMAND 2
 
@@ -213,8 +273,11 @@ public class AvExTime {
                         } // second for loop
                     }// first for loop (i)
                 }   // END FOR SUB COMMAND 3
+
+
             }     // END COMMAND 2 AND 3
             // Searching Not Found
+            //HashSet noEqual = new HashSet();
             String[] jobId3 = new String[num];
             jobId.toArray(jobId3);
 
