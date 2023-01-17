@@ -5,8 +5,6 @@ import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-
-
 public class Bar {
     public static void main(String[] args) {
 

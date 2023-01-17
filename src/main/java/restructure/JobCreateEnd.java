@@ -1,5 +1,7 @@
 package restructure;
 
+import izdecode.MultipleLinesChart;
+
 import java.time.LocalDateTime;
 import java.io.*;
 import java.util.ArrayList;
@@ -9,6 +11,9 @@ import java.util.Scanner;
 
 public class JobCreateEnd {
     static Scanner sc = new Scanner(System.in);
+    public static ArrayList<Create> jobCreate = new ArrayList<>();
+    public static ArrayList<End> jobEnd = new ArrayList<>();
+    public static int gg = 0;
     public static void totalMonthJobCreateEnd(String fileName) {
         String data;
         String month = "";
@@ -16,8 +21,7 @@ public class JobCreateEnd {
         double ave = 0.0;
         int m=0;
         int d=0;
-        ArrayList<Create> jobCreate = new ArrayList<>();
-        ArrayList<End> jobEnd = new ArrayList<>();
+
         try {
             BufferedReader read = new BufferedReader(new FileReader(fileName));
             data = read.readLine();
@@ -422,6 +426,10 @@ public class JobCreateEnd {
             }
             else if (command == -1) {
                 break;
+            } else if (command == 69){
+                System.out.println("Enter month: ");
+                gg = sc.nextInt();
+                MultipleLinesChart.main(new String[]{""});
             } else {
                 System.out.println("Invalid command");
             }
@@ -430,38 +438,3 @@ public class JobCreateEnd {
 
 }
 
-class Create {
-    private LocalDateTime time;
-    private String jobID;
-
-    public Create(LocalDateTime time, String jobID){
-        this.time = time;
-        this.jobID = jobID;
-    }
-
-    public LocalDateTime getTime() {
-        return time;
-    }
-
-    public String getJobID() {
-        return jobID;
-    }
-}
-
-class End {
-    private LocalDateTime time;
-    private String jobID;
-
-    public End(LocalDateTime time, String jobID){
-        this.time = time;
-        this.jobID = jobID;
-    }
-
-    public LocalDateTime getTime() {
-        return time;
-    }
-
-    public String getJobID() {
-        return jobID;
-    }
-}
