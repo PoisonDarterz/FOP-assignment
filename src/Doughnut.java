@@ -15,7 +15,7 @@ public class Doughnut extends JFrame {
         PieDataset dataset = createDataset();
 
         // Create chart
-        JFreeChart chart = ChartFactory.createRingChart("Number of jobs by partitions", dataset, true, true, false);
+        JFreeChart chart = ChartFactory.createRingChart("Types of Invalid", dataset, true, true, false);
         RingPlot plot = (RingPlot) chart.getPlot();
         plot.setSeparatorStroke(new BasicStroke(2));
         plot.setSeparatorPaint(Color.white);
@@ -26,18 +26,19 @@ public class Doughnut extends JFrame {
 
     private  PieDataset createDataset() {
         DefaultPieDataset dataset = new DefaultPieDataset();
-        dataset.setValue("GPU-V100s", 618);
-        dataset.setValue("GPU-K10", 439);
-        dataset.setValue("GPU-Titan ", 673);
-        dataset.setValue("GPU-K40c ", 301);
-        dataset.setValue("CPU-Opteron", 4920);
-        dataset.setValue("CPU-EPYC", 3015);
+        dataset.setValue("Invalid Qos Specification ", 157);
+        dataset.setValue("Invalid Account", 52);
+        dataset.setValue("Invalid Job Id Specified   ", 50);
+        dataset.setValue("Invalid Partition Name Specified  ", 47);
+        dataset.setValue("Invalid Node Name Specified", 4);
+        dataset.setValue("Invalid User Id ", 4);
+        dataset.setValue("Invalid Group Id ", 1);
         return dataset;
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            Doughnut chart = new Doughnut("Doughnut Chart Example");
+            Doughnut chart = new Doughnut("Types of Invalid");
             chart.setSize(1000, 800);
             chart.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             chart.setVisible(true);
