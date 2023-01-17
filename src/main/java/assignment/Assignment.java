@@ -4,6 +4,8 @@
  */
 package assignment;
 
+import restructure.AvExTime;
+
 import java.io.*;
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -1137,66 +1139,7 @@ public class Assignment {
 
             System.out.println();
 
-            System.out.printf("Total execution time : %.2f Days\n", ((totalExecutionTime / 3600) / 24));
-            System.out.printf("Total execution time : %.2f Hours\n", totalExecutionTime / 3600);
-            System.out.printf("Total execution time : %.2f Mins\n", totalExecutionTime / 60);
-            System.out.printf("Total execution time : %.2f Seconds\n", totalExecutionTime);
-
-            System.out.println();
-
-            System.out.printf("Average execution time : %.2f Days\n", (((totalExecutionTime / 3600) / 24) / No));
-            System.out.printf("Average execution time : %.2f Hours\n", (totalExecutionTime / 3600) / No);
-            System.out.printf("Average execution time : %.2f Mins\n", (totalExecutionTime / 60) / No);
-            System.out.printf("Average execution time : %.2f Seconds\n", (totalExecutionTime) / No);
-
-            System.out.println();
-
-            System.out.println("Highest Execution Time " + maxJobId);
-            System.out.printf("Highest execution time : %.2f Days\n", (((max / 3600) / 24)));
-            System.out.printf("Highest execution time : %.2f Hours\n", (max / 3600));
-            System.out.printf("Highest execution time : %.2f Mins\n", (max / 60));
-            System.out.printf("Highest execution time : %.2f Seconds\n", (max));
-
-            System.out.println();
-
-            System.out.println("Lowest Execution Time " + minJobId);
-            System.out.printf("Lowest execution time : %.2f milliseconds\n", min);
-
-            System.out.println();
-
-            Collections.sort(exeTime);
-            double median = 0;
-            double firstQuartile = 0;
-            double thirdQuartile = 0;
-
-            firstQuartile = exeTime.size() * 0.25;
-            thirdQuartile = exeTime.size() * 0.75;
-
-            double firQuartile = (exeTime.get((int) firstQuartile) + exeTime.get((int) firstQuartile + 1)) / 2 / 1000 / 60;
-
-            System.out.printf("First Quartile of execution time : %.1f mins\n", firQuartile);
-
-            if (exeTime.size() % 2 == 0) {
-                median = (exeTime.get((int) Math.floor(exeTime.size() / 2)) + exeTime.get(((int) Math.floor(exeTime.size() / 2) + 1))) / 2;
-            } else if (exeTime.size() % 2 == 1) {
-                median = exeTime.get((int) Math.ceil(exeTime.size() / 2));
-            }
-            median = (median / 1000) / 60;
-            System.out.printf("Median of execution time         : %.1f mins\n", median);
-
-            double thiQuartile = (exeTime.get((int) thirdQuartile) + exeTime.get((int) thirdQuartile + 1)) / 2 / 1000 / 60;
-            System.out.printf("Third Quartile of execution time : %.1f mins\n", thiQuartile);
-
-            System.out.println();
-
-            double iqr = thiQuartile - firQuartile;
-            double lowerLimit = firQuartile - (1.5 * iqr);
-            double upperLimit = thiQuartile + (1.5 * iqr);
-            System.out.printf("Interquartile range of execution time : %.1f mins\n", iqr);
-            System.out.printf("Lower limit of execution time         : %.1f mins\n", lowerLimit);
-            System.out.printf("Upper limit of execution time         : %.1f mins\n", upperLimit);
-
-            System.out.println("--------------------------------------------------------------------------------------------------------------------------------------");
+            AvExTime.displayExe(maxJobId, minJobId, max, min, No, totalExecutionTime, exeTime);
 
         }
     }// End method

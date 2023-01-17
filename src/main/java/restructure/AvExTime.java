@@ -20,6 +20,7 @@ public class AvExTime {
     static ArrayList<Double> exeTime = new ArrayList<>();
     static ArrayList compare = new ArrayList();
     static double totalExecutionTime;
+    static ArrayList<ExeClass> exeArr = new ArrayList<>();
 
 
     public AvExTime(String fileName){
@@ -36,8 +37,8 @@ public class AvExTime {
                 String [] content = new String[num];
                 content = data.split(" ");
 
-                // Create job
                 for(int i=0;i<content.length;i++){
+                    // Create job
                     if(content[i].equals("Allocate")){
                         createJobTime.add(content[0]);
                         createJobId.add(content[i+1]);
@@ -56,7 +57,6 @@ public class AvExTime {
         catch(FileNotFoundException e){System.out.println("File Not Found");}
         catch(IOException e){System.out.println("Error occurs while editing file");}
     }
-
 
     public static void averageExecutionTime(String fileName) {
         int command = 0;
@@ -104,6 +104,7 @@ public class AvExTime {
             int No = 0;
             int nom = 0;
 
+
             if (command == 1 || command == 3 || command == 4) {
                 System.out.printf("\n%-8s%-20s%-20s%-30s%-30s%-30s\n", "No.", "Completed Job ID", "Ended Job ID", "Job Completed Time", "Job Ended Time", "Execution Time (mins)");
                 System.out.print("--------------------------------------------------------------------------------------------------------------------------------------");
@@ -125,6 +126,9 @@ public class AvExTime {
 
                             exeTime.add(milli);
 
+                            ExeClass exe = new ExeClass(createJobId.get(i).toString(), createTime, endTime, milli);
+                            exeArr.add(exe);
+
                             double output = (double) ((milliBetween / 1000.0) / 60);
                             No++;
 
@@ -134,10 +138,8 @@ public class AvExTime {
                                 System.out.printf("%.3f", output);
                             } else if (command == 3) {
                                 ////////////////SEARCH FOR COMPLETED  JOB
-
                                 String[] jobId2 = new String[num];
                                 jobId.toArray(jobId2);
-
 
                                 for (int k = 0; k < num; k++) {
                                     nom++;
@@ -158,19 +160,12 @@ public class AvExTime {
                                 min = milliBetween;
                                 minJobId = (String) createJobId.get(i);
                             }
-
                             totalExecutionTime += (double) ((milliBetween / 1000.0));
                         }
-                        ////////// PART OF DISPLAY OF INCOMPLETED JOBID
-//                        String [] noCreateJobId = new String[createJobId.size()];
-//                        createJobId.toArray(noCreateJobId);
-                        //numNoCreateJobId.add(i);
                     }
-
                 }
             }
             ArrayList NoCreateJobId = new ArrayList<>();
-
 
             ///////// DISPLAY ALL THE INFO OF INCOMPLETED JOBID
             if (command == 2 || command == 3) {
@@ -193,16 +188,6 @@ public class AvExTime {
                 if (command == 2) {
                     System.out.printf("\n%-8s%-30s%-30s", "No.", "Job Assigned Time", "Not Completed Job ID");
                     System.out.println("\n------------------------------------------------------------");
-//                      }
-
-
-//                       for(int e=0;e<createJobId.size();e++){
-//                           if(numNoCreateJobId.contains(e) == false){
-//
-//                                System.out.printf("\n%-8d%-30s%-30s",numNoJob,createJobTime2[e],createJobId.get(e));
-//                           }
-//                       }
-
 
                     for (int e = 0; e < noCreateJobId.length; e++) {
                         if (!noCreateJobId[e].equals("null")) {
@@ -228,11 +213,8 @@ public class AvExTime {
                         } // second for loop
                     }// first for loop (i)
                 }   // END FOR SUB COMMAND 3
-
-
             }     // END COMMAND 2 AND 3
             // Searching Not Found
-            //HashSet noEqual = new HashSet();
             String[] jobId3 = new String[num];
             jobId.toArray(jobId3);
 
@@ -255,68 +237,7 @@ public class AvExTime {
             System.out.println("--------------------------------------------------------------------------------------------------------------------------------------");
             if (command == 4) {
                 System.out.println("Total number of completed Job : " + No);
-
-
-                System.out.printf("Total execution time : %.2f Days\n", ((totalExecutionTime / 3600) / 24));
-                System.out.printf("Total execution time : %.2f Hours\n", totalExecutionTime / 3600);
-                System.out.printf("Total execution time : %.2f Mins\n", totalExecutionTime / 60);
-                System.out.printf("Total execution time : %.2f Seconds\n", totalExecutionTime);
-
-                System.out.println();
-
-                System.out.printf("Average execution time : %.2f Days\n", (((totalExecutionTime / 3600) / 24) / No));
-                System.out.printf("Average execution time : %.2f Hours\n", (totalExecutionTime / 3600) / No);
-                System.out.printf("Average execution time : %.2f Mins\n", (totalExecutionTime / 60) / No);
-                System.out.printf("Average execution time : %.2f Seconds\n", (totalExecutionTime) / No);
-
-                System.out.println();
-
-                System.out.println("Highest Execution Time " + maxJobId);
-                System.out.printf("Highest execution time : %.2f Days\n", (((max / 3600) / 24)));
-                System.out.printf("Highest execution time : %.2f Hours\n", (max / 3600));
-                System.out.printf("Highest execution time : %.2f Mins\n", (max / 60));
-                System.out.printf("Highest execution time : %.2f Seconds\n", (max));
-
-                System.out.println();
-
-                System.out.println("Lowest Execution Time " + minJobId);
-                System.out.printf("Lowest execution time : %.2f milliseconds\n", min);
-
-                System.out.println();
-
-                Collections.sort(exeTime);
-                double median = 0;
-                double firstQuartile = 0;
-                double thirdQuartile = 0;
-
-                firstQuartile = exeTime.size() * 0.25;
-                thirdQuartile = exeTime.size() * 0.75;
-
-                double firQuartile = (exeTime.get((int) firstQuartile) + exeTime.get((int) firstQuartile + 1)) / 2 / 1000 / 60;
-                System.out.printf("First Quartile of execution time : %.1f mins\n", firQuartile);
-
-
-                if (exeTime.size() % 2 == 0) {
-                    median = (exeTime.get((int) Math.floor(exeTime.size() / 2)) + exeTime.get(((int) Math.floor(exeTime.size() / 2) + 1))) / 2;
-                } else if (exeTime.size() % 2 == 1) {
-                    median = exeTime.get((int) Math.ceil(exeTime.size() / 2));
-                }
-                median = (median / 1000) / 60;
-                System.out.printf("Median of execution time         : %.1f mins\n", median);
-
-                double thiQuartile = (exeTime.get((int) thirdQuartile) + exeTime.get((int) thirdQuartile + 1)) / 2 / 1000 / 60;
-                System.out.printf("Third Quartile of execution time : %.1f mins\n", thiQuartile);
-
-                System.out.println();
-
-                double iqr = thiQuartile - firQuartile;
-                double lowerLimit = firQuartile - (1.5 * iqr);
-                double upperLimit = thiQuartile + (1.5 * iqr);
-                System.out.printf("Interquartile range of execution time : %.1f mins\n", iqr);
-                System.out.printf("Lower limit of execution time         : %.1f mins\n", lowerLimit);
-                System.out.printf("Upper limit of execution time         : %.1f mins\n", upperLimit);
-
-                System.out.println("--------------------------------------------------------------------------------------------------------------------------------------");
+                displayExe(maxJobId, minJobId, max, min, No, totalExecutionTime, exeTime);
             }
 
             if (!(command >=1 && command <=4 || command == -1)){
@@ -324,5 +245,100 @@ public class AvExTime {
             }
         }while (command != -1);
     } // End method
+
+    public static void displayExe(String maxJobId, String minJobId, double max, double min, int no, double totalExecutionTime, ArrayList<Double> exeTime) {
+        System.out.printf("Total execution time : %.2f Days\n", ((totalExecutionTime / 3600) / 24));
+        System.out.printf("Total execution time : %.2f Hours\n", totalExecutionTime / 3600);
+        System.out.printf("Total execution time : %.2f Mins\n", totalExecutionTime / 60);
+        System.out.printf("Total execution time : %.2f Seconds\n", totalExecutionTime);
+
+        System.out.println();
+
+        System.out.printf("Average execution time : %.2f Days\n", (((totalExecutionTime / 3600) / 24) / no));
+        System.out.printf("Average execution time : %.2f Hours\n", (totalExecutionTime / 3600) / no);
+        System.out.printf("Average execution time : %.2f Mins\n", (totalExecutionTime / 60) / no);
+        System.out.printf("Average execution time : %.2f Seconds\n", (totalExecutionTime) / no);
+
+        System.out.println();
+
+        System.out.println("Highest Execution Time " + maxJobId);
+        System.out.printf("Highest execution time : %.2f Days\n", (((max / 3600) / 24)));
+        System.out.printf("Highest execution time : %.2f Hours\n", (max / 3600));
+        System.out.printf("Highest execution time : %.2f Mins\n", (max / 60));
+        System.out.printf("Highest execution time : %.2f Seconds\n", (max));
+
+        System.out.println();
+
+        System.out.println("Lowest Execution Time " + minJobId);
+        System.out.printf("Lowest execution time : %.2f milliseconds\n", min);
+
+        System.out.println();
+
+        Collections.sort(exeTime);
+        double median = 0;
+        double firstQuartile = 0;
+        double thirdQuartile = 0;
+
+        firstQuartile = exeTime.size() * 0.25;
+        thirdQuartile = exeTime.size() * 0.75;
+
+        double firQuartile = (exeTime.get((int) firstQuartile) + exeTime.get((int) firstQuartile + 1)) / 2 / 1000 / 60;
+        System.out.printf("First Quartile of execution time : %.1f mins\n", firQuartile);
+
+
+        if (exeTime.size() % 2 == 0) {
+            median = (exeTime.get((int) Math.floor(exeTime.size() / 2)) + exeTime.get(((int) Math.floor(exeTime.size() / 2) + 1))) / 2;
+        } else if (exeTime.size() % 2 == 1) {
+            median = exeTime.get((int) Math.ceil(exeTime.size() / 2));
+        }
+        median = (median / 1000) / 60;
+        System.out.printf("Median of execution time         : %.1f mins\n", median);
+
+        double thiQuartile = (exeTime.get((int) thirdQuartile) + exeTime.get((int) thirdQuartile + 1)) / 2 / 1000 / 60;
+        System.out.printf("Third Quartile of execution time : %.1f mins\n", thiQuartile);
+
+        System.out.println();
+
+        double iqr = thiQuartile - firQuartile;
+        double lowerLimit = firQuartile - (1.5 * iqr);
+        double upperLimit = thiQuartile + (1.5 * iqr);
+        System.out.printf("Interquartile range of execution time : %.1f mins\n", iqr);
+        System.out.printf("Lower limit of execution time         : %.1f mins\n", lowerLimit);
+        System.out.printf("Upper limit of execution time         : %.1f mins\n", upperLimit);
+
+        System.out.println("--------------------------------------------------------------------------------------------------------------------------------------");
+
+        System.out.println(exeTime);
+    }
+}
+
+class ExeClass {
+    private String jobId;
+    private LocalDateTime jobTime;
+    private LocalDateTime jobTime2;
+    private double exeTime;
+
+    public ExeClass(String jobId, LocalDateTime jobTime, LocalDateTime jobTime2, double exeTime) {
+        this.jobId = jobId;
+        this.jobTime = jobTime;
+        this.jobTime2 = jobTime2;
+        this.exeTime = exeTime;
+    }
+
+    public String getJobId() {
+        return jobId;
+    }
+
+    public LocalDateTime getJobTime() {
+        return jobTime;
+    }
+
+    public LocalDateTime getJobTime2() {
+        return jobTime2;
+    }
+
+    public double getExeTime() {
+        return exeTime;
+    }
 }
 
