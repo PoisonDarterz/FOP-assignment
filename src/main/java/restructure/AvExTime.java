@@ -14,18 +14,35 @@ import java.util.Scanner;
 public class AvExTime {
     static Scanner input = new Scanner(System.in);
     static ArrayList createJobTime = new ArrayList();
-    static ArrayList createJobId = new ArrayList();
+    static ArrayList<String> createJobId = new ArrayList();
     static ArrayList endJobTime = new ArrayList();
     static ArrayList endJobId = new ArrayList();
     static ArrayList<Double> exeTime = new ArrayList<>();
     static ArrayList compare = new ArrayList();
     static double totalExecutionTime;
-
+    
+    static int scatterNoCompletedJune = 0;
+    static int scatterNoCompletedJuly = 0;
+    static int scatterNoCompletedAus  = 0;
+    static int scatterNoCompletedSep  = 0;
+    static int scatterNoCompletedOct  = 0;
+    static int scatterNoCompletedNov  = 0;
+    static int scatterNoCompletedDec  = 0;
+    
+    static ArrayList dscatterNoCompletedJune = new ArrayList();
+    static ArrayList dscatterNoCompletedJuly = new ArrayList();
+    static ArrayList dscatterNoCompletedAus  = new ArrayList();
+    static ArrayList dscatterNoCompletedSep  = new ArrayList();
+    static ArrayList dscatterNoCompletedOct  = new ArrayList();
+    static ArrayList dscatterNoCompletedNov  = new ArrayList();
+    static ArrayList dscatterNoCompletedDec  = new ArrayList();
+        
 
     public AvExTime(String fileName){
         String data = "";
         totalExecutionTime = 0.0;
-
+        
+       
         try{
             BufferedReader read = new BufferedReader(new FileReader(fileName));
             data = read.readLine();
@@ -208,11 +225,55 @@ public class AvExTime {
                         if (!noCreateJobId[e].equals("null")) {
                             nom++;
                             System.out.printf("%-8d%-30s%-30s\n", nom, createJobTime2[e], createJobId.get(e));
+                             if((createJobTime2[e].substring(6,8)).equals("06")){
+                                    scatterNoCompletedJune++;
+                                    dscatterNoCompletedJune.add(createJobId.get(e).substring(6,11));
+                                }
+                                else if((createJobTime2[e].substring(6,8)).equals("07")){
+                                    scatterNoCompletedJuly++;
+                                    dscatterNoCompletedJuly.add(createJobId.get(e).substring(6,11));
+                                }
+                                else if((createJobTime2[e].substring(6,8)).equals("08")){
+                                    scatterNoCompletedAus++;
+                                    dscatterNoCompletedAus.add(createJobId.get(e).substring(6,11));
+                                }
+                                else if((createJobTime2[e].substring(6,8)).equals("09")){
+                                    scatterNoCompletedSep++;
+                                    dscatterNoCompletedSep.add(createJobId.get(e).substring(6,11));
+                                }
+                                else if((createJobTime2[e].substring(6,8)).equals("10")){
+                                    scatterNoCompletedOct++;
+                                    dscatterNoCompletedOct.add(createJobId.get(e).substring(6,11));
+                                }
+                                else if((createJobTime2[e].substring(6,8)).equals("11")){
+                                    scatterNoCompletedNov++;
+                                    dscatterNoCompletedNov.add(createJobId.get(e).substring(6,11));
+                                }
+                                else if((createJobTime2[e].substring(6,8)).equals("12")){
+                                    scatterNoCompletedDec++;
+                                    dscatterNoCompletedDec.add(createJobId.get(e).substring(6,11));
+                                }
+                            
+                        
                         }
                     }
                     System.out.println("\n-----------------------------------------------------------");
                     System.out.println("The total number of incompleted job id : " + nom);
-
+                    
+                    System.out.println();
+                    
+                    System.out.println("The total number of incompleted job id in month [6]  : " + scatterNoCompletedJune);
+                    System.out.println("The total number of incompleted job id in month [7]  : " + scatterNoCompletedJuly);
+                    System.out.println("The total number of incompleted job id in month [8]  : " + scatterNoCompletedAus);
+                    System.out.println("The total number of incompleted job id in month [9]  : " + scatterNoCompletedSep);
+                    System.out.println("The total number of incompleted job id in month [10] : " + scatterNoCompletedOct);
+                    System.out.println("The total number of incompleted job id in month [11] : " + scatterNoCompletedNov);
+                    System.out.println("The total number of incompleted job id in month [12] : " + scatterNoCompletedDec);
+                    
+//                    for(int t=0;t<dscatterNoCompletedDec.size();t++){
+//                        System.out.println(dscatterNoCompletedDec.get(t));
+//                    }
+                    
                 }   // END OFR SUB COMMAND 2
 
                 ///////// RESULT OF SEARCHING INCOMPLETED JOB
@@ -224,6 +285,7 @@ public class AvExTime {
                             if (noCreateJobId[j].equals(jobId.get(i))) {
                                 x++;
                                 System.out.printf("\n%-8d%-20s%-30s%-30s", x, createJobId.get(j), createJobTime2[j], "JOB IS NOT COMPLETED");
+                               
                             }
                         } // second for loop
                     }// first for loop (i)

@@ -135,7 +135,7 @@ public class Partition {
             System.out.println("----------------------------------------------------------------------------------------------------------------");
             System.out.println("\n1. Display job ID by partition");
             System.out.println("2. Search the partition used by job ID");
-            System.out.println("3. Print summary statistics again");
+            System.out.println("3. Print statistics data");
             System.out.println("-1. Exit");
             System.out.print("command -> ");
             command = sc.nextInt();

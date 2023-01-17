@@ -274,17 +274,13 @@ public class JobCreateEnd {
                 ArrayList<Integer> dayEndArr = new ArrayList<>();
                 int totalDays = 0;
                 
-               
-             
 
-              
-                
                 //// START THE ORIGINAL LOOP 
                 for (int i = startMonth; i <= endMonth; i++) {
                     if (i == endMonth) {
                         dayInMonth = endDay;
                     }
-                    System.out.println("Month: " + i);
+                    //System.out.println("Month: " + i);
                     ///ORIGINAL PRINTING STATEMENT 
                     ///System.out.printf("%-10s%-10s%-10s%n", "Day", "Create", "End");
                     
@@ -310,7 +306,9 @@ public class JobCreateEnd {
                         
                         if(k == 1){
                             if(j == startDay){
-                                System.out.printf("%-30s","Day                     |");}
+                                int x=0;
+                                System.out.println("\n\nMonth: " + i);
+                                System.out.printf("%-30s","Day                     |");x++;}
                                 System.out.printf("%-5d" , j);
                         }
                           
@@ -362,9 +360,10 @@ public class JobCreateEnd {
             }/////////// END PRINT TABLES
                 
                 
-                    System.out.println("Total days: " + totalDays);
+                    System.out.println("\nTotal number of days : " + totalDays);
                     double aveCreate = (double) rangeCreate / totalDays;
                     double aveEnd = (double) rangeEnd / totalDays;
+                    
                     //get median day of job created in month
                     Collections.sort(dayCreateArr);
                     int medianCreate = 0;
@@ -373,6 +372,7 @@ public class JobCreateEnd {
                     } else {
                         medianCreate = dayCreateArr.get(totalDays / 2);
                     }
+                    
                     //get median day of job ended in month
                     Collections.sort(dayEndArr);
                     int medianEnd = 0;
@@ -381,6 +381,7 @@ public class JobCreateEnd {
                     } else {
                         medianEnd = dayEndArr.get(totalDays / 2);
                     }
+                    
                     //first quartile number of jobs created
                     int firstQuartileCreate = 0;
                     if (totalDays % 4 == 0) {
@@ -388,6 +389,7 @@ public class JobCreateEnd {
                     } else {
                         firstQuartileCreate = dayCreateArr.get(totalDays / 4);
                     }
+                    
                     //first quartile number of jobs ended
                     int firstQuartileEnd = 0;
                     if (totalDays % 4 == 0) {
@@ -395,6 +397,7 @@ public class JobCreateEnd {
                     } else {
                         firstQuartileEnd = dayEndArr.get(totalDays / 4);
                     }
+                    
                     //third quartile number of jobs created
                     int thirdQuartileCreate = 0;
                     if (totalDays % 4 == 0) {
@@ -402,6 +405,7 @@ public class JobCreateEnd {
                     } else {
                         thirdQuartileCreate = dayCreateArr.get(totalDays * 3 / 4);
                     }
+                    
                     //third quartile number of jobs ended
                     int thirdQuartileEnd = 0;
                     if (totalDays % 4 == 0) {
@@ -410,23 +414,32 @@ public class JobCreateEnd {
                         thirdQuartileEnd = dayEndArr.get(totalDays * 3 / 4);
                     }
 
-                    System.out.println("\nTotal jobs created in range: " + rangeCreate);
-                    System.out.println("Total jobs ended in range: " + rangeEnd);
-                    System.out.printf("Average jobs created per day: %.2f\n", aveCreate);
-                    System.out.printf("Average jobs ended per day: %.2f\n", aveEnd);
+                    System.out.println("Total jobs created in range        : " + rangeCreate);
+                    System.out.println("Total jobs ended in range          : " + rangeEnd);
+                    
                     System.out.println();
-                    System.out.println("Day with most jobs created: Month " + monCMax + " Day " + dayCMax + " with " + dayCMaxAmt + " jobs created");
-                    System.out.println("Day with most jobs ended: Month " + monEMax + " Day " + dayEMax + " with " + dayEMaxAmt + " jobs ended");
-                    System.out.println("Day with least jobs created: Month " + monCMin + " Day " + dayCMin + " with " + dayCMinAmt + " jobs created");
-                    System.out.println("Day with least jobs ended: Month " + monEMin + " Day " + dayEMin + " with " + dayEMinAmt + " jobs ended");
+                    
+                    System.out.printf("Average jobs created per day       : %.2f\n", aveCreate);
+                    System.out.printf("Average jobs ended per day         : %.2f\n", aveEnd);
+                    
                     System.out.println();
-                    System.out.println("First quartile number of jobs created: " + firstQuartileCreate);
-                    System.out.println("Median day of jobs created: " + medianCreate);
-                    System.out.println("Third quartile number of jobs created: " + thirdQuartileCreate);
+                    
+                    System.out.println("Day with highest jobs created   : Month (" + monCMax + ") Day (" + dayCMax + ") with [" + dayCMaxAmt + "] jobs created");
+                    System.out.println("Day with highest jobs ended     : Month (" + monEMax + ") Day (" + dayEMax + ") with [" + dayEMaxAmt + "] jobs ended");
+                    System.out.println("Day with lowest  jobs created   : Month (" + monCMin + ") Day (" + dayCMin + ") with [" + dayCMinAmt + "] jobs created");
+                    System.out.println("Day with lowest  jobs ended     : Month (" + monEMin + ") Day (" + dayEMin + ") with [" + dayEMinAmt + "] jobs ended");
+                    
                     System.out.println();
-                    System.out.println("First quartile number of jobs ended: " + firstQuartileEnd);
-                    System.out.println("Median day of jobs ended: " + medianEnd);
-                    System.out.println("Third quartile number of jobs ended: " + thirdQuartileEnd);
+                    
+                    System.out.println("First quartile number of jobs [created] : " + firstQuartileCreate);
+                    System.out.println("Median day of jobs [created]            : " + medianCreate);
+                    System.out.println("Third quartile number of jobs c[reated] : " + thirdQuartileCreate);
+                    
+                    System.out.println();
+                    
+                    System.out.println("First quartile number of jobs [ended] : " + firstQuartileEnd);
+                    System.out.println("Median day of jobs [ended]            : " + medianEnd);
+                    System.out.println("Third quartile number of jobs [ended] : " + thirdQuartileEnd);
             }
             else if (command == -1) {
                 break;
