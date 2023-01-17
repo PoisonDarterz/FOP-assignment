@@ -306,6 +306,16 @@ public class Assignment {
                  System.out.println("End   Time [ 2022-" + searchMonthEnd + "-" + searchDayEnd + " ]  : NOT FOUND");
             }
             
+            if(!foundStart || !foundEnd){
+                System.out.println("\n");
+                if((!foundStart) && foundEnd)
+                System.out.println("INVALID START DATE");
+                else if(foundStart && !foundEnd)
+                System.out.println("INVALID END DATE");
+                else if(!foundStart && !foundEnd)
+                System.out.println("INVALID BOTH START AND END DATE");
+            }
+            
             if(foundStart && foundEnd){
                  System.out.println("\n");
                  System.out.println("Total number of job created within the given time range : " + numSearchStart);
@@ -409,7 +419,7 @@ public class Assignment {
 
                  }    //////////////// End searchTImeStart - searchTimeEnd = 0
                  
-                 
+       
    //////////////// End searchTImeStart - searchTimeEnd = 1    
                  
                  else if(searchMonthEnd - searchMonthStart == 1){
@@ -599,17 +609,18 @@ public class Assignment {
                  }
                   else if(searchMonthEnd == 12){
                      for(int k =1;k<=searchDayEnd;k++){
-                             System.out.printf("%-5d",numJobEndNov[k-1]);
+                             System.out.printf("%-5d",numJobEndDec[k-1]);
                      }
                   }
                  }    /////////////// END FOR (i == 1) searchTimeStart - searchTimeEnd = 1
+                
+                 }   
                  
-   /////////////// START FOR searchTimeStart - searchTimeEnd >= 1     
-    
-              
-//////////////////  THIS PART UNABLE TO RUN *******************                  
+                 
+                 
+                //////////////////  THIS PART UNABLE TO RUN *******************                  
                  else if((searchMonthEnd - searchMonthStart) > 1){
-                     System.out.println(searchMonthEnd - searchMonthStart);  
+                         
                  /////// (i = 0) searchMonthEnd - searchMonthStart > 1                    
                  
                  if(i == 0){                        
@@ -708,13 +719,26 @@ public class Assignment {
                      }      /////// END (i = 0) searchMonthEnd - searchMonthStart >= 1 
                     
                     
-                /////// (i = 0) searchMonthEnd - searchMonthStart >= 1  
-                else if(i > 0 && i < searchMonthEnd){
+                /////// (i > 0 && i < searchMonthEnd) searchMonthEnd - searchMonthStart >= 1  
+                else if(i > 0 && i < (searchMonthEnd-searchMonthStart)){
                         
  /////////////// START FOR
-                for(int n = 1;n < searchMonthEnd;n++){
-                 int temptMonthStart = searchMonthStart + n; 
-                   
+              
+                int temptMonthStart =searchMonthStart;
+                ArrayList<Integer>tempt = new ArrayList<Integer>();
+                
+                for(int n=1;n < (searchMonthEnd-searchMonthStart);n++){ 
+                 int x=1;
+                 temptMonthStart = temptMonthStart + x;
+                 
+                    System.out.println(temptMonthStart);
+                 if((temptMonthStart == (searchMonthStart+1)) && n>1){
+                     System.out.println("break");
+                     break;
+                 }
+                 
+                 x++;
+
                  System.out.println("\n\nMonth : " + (temptMonthStart));
                  System.out.printf("%-30s","Day                      |");
                  
@@ -804,20 +828,19 @@ public class Assignment {
                  }
                   else if(temptMonthStart == 12){
                      for(int k =1;k<=16;k++){
-                             System.out.printf("%-5d",numJobEndNov[k-1]);
+                             System.out.printf("%-5d",numJobEndDec[k-1]);
                      }
                   }
                             
-                        }
+                      }
                          /////////////// END FOR LOOP
                         
                     }      /////// END (i = 0) searchMonthEnd - searchMonthStart >= 1 
-                    
-                    
-                    
-                 /////// (i = 0) searchMonthEnd - searchMonthStart >= 1            
-                 else if(i == searchMonthEnd){
-                     
+   
+                /////// (i = 0) searchMonthEnd - searchMonthStart >= 1            
+                else if(i == searchMonthEnd-searchMonthStart){
+                
+                
                  System.out.println("\n\nMonth : " + searchMonthEnd);
                  System.out.printf("%-30s","Day                      |");
                  
@@ -912,10 +935,14 @@ public class Assignment {
                   }
                     }       /////// END (i = 0) searchMonthEnd - searchMonthStart >= 1 
                 
-                 }          /////// END searchMonthEnd - searchMonthStart >= 1
+                 }          /////// END searchMonthEnd - searchMonthStart >= 1        
+                       
+                     
                  
-                 }    /////////////// END FOR DISPLAYING TABLE
-            }
+                 
+                 
+                 
+                 }
                  }
                  
             

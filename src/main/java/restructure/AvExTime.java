@@ -61,7 +61,7 @@ public class AvExTime {
     public static void averageExecutionTime(String fileName) {
         int command = 0;
         do {
-            System.out.println("\n\n1. Display all the completed job ids");
+            System.out.println("\n1. Display all the completed job ids");
             System.out.println("2. Display all the not completed job ids");
             System.out.println("3. Search for particular job id(s)");
             System.out.println("4. Display Statistical data of execution time again");

@@ -133,7 +133,7 @@ public class Partition {
         do {
             int command = 0;
             System.out.println("----------------------------------------------------------------------------------------------------------------");
-            System.out.println("1. Display job ID by partition");
+            System.out.println("\n1. Display job ID by partition");
             System.out.println("2. Search the partition used by job ID");
             System.out.println("3. Print summary statistics again");
             System.out.println("-1. Exit");
@@ -153,12 +153,20 @@ public class Partition {
                 System.out.println("----------------------------------------------------------------------------------------------------------------");
                 System.out.println("Job ID");
                 System.out.println("----------------------------------------------------------------------------------------------------------------");
+                
+                int n=0;
                 for (String code : partition.keySet()) {
                     if (partition.get(code) == partSearch) {
-                        System.out.println(code);
+                        System.out.println((n+1) + ", " + code);
+                        n++;
                     }
                 }
-            } else if (command == 2) {
+                
+                System.out.println("\n----------------------------------------------------------------------------------------------------------------");
+                System.out.println("Total : " + (n-1));
+               } 
+            
+                else if (command == 2) {
                 System.out.println("----------------------------------------------------------------------------------------------------------------");
                 System.out.print("Enter job ID : ");
                 String jobID = sc.next();

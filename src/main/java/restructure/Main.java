@@ -20,7 +20,7 @@ public class Main {
                 System.out.println("2. Total number of completed and ended jobs by months");
                 System.out.println("3. Total number of job by partition");
                 System.out.println("4. Total number of errors and invalids");
-                System.out.println("5. Average execution time");
+                System.out.println("5. Execution time");
                 System.out.println("-1. QUIT");
                 System.out.print("Command -> ");
                 command = input.nextInt();
@@ -45,5 +45,9 @@ public class Main {
     public static LocalDateTime convertToLDT(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("'['yyyy-MM-dd'T'HH:mm:ss.SSS']'");
         return LocalDateTime.parse(date, formatter);
+    }
+
+    private static void System(String cls) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
