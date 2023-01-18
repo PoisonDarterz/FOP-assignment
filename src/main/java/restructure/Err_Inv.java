@@ -76,7 +76,7 @@ public class Err_Inv {
         System.out.println("\nNumber of errors  : " + numErr);
         System.out.println("Number of invalid : " + numInvalid);
 
-        System.out.println("\n---------------------------------------------------------------------");
+        System.out.println("\n\n---------------------------------------------------------------------");
         System.out.printf("%-50s%-20s\n", "Types of Invalid", "Number of Cases");
         System.out.println("---------------------------------------------------------------------");
         System.out.printf("%-50s%-20s\n", "Invalid Qos Specification", numQosSpec);
@@ -98,7 +98,7 @@ public class Err_Inv {
 
         do {
             int command = 0;
-            System.out.println("----------------------------------------------------------------------------------------------------------------");
+            System.out.println("\n\n----------------------------------------------------------------------------------------------------------------");
             System.out.println("1. Search for error by user name");
             System.out.println("2. Search by error types");
             System.out.println("3. Search error by month");
@@ -111,7 +111,7 @@ public class Err_Inv {
                 int count = 0;
                 System.out.println("Enter username: ");
                 String name = sc.next();
-                System.out.println("---------------------------------------------------------------------");
+                System.out.println("\n---------------------------------------------------------------------");
                 System.out.printf("%20s %20s %20s\n", "Time", "User", "Error");
                 System.out.println("---------------------------------------------------------------------");
                 for (Error error : user) {
@@ -128,7 +128,7 @@ public class Err_Inv {
                 int count = 0;
                 System.out.println("Enter error type (normal / long / extended): ");
                 String type = sc.next();
-                System.out.println("---------------------------------------------------------------------");
+                System.out.println("\n---------------------------------------------------------------------");
                 System.out.printf("%20s %20s %20s\n", "Time", "User", "Error");
                 System.out.println("---------------------------------------------------------------------");
                 for (Error error : user) {
@@ -145,7 +145,7 @@ public class Err_Inv {
                 int count = 0;
                 System.out.println("Enter month (6-12): ");
                 int month = sc.nextInt();
-                System.out.println("---------------------------------------------------------------------");
+                System.out.println("\n---------------------------------------------------------------------");
                 System.out.printf("%20s %20s %20s\n", "Time", "User", "Error");
                 System.out.println("---------------------------------------------------------------------");
 
@@ -160,7 +160,7 @@ public class Err_Inv {
                     System.out.println("Invalid input");
                 }
             } else if (command == 4) {
-                System.out.println("---------------------------------------------------------------------");
+                System.out.println("\n---------------------------------------------------------------------");
                 System.out.printf("%-20s%-5s\n", "Username", "Number of Cases");
                 System.out.println("---------------------------------------------------------------------");
                 for (String code : errorCount.keySet()) {
