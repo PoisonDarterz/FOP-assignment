@@ -26,19 +26,16 @@ public class Doughnut extends JFrame {
 
     private  PieDataset createDataset() {
         DefaultPieDataset dataset = new DefaultPieDataset();
-        dataset.setValue("Invalid Qos Specification ", 157);
-        dataset.setValue("Invalid Account", 52);
-        dataset.setValue("Invalid Job Id Specified   ", 50);
-        dataset.setValue("Invalid Partition Name Specified  ", 47);
-        dataset.setValue("Invalid Node Name Specified", 4);
-        dataset.setValue("Invalid User Id ", 4);
-        dataset.setValue("Invalid Group Id ", 1);
+        dataset.setValue("Total\n2416.68 (Day)\n58000.31 (Hour)\n3480018.68 (Min)\n208801121.02 (Sec)" , 2416.68);
+        dataset.setValue("Average\n462.03 (Min)\n0.32 (Day)\n7.70 (Hour)\n27721.87 (Sec)" , 462.03);
+        dataset.setValue("Highest\n340.18 (Hour)\n14.17 (Day)\n20410.70 (Min)\n1224642 (Sec)" , 340.18);
+        dataset.setValue("Lowest\n189 (MilliSec)" , 189.00);
         return dataset;
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            Doughnut chart = new Doughnut("Types of Invalid");
+            Doughnut chart = new Doughnut("Execution Time By Days");
             chart.setSize(1000, 800);
             chart.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             chart.setVisible(true);
