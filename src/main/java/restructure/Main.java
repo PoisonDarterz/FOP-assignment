@@ -67,7 +67,20 @@ public class Main {
                     case 3 -> Err_Inv.ErrorAndInvalid(fileName);
                     case 4 -> a.averageExecutionTime(fileName);
                     case 5 -> {
-                        System.out.println("\nThank you for using our program!");
+//                        System.out.println("\nThank you for using our program!");
+//                        System.exit(0);
+                      
+                      ImageIcon icons = new ImageIcon("C:/Users/USER/Pictures/end2.png");    
+                       
+                      String [] close = {"close"};
+                      JOptionPane.showOptionDialog(null,
+                      "Thank you for using our program"
+                      , "End",                               
+                      JOptionPane.PLAIN_MESSAGE, 
+                      3, 
+                       icons, 
+                       close, 
+                        close[0]);
                         System.exit(0);
                     }
                 }

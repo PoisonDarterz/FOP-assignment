@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import javax.swing.JOptionPane;
 import java.util.Scanner;
+import javax.swing.ImageIcon;
 
 public class Err_Inv {
     static Scanner sc = new Scanner(System.in);
@@ -110,12 +111,14 @@ public class Err_Inv {
 //            System.out.print("command -> ");
 //            command = sc.nextInt();
             
+            ImageIcon icon = new ImageIcon("C:/Users/USER/Pictures/error.png"); 
+ 
             var command = JOptionPane.showOptionDialog(null,
                       "\n                        Error and Invalid Analysis\n-------------------------------------------------------------------------------\n1. Search for error by user name\n2. Search by error types\n3. Search error by month \n4. Display general errors report\n5. Exit\nSelect one : "       
                       , "Error and Invalid Analysis",                               
                       0, 
                       3, 
-                      null, 
+                      icon, 
                       options, 
                       options[0]);
 

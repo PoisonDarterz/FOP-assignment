@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import javax.swing.JOptionPane;
 import java.util.Scanner;
+import javax.swing.ImageIcon;
 
 public class Partition {
     static Scanner sc = new Scanner(System.in);
@@ -127,10 +128,15 @@ public class Partition {
             }
         }
     }
-
+    
+    
+    
     public static void jobByPartitions(String fileName){
         printStatPart();
         //search function
+        
+        ImageIcon icon = new ImageIcon("C:/Users/USER/Pictures/gpu.png"); 
+        
         do {
             int command = 0;
 //            System.out.println("----------------------------------------------------------------------------------------------------------------");
@@ -148,7 +154,7 @@ public class Partition {
                       , "Partition Analysis",                               
                       0, 
                       3, 
-                       null, 
+                       icon, 
                        options, 
                        options[0]);
               

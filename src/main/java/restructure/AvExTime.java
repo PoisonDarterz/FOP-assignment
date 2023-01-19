@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.JOptionPane;
 import java.util.Scanner;
+import javax.swing.ImageIcon;
 
 
 public class AvExTime {
@@ -92,13 +93,14 @@ public class AvExTime {
 //            System.out.print("command -> ");
 //            command = input.nextInt();
 
-
+            ImageIcon icon = new ImageIcon("C:/Users/USER/Pictures/exe.png"); 
+            
             command = JOptionPane.showOptionDialog(null,
                       "\n                            Execution time Analysis\n-------------------------------------------------------------------------------\n1. Display all the completed job ids\n2. Display all the not completed job ids\n3. Search for particular job id(s)\n4. Display Statistical data of execution time \nExit\nSelect one : "       
                       , "Execution time Analysis",                               
                       0, 
                       3, 
-                       null, 
+                       icon, 
                        option, 
                        option[0]);
               
