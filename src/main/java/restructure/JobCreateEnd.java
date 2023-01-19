@@ -5,6 +5,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import javax.swing.JOptionPane;
 import java.util.Scanner;
 
 public class JobCreateEnd {
@@ -45,20 +46,32 @@ public class JobCreateEnd {
         } catch (IOException e) {
             System.out.println("Error occurs while editing file");
         }
-
+        
+        String [] option = {"1","2","Back"};
+        
         do {
-            int command = 0;
-            System.out.println("\n--------------------------------------------------------------------------------");
-            System.out.println("1 . Search month data");
-            System.out.println("2 . Search data  within given time range");
-            System.out.println("-1. Exit");
-            System.out.print("command -> ");
-            command = sc.nextInt();
+//            int command = 0;
+//            System.out.println("\n--------------------------------------------------------------------------------");
+//            System.out.println("1 . Search month data");
+//            System.out.println("2 . Search data  within given time range");
+//            System.out.println("-1. Exit");
+//            System.out.print("command -> ");
+//            command = sc.nextInt();
+
+            var command = JOptionPane.showOptionDialog(null,
+                      "\n                     Job Created & Ended Analysis\n-------------------------------------------------------------------------------\n1 . Search month data\n2 . Search data within given time range\nExit\nSelect one : "       
+                      , "Job Created & Ended Analysis",                               
+                      0, 
+                      3, 
+                       null, 
+                       option, 
+                       option[0]);
+              
 
             //output amount of jobs created and completed every day in a month
             int rangeCreate = 0;
             int rangeEnd = 0;
-            if (command == 1) {      
+            if (command == 0) {      
                 System.out.print("\nEnter month (6-12): ");
                 m = sc.nextInt();
                 if (m < 6 || m > 12) {
@@ -200,7 +213,7 @@ public class JobCreateEnd {
                     thirdQuartileEnd = dayEndArr[dayInMonth * 3 / 4];
                 }
 
-                System.out.println("\nTotal jobs created in month " + m + " : " + monthCreate);
+                System.out.println("\n\nTotal jobs created in month " + m + " : " + monthCreate);
                 System.out.println("Total jobs ended   in month " + m + " : " + monthEnd);
                 System.out.printf("Average jobs created per day : %.2f\n", aveCreate);
                 System.out.printf("Average jobs ended per day   : %.2f\n", aveEnd);
@@ -226,7 +239,7 @@ public class JobCreateEnd {
 
             }
             //output amount of jobs created and completed every day within given time range
-            else if (command == 2) {
+            else if (command == 1) {
                 System.out.println("\n       User's input        ");
                 System.out.println("---------------------------");
                 System.out.print("Enter start month (6-12): ");
@@ -360,7 +373,10 @@ public class JobCreateEnd {
             }/////////// END PRINT TABLES
                 
                 
-                    System.out.println("\nTotal number of days : " + totalDays);
+                    System.out.println("\n\nTotal number of days : " + totalDays);
+                    
+                    System.out.println();
+                    
                     double aveCreate = (double) rangeCreate / totalDays;
                     double aveEnd = (double) rangeEnd / totalDays;
                     
@@ -441,11 +457,9 @@ public class JobCreateEnd {
                     System.out.println("Median day of jobs [ended]            : " + medianEnd);
                     System.out.println("Third quartile number of jobs [ended] : " + thirdQuartileEnd);
             }
-            else if (command == -1) {
+            else if (command == 2) {
                 break;
-            } else {
-                System.out.println("Invalid command");
-            }
+            } 
         } while (true);
     }
 

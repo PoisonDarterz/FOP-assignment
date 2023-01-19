@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedHashMap;
+import javax.swing.JOptionPane;
 import java.util.Scanner;
 
 public class Partition {
@@ -132,17 +133,31 @@ public class Partition {
         //search function
         do {
             int command = 0;
-            System.out.println("----------------------------------------------------------------------------------------------------------------");
-            System.out.println("\n1. Display job ID by partition");
-            System.out.println("2. Search the partition used by job ID");
-            System.out.println("3. Print statistics data");
-            System.out.println("-1. Exit");
-            System.out.print("command -> ");
-            command = sc.nextInt();
+//            System.out.println("----------------------------------------------------------------------------------------------------------------");
+//            System.out.println("\n1. Display job ID by partition");
+//            System.out.println("2. Search the partition used by job ID");
+//            System.out.println("3. Print statistics data");
+//            System.out.println("-1. Exit");
+//            System.out.print("command -> ");
+//            command = sc.nextInt();
 
-            if (command == 1) {
+              String[] options = { "1", "2", "3","Back" };
+              
+              var selection = JOptionPane.showOptionDialog(null,
+                      "\n                                 Partition Analysis\n-------------------------------------------------------------------------------\n1. Display job ID by partition\n2. Search the partition used by job ID\n3. Print statistics data\n4. Exit\nSelect one : "       
+                      , "Partition Analysis",                               
+                      0, 
+                      3, 
+                       null, 
+                       options, 
+                       options[0]);
+              
+
+            if (selection == 0) {
                 System.out.println("----------------------------------------------------------------------------------------------------------------");
-                System.out.println("Partition 1: CPU-EPYC");
+                System.out.println("\nDisplay IDs by Partition");
+                System.out.println("-----------------------------");
+                System.out.println("\nPartition 1: CPU-EPYC");
                 System.out.println("Partition 2: CPU-Opteron");
                 System.out.println("Partition 3: GPU-V100s");
                 System.out.println("Partition 4: GPU-K40c");
@@ -155,25 +170,32 @@ public class Partition {
                 System.out.println("----------------------------------------------------------------------------------------------------------------");
                 
                 int n=0;
+                int endline = 0;
                 for (String code : partition.keySet()) {
                     if (partition.get(code) == partSearch) {
-                        System.out.println((n+1) + ", " + code);
+                        System.out.printf("%-3d.%-10s%-10s",(n+1) , code,"");
+                         endline++;
+                        if(endline == 3){
+                            System.out.println();
+                            endline = 0;
+                        }    
                         n++;
+                       
                     }
                 }
                 
                 System.out.println("\n----------------------------------------------------------------------------------------------------------------");
-                System.out.println("Total : " + (n-1));
+                System.out.println("Total : " + (n));
                } 
             
-                else if (command == 2) {
+                else if (selection == 1) {
                 System.out.println("----------------------------------------------------------------------------------------------------------------");
                 System.out.print("Enter job ID : ");
                 String jobID = sc.next();
                 if (partition.containsKey(jobID)) {
                     int part = partition.get(jobID);
                     switch(part) {
-                    case 1 -> System.out.println("Partition : CPU-EPYC");
+                    case 1 -> System.out.println("\nPartition : CPU-EPYC");
                     case 2 -> System.out.println("Partition : CPU-Opteron");
                     case 3 -> System.out.println("Partition : GPU-V100s");
                     case 4 -> System.out.println("Partition : GPU-K40c");
@@ -183,14 +205,13 @@ public class Partition {
                 } else {
                     System.out.println("Job ID not found");
                 }
-            } else if (command == 3){
+            } else if (selection == 2){
                 printStatPart();
-            } else if (command == -1) {
+            } else if (selection == 3) {
                 System.out.println("Exit");
                 break;
-            } else {
-                System.out.println("Invalid command");
-            }
+            } 
+            
         }while(true);
     }
 
@@ -216,7 +237,7 @@ public class Partition {
                 }
             }
         }
-        System.out.println("The highest number of partition : " + arrname[0] + " = " + arr[0]);
-        System.out.println("The lowest number of partition : " + arrname[5] + " = " + arr[5]);
+        System.out.println("The highest number of partition : " + arrname[0] + " = (" + arr[0] + ")");
+        System.out.println("The lowest  number of partition : " + arrname[5] + " = (" + arr[5] + ")");
     }
 }

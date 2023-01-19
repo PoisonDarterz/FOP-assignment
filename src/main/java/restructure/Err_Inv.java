@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import javax.swing.JOptionPane;
 import java.util.Scanner;
 
 public class Err_Inv {
@@ -95,28 +96,42 @@ public class Err_Inv {
                 errorCount.put(e.getUser(), 1);
             }
         }
-
+        
+        String [] options = {"1","2","3","4","Back"};
+        
         do {
-            int command = 0;
-            System.out.println("\n\n----------------------------------------------------------------------------------------------------------------");
-            System.out.println("1. Search for error by user name");
-            System.out.println("2. Search by error types");
-            System.out.println("3. Search error by month");
-            System.out.println("4. General error report");
-            System.out.println("-1. Exit");
-            System.out.print("command -> ");
-            command = sc.nextInt();
+            //int command = 0;
+//            System.out.println("\n\n----------------------------------------------------------------------------------------------------------------");
+//            System.out.println("1. Search for error by user name");
+//            System.out.println("2. Search by error types");
+//            System.out.println("3. Search error by month");
+//            System.out.println("4. General error report");
+//            System.out.println("-1. Exit");
+//            System.out.print("command -> ");
+//            command = sc.nextInt();
+            
+            var command = JOptionPane.showOptionDialog(null,
+                      "\n                        Error and Invalid Analysis\n-------------------------------------------------------------------------------\n1. Search for error by user name\n2. Search by error types\n3. Search error by month \n4. Display general errors report\n5. Exit\nSelect one : "       
+                      , "Error and Invalid Analysis",                               
+                      0, 
+                      3, 
+                      null, 
+                      options, 
+                      options[0]);
 
-            if (command == 1) {
+            if (command == 0) {
                 int count = 0;
-                System.out.println("Enter username: ");
-                String name = sc.next();
+                System.out.println("\n\nSearch errors by user's name");
+                System.out.println("------------------------------");
+                System.out.print("Enter username: ");
+                sc.next();
+                String name = sc.nextLine();
                 System.out.println("\n---------------------------------------------------------------------");
-                System.out.printf("%20s %20s %20s\n", "Time", "User", "Error");
+                System.out.printf("%-30s %-30s %-30s\n", "Time", "User", "Error");
                 System.out.println("---------------------------------------------------------------------");
                 for (Error error : user) {
                     if (error.getUser().contains(name)) {
-                        System.out.printf("%20s %20s %20s\n", error.getTime(), error.getUser(), error.getError());
+                        System.out.printf("%-30s %-30s %-30s\n", error.getTime(), error.getUser(), error.getError());
                         count++;
                     }
                 }
@@ -124,9 +139,11 @@ public class Err_Inv {
                 if(count == 0) {
                     System.out.println("No error found, or no such user");
                 }
-            } else if (command == 2){
+            } else if (command == 1){
                 int count = 0;
-                System.out.println("Enter error type (normal / long / extended): ");
+                System.out.println("\n\nSearch errors type");
+                System.out.println("-----------------------------------------------------");
+                System.out.print("Enter error type (normal / long / extended): ");
                 String type = sc.next();
                 System.out.println("\n---------------------------------------------------------------------");
                 System.out.printf("%20s %20s %20s\n", "Time", "User", "Error");
@@ -141,17 +158,19 @@ public class Err_Inv {
                 if (count == 0) {
                     System.out.println("Invalid error type");
                 }
-            } else if (command == 3){
+            } else if (command == 2){
                 int count = 0;
-                System.out.println("Enter month (6-12): ");
+                System.out.println("\n\nSearch errors by month");
+                System.out.println("---------------------------");
+                System.out.print("Enter month (6-12): ");
                 int month = sc.nextInt();
                 System.out.println("\n---------------------------------------------------------------------");
-                System.out.printf("%20s %20s %20s\n", "Time", "User", "Error");
+                System.out.printf("%-30s %-30s %-30s\n", "Time", "User", "Error");
                 System.out.println("---------------------------------------------------------------------");
 
                 for (Error error : user) {
                     if (error.getTime().getMonthValue() == month) {
-                        System.out.printf("%20s %20s %20s\n", error.getTime(), error.getUser(), error.getError());
+                        System.out.printf("%-30s %-30s %-30s\n", error.getTime(), error.getUser(), error.getError());
                         count++;
                     }
                 }
@@ -159,18 +178,16 @@ public class Err_Inv {
                 if (count == 0) {
                     System.out.println("Invalid input");
                 }
-            } else if (command == 4) {
-                System.out.println("\n---------------------------------------------------------------------");
+            } else if (command == 3) {
+                System.out.println("\n\n---------------------------------------------------------------------");
                 System.out.printf("%-20s%-5s\n", "Username", "Number of Cases");
                 System.out.println("---------------------------------------------------------------------");
                 for (String code : errorCount.keySet()) {
                     System.out.printf("%-20s%-20s\n", code, errorCount.get(code));
                 }
-            } else if (command == -1){
+            } else if (command == 4){
                 break;
-            } else {
-                System.out.println("Invalid command");
-            }
+            } 
         } while (true);
     }
 }
