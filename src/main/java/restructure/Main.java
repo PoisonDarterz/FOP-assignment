@@ -13,7 +13,7 @@ public class Main {
             String fileName = "./file-in/log.txt";
             AvExTime a = new AvExTime(fileName);
             Partition p = new Partition(fileName);
-            int command = 0;
+            //int command = 0;
             
             //JOptionPane.showMessageDialog(null,"This is some useless info","title",JOptionPane.PLAIN_MESSAGE);
             
