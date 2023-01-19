@@ -74,11 +74,13 @@ public class JobCreateEnd {
             //output amount of jobs created and completed every day in a month
             int rangeCreate = 0;
             int rangeEnd = 0;
-            if (command == 0) {      
-                System.out.print("\nEnter month (6-12): ");
+            if (command == 0) {  
+                System.out.println("\nSearch month data");
+                System.out.println("-----------------------");
+                System.out.print("Enter month (6-12): ");
                 m = sc.nextInt();
                 if (m < 6 || m > 12) {
-                    System.out.println("Invalid month");
+                    System.out.println("\nError found : Invalid month");
                     continue;
                 }
                 int dayInMonth = 0;
@@ -243,8 +245,9 @@ public class JobCreateEnd {
             }
             //output amount of jobs created and completed every day within given time range
             else if (command == 1) {
-                System.out.println("\n       User's input        ");
-                System.out.println("---------------------------");
+                System.out.println("\nSearch created and ended jobs within a given time range");
+                System.out.println("--------------------------------------------------------");
+                System.out.println("User's input -       ");
                 System.out.print("Enter start month (6-12): ");
                 int startMonth = sc.nextInt();
                 System.out.print("Enter start day         : ");
@@ -258,11 +261,11 @@ public class JobCreateEnd {
                 int endDay = sc.nextInt();
 
                 if (startMonth < 6 || startMonth > 12 || endMonth < 6 || endMonth > 12) {
-                    System.out.println("Error found       : Invalid month");
+                    System.out.println("\nError found       : Invalid month");
                     continue;
                 }
                 if (endMonth < startMonth || (endMonth == startMonth && endDay <= startDay)) {
-                    System.out.println("Error found       : Invalid date range");
+                    System.out.println("\nError found       : Invalid date range");
                     continue;
                 }
 
@@ -277,7 +280,7 @@ public class JobCreateEnd {
                     case 12 -> dayInMonth = 16;
                 }
                 if (startDay < 1 || startDay > dayInMonth || endDay < 1 || endDay > dayInMonth) {
-                    System.out.println("Error found       : Invalid day");
+                    System.out.println("\nError found       : Invalid day");
                     continue;
                 }
                 int dayCreate = 0;
