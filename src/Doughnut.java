@@ -15,7 +15,7 @@ public class Doughnut extends JFrame {
         PieDataset dataset = createDataset();
 
         // Create chart
-        JFreeChart chart = ChartFactory.createRingChart("Types of Invalid", dataset, true, true, false);
+        JFreeChart chart = ChartFactory.createRingChart("Execution Time", dataset, true, true, false);
         RingPlot plot = (RingPlot) chart.getPlot();
         plot.setSeparatorStroke(new BasicStroke(2));
         plot.setSeparatorPaint(Color.white);
@@ -35,7 +35,7 @@ public class Doughnut extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            Doughnut chart = new Doughnut("Execution Time By Days");
+            Doughnut chart = new Doughnut("Execution Time");
             chart.setSize(1000, 800);
             chart.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             chart.setVisible(true);
