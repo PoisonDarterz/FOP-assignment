@@ -302,6 +302,15 @@ public class JobCreateEnd {
 
                 //// START THE ORIGINAL LOOP 
                 for (int i = startMonth; i <= endMonth; i++) {
+                    switch (i) {
+                        case 6 -> dayInMonth = 30;
+                        case 7 -> dayInMonth = 31;
+                        case 8 -> dayInMonth = 31;
+                        case 9 -> dayInMonth = 30;
+                        case 10 -> dayInMonth = 31;
+                        case 11 -> dayInMonth = 30;
+                        case 12 -> dayInMonth = 16;
+                    }
                     if (i == endMonth) {
                         dayInMonth = endDay;
                     }

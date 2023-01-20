@@ -136,8 +136,7 @@ public class Err_Inv {
                 System.out.println("\n\nSearch errors by user's name");
                 System.out.println("------------------------------");
                 System.out.print("Enter username: ");
-                sc.next();
-                String name = sc.nextLine();
+                String name = sc.next();
                 System.out.println("\n---------------------------------------------------------------------");
                 System.out.printf("%-30s %-30s %-30s\n", "Time", "User", "Error");
                 System.out.println("---------------------------------------------------------------------");
@@ -187,7 +186,7 @@ public class Err_Inv {
                     }
                 }
                 System.out.println("Total number of errors: " + count);
-                if (count == 0) {
+                if (count == 0 && !(month == 7 || month == 12)) {
                     System.out.println("Invalid input");
                 }
             } else if (command == 3) {
