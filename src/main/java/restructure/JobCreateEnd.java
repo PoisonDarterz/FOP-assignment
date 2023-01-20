@@ -7,7 +7,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import javax.swing.JOptionPane;
 import java.util.Scanner;
+import javax.swing.ImageIcon;
 
 public class JobCreateEnd {
     static Scanner sc = new Scanner(System.in);
@@ -49,21 +51,41 @@ public class JobCreateEnd {
             System.out.println("Error occurs while editing file");
         }
 
+        String [] option = {"1","2","Back"};
+
         do {
-            int command = 0;
-            System.out.println("\n--------------------------------------------------------------------------------");
-            System.out.println("1 . Search month data");
-            System.out.println("2 . Search data  within given time range");
-            System.out.println("-1. Exit");
-            System.out.print("command -> ");
-            command = sc.nextInt();
+//            int command = 0;
+//            System.out.println("\n--------------------------------------------------------------------------------");
+//            System.out.println("1 . Search month data");
+//            System.out.println("2 . Search data  within given time range");
+//            System.out.println("-1. Exit");
+//            System.out.print("command -> ");
+//            command = sc.nextInt();
+
+            ImageIcon icon = new ImageIcon("C:/Users/USER/Pictures/job.png");
+
+            var command = JOptionPane.showOptionDialog(null,
+                      "\n                     Job Created & Ended Analysis\n-------------------------------------------------------------------------------\n1 . Search month data\n2 . Search data within given time range\nExit\nSelect one : "
+                      , "Job Created & Ended Analysis",
+                      0,
+                      3,
+                       icon,
+                       option,
+                       option[0]);
+
 
             //output amount of jobs created and completed every day in a month
             int rangeCreate = 0;
             int rangeEnd = 0;
-            if (command == 1) {      
-                System.out.print("\nEnter month (6-12): ");
+            if (command == 0) {
+                System.out.println("\nSearch month data");
+                System.out.println("-----------------------");
+                System.out.print("Enter month (6-12): ");
                 m = sc.nextInt();
+                if (m < 6 || m > 12) {
+                    System.out.println("\nError found : Invalid month");
+                    continue;
+                }
                 int dayInMonth = 0;
                 switch (m) {
                     case 6 -> dayInMonth = 30;
@@ -202,7 +224,7 @@ public class JobCreateEnd {
                     thirdQuartileEnd = dayEndArr[dayInMonth * 3 / 4];
                 }
 
-                System.out.println("\nTotal jobs created in month " + m + " : " + monthCreate);
+                System.out.println("\n\nTotal jobs created in month " + m + " : " + monthCreate);
                 System.out.println("Total jobs ended   in month " + m + " : " + monthEnd);
                 System.out.printf("Average jobs created per day : %.2f\n", aveCreate);
                 System.out.printf("Average jobs ended per day   : %.2f\n", aveEnd);
@@ -228,9 +250,10 @@ public class JobCreateEnd {
 
             }
             //output amount of jobs created and completed every day within given time range
-            else if (command == 2) {
-                System.out.println("\n       User's input        ");
-                System.out.println("---------------------------");
+            else if (command == 1) {
+                System.out.println("\nSearch created and ended jobs within a given time range");
+                System.out.println("--------------------------------------------------------");
+                System.out.println("User's input -       ");
                 System.out.print("Enter start month (6-12): ");
                 int startMonth = sc.nextInt();
                 System.out.print("Enter start day         : ");
@@ -244,11 +267,11 @@ public class JobCreateEnd {
                 int endDay = sc.nextInt();
 
                 if (startMonth < 6 || startMonth > 12 || endMonth < 6 || endMonth > 12) {
-                    System.out.println("Error found       : Invalid month");
+                    System.out.println("\nError found       : Invalid month");
                     continue;
                 }
                 if (endMonth < startMonth || (endMonth == startMonth && endDay <= startDay)) {
-                    System.out.println("Error found       : Invalid date range");
+                    System.out.println("\nError found       : Invalid date range");
                     continue;
                 }
 
@@ -263,7 +286,7 @@ public class JobCreateEnd {
                     case 12 -> dayInMonth = 16;
                 }
                 if (startDay < 1 || startDay > dayInMonth || endDay < 1 || endDay > dayInMonth) {
-                    System.out.println("Error found       : Invalid day");
+                    System.out.println("\nError found       : Invalid day");
                     continue;
                 }
                 int dayCreate = 0;
@@ -275,6 +298,7 @@ public class JobCreateEnd {
                 ArrayList<Integer> dayCreateArr = new ArrayList<>();
                 ArrayList<Integer> dayEndArr = new ArrayList<>();
                 int totalDays = 0;
+                
 
                 //// START THE ORIGINAL LOOP 
                 for (int i = startMonth; i <= endMonth; i++) {
@@ -354,9 +378,14 @@ public class JobCreateEnd {
                 }/////////// END PRINT TABLES
                 
                 
+                    System.out.println("\n\nTotal number of days : " + totalDays);
+
+                    System.out.println();
+
                     System.out.println("\n\nTotal days: " + totalDays);
                     double aveCreate = (double) rangeCreate / totalDays;
                     double aveEnd = (double) rangeEnd / totalDays;
+                    
                     //get median day of job created in month
                     Collections.sort(dayCreateArr);
                     int medianCreate = 0;
@@ -365,6 +394,7 @@ public class JobCreateEnd {
                     } else {
                         medianCreate = dayCreateArr.get(totalDays / 2);
                     }
+                    
                     //get median day of job ended in month
                     Collections.sort(dayEndArr);
                     int medianEnd = 0;
@@ -373,6 +403,7 @@ public class JobCreateEnd {
                     } else {
                         medianEnd = dayEndArr.get(totalDays / 2);
                     }
+                    
                     //first quartile number of jobs created
                     int firstQuartileCreate = 0;
                     if (totalDays % 4 == 0) {
@@ -380,6 +411,7 @@ public class JobCreateEnd {
                     } else {
                         firstQuartileCreate = dayCreateArr.get(totalDays / 4);
                     }
+                    
                     //first quartile number of jobs ended
                     int firstQuartileEnd = 0;
                     if (totalDays % 4 == 0) {
@@ -387,6 +419,7 @@ public class JobCreateEnd {
                     } else {
                         firstQuartileEnd = dayEndArr.get(totalDays / 4);
                     }
+                    
                     //third quartile number of jobs created
                     int thirdQuartileCreate = 0;
                     if (totalDays % 4 == 0) {
@@ -394,6 +427,7 @@ public class JobCreateEnd {
                     } else {
                         thirdQuartileCreate = dayCreateArr.get(totalDays * 3 / 4);
                     }
+                    
                     //third quartile number of jobs ended
                     int thirdQuartileEnd = 0;
                     if (totalDays % 4 == 0) {
@@ -429,8 +463,9 @@ public class JobCreateEnd {
                     System.out.println("Median day of jobs [ended]            : " + medianEnd);
                     System.out.println("Third quartile number of jobs [ended] : " + thirdQuartileEnd);
             }
-            else if (command == -1) {
+            else if (command == 2) {
                 break;
+
             } else if (command == 69){
                 System.out.println("Enter month: ");
                 gg = sc.nextInt();

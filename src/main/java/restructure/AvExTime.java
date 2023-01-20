@@ -8,7 +8,9 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
+import javax.swing.JOptionPane;
 import java.util.Scanner;
+import javax.swing.ImageIcon;
 
 
 public class AvExTime {
@@ -77,23 +79,42 @@ public class AvExTime {
 
 
     public static void averageExecutionTime(String fileName) {
-        int command = 0;
+        //int command = 0;
+
+        String [] option = {"1","2","3","4","Back"};
+
+        var command=-1;
+
         do {
-            System.out.println("\n1. Display all the completed job ids");
-            System.out.println("2. Display all the not completed job ids");
-            System.out.println("3. Search for particular job id(s)");
-            System.out.println("4. Display Statistical data of execution time again");
-            System.out.println("-1. Exit");
-            System.out.print("command -> ");
-            command = input.nextInt();
+//            System.out.println("\n1. Display all the completed job ids");
+//            System.out.println("2. Display all the not completed job ids");
+//            System.out.println("3. Search for particular job id(s)");
+//            System.out.println("4. Display Statistical data of execution time again");
+//            System.out.println("-1. Exit");
+//            System.out.print("command -> ");
+//            command = input.nextInt();
+
+            ImageIcon icon = new ImageIcon("C:/Users/USER/Pictures/exe.png");
+
+            command = JOptionPane.showOptionDialog(null,
+                      "\n                            Execution time Analysis\n-------------------------------------------------------------------------------\n1. Display all the completed job ids\n2. Display all the not completed job ids\n3. Search for particular job id(s)\n4. Display Statistical data of execution time \nExit\nSelect one : "
+                      , "Execution time Analysis",
+                      0,
+                      3,
+                       icon,
+                       option,
+                       option[0]);
+
 
             int num = 0;
 
             ArrayList jobId = new ArrayList();
 
             System.out.println();
-            if (command == 3) {
+            if (command == 2) {
 
+                System.out.println("Search for particular job ids");
+                System.out.println("---------------------------------------");
                 System.out.print("Enter the amount of Job Id to search : ");
                 num = input.nextInt();
 
@@ -122,11 +143,11 @@ public class AvExTime {
             int No = 0;
             int nom = 0;
 
-            if (command == 1 || command == 3 || command == 4) {
+            if (command == 0 || command == 2 || command == 3) {
                 System.out.printf("\n%-8s%-20s%-20s%-30s%-30s%-30s\n", "No.", "Completed Job ID", "Ended Job ID", "Job Completed Time", "Job Ended Time", "Execution Time (mins)");
                 System.out.print("--------------------------------------------------------------------------------------------------------------------------------------");
             }
-            if (command != -1) {
+            if (command != 4) {
                 for (int i = 0; i < createJobId.size(); i++) {
 
                     for (int j = 0; j < endJobId.size(); j++) {
@@ -147,7 +168,7 @@ public class AvExTime {
                             No++;
 
                             ///////// DISPLAY ALL THE INFO OF JOBID
-                            if (command == 1) {
+                            if (command == 0) {
                                 System.out.printf("\n%-8d%-20s%-20s%-30s%-30s", No, createJobId.get(i), endJobId.get(j), createJobTime2[i], endJobTime2[j]);
                                 System.out.printf("%.3f", output);
                             } else if (command == 3) {
@@ -176,15 +197,22 @@ public class AvExTime {
                                 min = milliBetween;
                                 minJobId = (String) createJobId.get(i);
                             }
+
                             totalExecutionTime += (double) ((milliBetween / 1000.0));
                         }
+                        ////////// PART OF DISPLAY OF INCOMPLETED JOBID
+//                        String [] noCreateJobId = new String[createJobId.size()];
+//                        createJobId.toArray(noCreateJobId);
+                        //numNoCreateJobId.add(i);
                     }
+
                 }
             }
             ArrayList NoCreateJobId = new ArrayList<>();
 
+
             ///////// DISPLAY ALL THE INFO OF INCOMPLETED JOBID
-            if (command == 2 || command == 3) {
+            if (command == 1 || command == 2) {
                 String[] noCreateJobId = new String[createJobId.size()];
                 createJobId.toArray(noCreateJobId);
                 for (int i = 0; i < createJobId.size(); i++) {
@@ -201,9 +229,19 @@ public class AvExTime {
                     }
                 }
 
-                if (command == 2) {
+                if (command == 1) {
                     System.out.printf("\n%-8s%-30s%-30s", "No.", "Job Assigned Time", "Not Completed Job ID");
                     System.out.println("\n------------------------------------------------------------");
+//                      }
+
+
+//                       for(int e=0;e<createJobId.size();e++){
+//                           if(numNoCreateJobId.contains(e) == false){
+//
+//                                System.out.printf("\n%-8d%-30s%-30s",numNoJob,createJobTime2[e],createJobId.get(e));
+//                           }
+//                       }
+
 
                     for (int e = 0; e < noCreateJobId.length; e++) {
                         if (!noCreateJobId[e].equals("null")) {
@@ -261,7 +299,7 @@ public class AvExTime {
                 }   // END OFR SUB COMMAND 2
 
                 ///////// RESULT OF SEARCHING INCOMPLETED JOB
-                else if (command == 3) {
+                else if (command == 2) {
 
                     int x = 0;
                     for (int i = 0; i < num; i++) {
@@ -269,6 +307,7 @@ public class AvExTime {
                             if (noCreateJobId[j].equals(jobId.get(i))) {
                                 x++;
                                 System.out.printf("\n%-8d%-20s%-30s%-30s", x, createJobId.get(j), createJobTime2[j], "JOB IS NOT COMPLETED");
+                               
                             }
                         } // second for loop
                     }// first for loop (i)
@@ -298,7 +337,7 @@ public class AvExTime {
             }
 
             System.out.println("--------------------------------------------------------------------------------------------------------------------------------------");
-            if (command == 4) {
+            if (command == 3 || command == 0) {
                 System.out.println("Total number of completed Job : " + No);
                 displayExe(maxJobId, minJobId, max, min, No, totalExecutionTime, exeTime);
             }
@@ -306,7 +345,7 @@ public class AvExTime {
             if (!(command >=1 && command <=4 || command == -1)){
                 System.out.println("Invalid Command");
             }
-        }while (command != -1);
+        }while (command != 4);
     } // End method
 
     public static void displayExe(String maxJobId, String minJobId, double max, double min, int no, double totalExecutionTime, ArrayList<Double> exeTime) {
@@ -403,5 +442,7 @@ class ExeClass {
     public double getExeTime() {
         return exeTime;
     }
+
+
 }
 
