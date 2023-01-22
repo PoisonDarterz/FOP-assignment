@@ -1,17 +1,20 @@
 package restructure;
 
+import izdecode.PieChart3D;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
+import javax.swing.JOptionPane;
 import java.util.Scanner;
+import javax.swing.ImageIcon;
 
 public class Partition {
     static Scanner sc = new Scanner(System.in);
     static LinkedHashMap<String,Integer> partition = new LinkedHashMap<>();
-    static int epyc=0,opte=0,v100s=0,k40c=0,titan=0,k10=0;
+    public static int epyc=0,opte=0,v100s=0,k40c=0,titan=0,k10=0;
 
     public Partition(String fileName){
         try{
@@ -28,27 +31,22 @@ public class Partition {
                 if(content[1].equals("sched/backfill:")){
                     String jobID = content[4].substring(6);
                     if(content[6].equals("cpu-epyc")) {
-//                        numEPYC++;
                         partition.put(jobID, 1);
                     }
                     if(content[6].equals("cpu-opteron")) {
-//                        numOpteron++;
                         partition.put(jobID, 2);
                     }
                     if(content[6].equals("gpu-v100s")){
-//                        numV100++;
+
                         partition.put(jobID, 3);
                     }
                     if(content[6].equals("gpu-k40c")) {
-//                        numK40c++;
                         partition.put(jobID, 4);
                     }
                     if(content[6].equals("gpu-titan")) {
-//                        numTitan++;
                         partition.put(jobID, 5);
                     }
                     if(content[6].equals("gpu-k10")) {
-//                        numK10++;
                         partition.put(jobID, 6);
                     }
                 }
@@ -56,7 +54,6 @@ public class Partition {
                 for (String content1 : content) {
                     String jobID = "";
                     if (content1.equals("Partition=cpu-epyc")) {
-//                        numEPYC++;
                         for(String content2 : content){
                             if(content2.contains("JobId=")){
                                 jobID=content2.substring(6);
@@ -65,7 +62,6 @@ public class Partition {
                         partition.put(jobID, 1);
                     }
                     if (content1.equals("Partition=cpu-opteron")) {
-//                        numOpteron++;
                         for(String content2 : content){
                             if(content2.contains("JobId=")){
                                 jobID=content2.substring(6);
@@ -74,7 +70,6 @@ public class Partition {
                         partition.put(jobID, 2);
                     }
                     if (content1.equals("Partition=gpu-v100s")) {
-//                        numV100++;
                         for(String content2 : content){
                             if(content2.contains("JobId=")){
                                 jobID=content2.substring(6);
@@ -83,7 +78,6 @@ public class Partition {
                         partition.put(jobID, 3);
                     }
                     if (content1.equals("Partition=gpu-k40c")) {
-//                        numK40c++;
                         for(String content2 : content){
                             if(content2.contains("JobId=")){
                                 jobID=content2.substring(6);
@@ -92,7 +86,6 @@ public class Partition {
                         partition.put(jobID, 4);
                     }
                     if (content1.equals("Partition=gpu-titan")) {
-//                        numTitan++;
                         for(String content2 : content){
                             if(content2.contains("JobId=")){
                                 jobID=content2.substring(6);
@@ -101,7 +94,6 @@ public class Partition {
                         partition.put(jobID, 5);
                     }
                     if (content1.equals("Partition=gpu-k10")) {
-//                        numK10++;
                         for(String content2 : content){
                             if(content2.contains("JobId=")){
                                 jobID=content2.substring(6);
@@ -139,22 +131,41 @@ public class Partition {
         }
     }
 
+
+
     public static void jobByPartitions(String fileName){
         printStatPart();
         //search function
+
+        ImageIcon icon = new ImageIcon("C:/Users/USER/Pictures/gpu.png");
+
         do {
             int command = 0;
-            System.out.println("----------------------------------------------------------------------------------------------------------------");
-            System.out.println("1. Display job ID by partition");
-            System.out.println("2. Search the partition used by job ID");
-            System.out.println("3. Print summary statistics again");
-            System.out.println("-1. Exit");
-            System.out.print("command -> ");
-            command = sc.nextInt();
+//            System.out.println("----------------------------------------------------------------------------------------------------------------");
+//            System.out.println("\n1. Display job ID by partition");
+//            System.out.println("2. Search the partition used by job ID");
+//            System.out.println("3. Print statistics data");
+//            System.out.println("-1. Exit");
+//            System.out.print("command -> ");
+//            command = sc.nextInt();
 
-            if (command == 1) {
+              String[] options = { "1", "2", "3","4", "Back" };
+
+              var selection = JOptionPane.showOptionDialog(null,
+                      "\n                                 Partition Analysis\n-------------------------------------------------------------------------------\n1. Display job ID by partition\n2. Search the partition used by job ID\n3. Print statistics data\n4. Show Chart\n5. Exit\nSelect one : "
+                      , "Partition Analysis",
+                      0,
+                      3,
+                       icon,
+                       options,
+                       options[0]);
+
+
+            if (selection == 0) {
                 System.out.println("----------------------------------------------------------------------------------------------------------------");
-                System.out.println("Partition 1: CPU-EPYC");
+                System.out.println("\nDisplay IDs by Partition");
+                System.out.println("-----------------------------");
+                System.out.println("\nPartition 1: CPU-EPYC");
                 System.out.println("Partition 2: CPU-Opteron");
                 System.out.println("Partition 3: GPU-V100s");
                 System.out.println("Partition 4: GPU-K40c");
@@ -165,19 +176,34 @@ public class Partition {
                 System.out.println("----------------------------------------------------------------------------------------------------------------");
                 System.out.println("Job ID");
                 System.out.println("----------------------------------------------------------------------------------------------------------------");
+                
+                int n=0;
+                int endline = 0;
                 for (String code : partition.keySet()) {
                     if (partition.get(code) == partSearch) {
-                        System.out.println(code);
+                        System.out.printf("%-3d.%-10s%-10s",(n+1) , code,"");
+                         endline++;
+                        if(endline == 3){
+                            System.out.println();
+                            endline = 0;
+                        }
+                        n++;
+
                     }
                 }
-            } else if (command == 2) {
+                
+                System.out.println("\n----------------------------------------------------------------------------------------------------------------");
+                System.out.println("Total : " + (n));
+               } 
+            
+                else if (selection == 1) {
                 System.out.println("----------------------------------------------------------------------------------------------------------------");
                 System.out.print("Enter job ID : ");
                 String jobID = sc.next();
                 if (partition.containsKey(jobID)) {
                     int part = partition.get(jobID);
                     switch(part) {
-                    case 1 -> System.out.println("Partition : CPU-EPYC");
+                    case 1 -> System.out.println("\nPartition : CPU-EPYC");
                     case 2 -> System.out.println("Partition : CPU-Opteron");
                     case 3 -> System.out.println("Partition : GPU-V100s");
                     case 4 -> System.out.println("Partition : GPU-K40c");
@@ -187,32 +213,27 @@ public class Partition {
                 } else {
                     System.out.println("Job ID not found");
                 }
-            } else if (command == 3){
+            } else if (selection == 2){
                 printStatPart();
-            } else if (command == -1) {
+            } else if (selection == 4) {
                 System.out.println("Exit");
                 break;
-            } else {
-                System.out.println("Invalid command");
+            } else if (selection == 3) {
+                PieChart3D.main(new String[]{""});
+
             }
         }while(true);
     }
 
     public static void printStatPart(){
-        //        int numEPYC=0;
-//        int numOpteron=0;
-//        int numV100=0;
-//        int numK40c=0;
-//        int numK10=0;
-//        int numTitan=0;
 
         System.out.printf("\n\n%-15s%-15s%-15s%-15s%-15s%-20s%-15s","","GPU-V100s","GPU-K10","GPU-Titan","GPU-K40c","CPU-Opteron","CPU-EPYC");
         System.out.println("\n--------------------------------------------------------------------------------------------------------");
         System.out.printf("%-15s%-15d%-15d%-15d%-15d%-20d%-15d\n","TOTAL",v100s,k10,titan,k40c,opte,epyc);
 
         System.out.println();
-        int arr[] = {v100s,k10,titan,k40c,opte,epyc};
-        String arrname[] = {"GPU-V100s","GPU-K10","GPU-Titan","GPU-K40c","CPU-Opteron","CPU-EPYC"};
+        int[] arr = {v100s,k10,titan,k40c,opte,epyc};
+        String[] arrname = {"GPU-V100s","GPU-K10","GPU-Titan","GPU-K40c","CPU-Opteron","CPU-EPYC"};
         for (int i = 0; i < arr.length; i++){
             for (int j = 0; j < arr.length - 1; j++){
                 if (arr[j] < arr[j+1]){
@@ -226,7 +247,7 @@ public class Partition {
                 }
             }
         }
-        System.out.println("The highest number of partition : " + arrname[0] + " = " + arr[0]);
-        System.out.println("The lowest number of partition : " + arrname[5] + " = " + arr[5]);
+        System.out.println("The highest number of partition : " + arrname[0] + " = (" + arr[0] + ")");
+        System.out.println("The lowest  number of partition : " + arrname[5] + " = (" + arr[5] + ")");
     }
 }
