@@ -16,7 +16,7 @@ public class BarError extends ApplicationFrame {
         CategoryDataset dataset = createDataset();
         JFreeChart chart = ChartFactory.createBarChart("Number of Errors Caused by Users", "Name of Users", "Number of Errors", dataset);
         ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new java.awt.Dimension(1500, 1000));
+        chartPanel.setPreferredSize(new java.awt.Dimension(500, 250));
         setContentPane(chartPanel);
     }
 

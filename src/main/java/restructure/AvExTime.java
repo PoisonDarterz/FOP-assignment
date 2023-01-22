@@ -407,6 +407,9 @@ package restructure;
 //    } // End method
 //}
 
+import izdecode.Doughnut;
+import izdecode.ExecutionTime;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -794,12 +797,12 @@ public class AvExTime {
                 
                 /// PUT METHODS OF CANDLE STICKS
                 if(commands == 0){
-                    
+                 ExecutionTime.main(new String[]{""});
                 }
                 
-                /// PUT THE METHODS OF SCATTERPLOT
-                else if(command == 1){
-                    
+                /// PUT THE METHODS OF DOUGHNUT
+                else if(commands == 1){
+                    Doughnut.main(new String[]{""});
                 }
                 
                 else if(commands == 2){

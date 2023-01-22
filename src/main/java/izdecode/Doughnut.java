@@ -17,7 +17,7 @@ public class Doughnut extends JFrame {
         PieDataset dataset = createDataset();
 
         // Create chart
-        JFreeChart chart = ChartFactory.createRingChart("Number of jobs by partitions", dataset, true, true, false);
+        JFreeChart chart = ChartFactory.createRingChart("Execution Time", dataset, true, true, false);
         RingPlot plot = (RingPlot) chart.getPlot();
         plot.setSeparatorStroke(new BasicStroke(2));
         plot.setSeparatorPaint(Color.white);
@@ -28,18 +28,16 @@ public class Doughnut extends JFrame {
 
     private  PieDataset createDataset() {
         DefaultPieDataset dataset = new DefaultPieDataset();
-        dataset.setValue("GPU-V100s", 618);
-        dataset.setValue("GPU-K10", 439);
-        dataset.setValue("GPU-Titan ", 673);
-        dataset.setValue("GPU-K40c ", 301);
-        dataset.setValue("CPU-Opteron", 4920);
-        dataset.setValue("CPU-EPYC", 3015);
+        dataset.setValue("Total\n2416.68 (Day)\n58000.31 (Hour)\n3480018.68 (Min)\n208801121.02 (Sec)" , 2416.68);
+        dataset.setValue("Average\n462.03 (Min)\n0.32 (Day)\n7.70 (Hour)\n27721.87 (Sec)" , 462.03);
+        dataset.setValue("Highest\n340.18 (Hour)\n14.17 (Day)\n20410.70 (Min)\n1224642 (Sec)" , 340.18);
+        dataset.setValue("Lowest\n189 (MilliSec)" , 189.00);
         return dataset;
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            Doughnut chart = new Doughnut("Doughnut Chart Example");
+            Doughnut chart = new Doughnut("Execution Time");
             chart.setSize(1000, 800);
             chart.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             chart.setVisible(true);

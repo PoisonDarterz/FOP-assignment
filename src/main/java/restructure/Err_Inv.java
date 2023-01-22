@@ -107,7 +107,7 @@ public class Err_Inv {
             }
         }
 
-        String [] options = {"1","2","3","4","Back"};
+        String [] options = {"1","2","3","4","5","Back"};
 
         do {
             //int command = 0;
@@ -123,13 +123,14 @@ public class Err_Inv {
             ImageIcon icon = new ImageIcon("C:/Users/USER/Pictures/error.png");
 
             var command = JOptionPane.showOptionDialog(null,
-                      "\n                        Error and Invalid Analysis\n-------------------------------------------------------------------------------\n1. Search for error by user name\n2. Search by error types\n3. Search error by month \n4. Display general errors report\n5. Exit\nSelect one : "
+                      "\n                        Error and Invalid Analysis\n-------------------------------------------------------------------------------\n1. Search for error by user name\n2. Search by error types\n3. Search error by month \n4. Display general errors report\n5. Show Graph\n6. Exit\nSelect one : "
                       , "Error and Invalid Analysis",
                       0,
                       3,
                       icon,
                       options,
                       options[0]);
+
 
             if (command == 0) {
                 int count = 0;
@@ -196,16 +197,31 @@ public class Err_Inv {
                 for (String code : errorCount.keySet()) {
                     System.out.printf("%-20s%-20s\n", code, errorCount.get(code));
                 }
-            } else if (command == 4){
+            } else if (command == 5) {
                 break;
-            } else if (command == 38) {
-                Bar.main(new String[]{""});
-            } else if (command == 69) {
-                PieChart.main(new String[]{""});
-            } else if (command == 673) {
-                BarError.main(new String[]{""});
-            } else {
-                System.out.println("Invalid command");
+            }else if (command == 4) {
+
+                String[] option = {"1", "2", "3", "back"};
+
+                var graph = JOptionPane.showOptionDialog(null,
+                        "\n                        Show Graph\n-------------------------------------------------------------------------------\n1. Total number of Errors and Invalids\n2. Type of Invalid\n3. Number of Error by each User \n4. Back \nSelect one : "
+                        , "Show Graph",
+                        0,
+                        3,
+                        null,
+                        option,
+                        option[0]);
+
+                if (graph == 0) {
+                    Bar.main(new String[]{""});
+                } else if (graph == 1) {
+                    PieChart.main(new String[]{""});
+                } else if (graph == 2) {
+                    BarError.main(new String[]{""});
+                } else if (graph == 3) {
+                    break;
+
+                }
             }
         } while (true);
     }

@@ -149,10 +149,10 @@ public class Partition {
 //            System.out.print("command -> ");
 //            command = sc.nextInt();
 
-              String[] options = { "1", "2", "3","Back" };
+              String[] options = { "1", "2", "3","4", "Back" };
 
               var selection = JOptionPane.showOptionDialog(null,
-                      "\n                                 Partition Analysis\n-------------------------------------------------------------------------------\n1. Display job ID by partition\n2. Search the partition used by job ID\n3. Print statistics data\n4. Exit\nSelect one : "
+                      "\n                                 Partition Analysis\n-------------------------------------------------------------------------------\n1. Display job ID by partition\n2. Search the partition used by job ID\n3. Print statistics data\n4. Show Chart\n5. Exit\nSelect one : "
                       , "Partition Analysis",
                       0,
                       3,
@@ -215,13 +215,12 @@ public class Partition {
                 }
             } else if (selection == 2){
                 printStatPart();
-            } else if (selection == 3) {
+            } else if (selection == 4) {
                 System.out.println("Exit");
                 break;
-            } else if (selection == 314) {
+            } else if (selection == 3) {
                 PieChart3D.main(new String[]{""});
-            } else {
-                System.out.println("Invalid command");
+
             }
         }while(true);
     }

@@ -51,7 +51,7 @@ public class JobCreateEnd {
             System.out.println("Error occurs while editing file");
         }
 
-        String [] option = {"1","2","Back"};
+        String [] option = {"1","2","3","Back"};
 
         do {
 //            int command = 0;
@@ -65,7 +65,7 @@ public class JobCreateEnd {
             ImageIcon icon = new ImageIcon("C:/Users/USER/Pictures/job.png");
 
             var command = JOptionPane.showOptionDialog(null,
-                      "\n                     Job Created & Ended Analysis\n-------------------------------------------------------------------------------\n1 . Search month data\n2 . Search data within given time range\nExit\nSelect one : "
+                      "\n                     Job Created & Ended Analysis\n-------------------------------------------------------------------------------\n1 . Search month data\n2 . Search data within given time range\n3. Show Graph\nExit\nSelect one : "
                       , "Job Created & Ended Analysis",
                       0,
                       3,
@@ -472,15 +472,14 @@ public class JobCreateEnd {
                     System.out.println("Median day of jobs [ended]            : " + medianEnd);
                     System.out.println("Third quartile number of jobs [ended] : " + thirdQuartileEnd);
             }
-            else if (command == 2) {
+            else if (command == 3) {
                 break;
 
-            } else if (command == 69){
-                System.out.println("Enter month: ");
+            } else if (command == 2){
+                System.out.print("Enter month: ");
                 gg = sc.nextInt();
                 MultipleLinesChart.main(new String[]{""});
-            } else {
-                System.out.println("Invalid command");
+
             }
         } while (true);
     }
